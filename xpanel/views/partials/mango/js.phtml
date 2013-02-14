@@ -1,0 +1,126 @@
+<!-- The Scripts -->
+<!-- ----------- -->
+
+<!-- JavaScript at the top (will be cached by browser) -->
+
+<!-- Load Webfont loader -->
+<script type="text/javascript">
+	window.WebFontConfig = {
+		google : {
+			families : ['PT Sans:400,700']
+		},
+		active : function() {
+			$(window).trigger('fontsloaded')
+		}
+	}; 
+</script>
+<script defer async src="https://ajax.googleapis.com/ajax/libs/webfont/1.0.28/webfont.js"></script>
+
+<!-- Essential polyfills -->
+<?= javascript_include_tag('mango/mylibs/polyfills/modernizr-2.6.1.min') ?>
+<?= javascript_include_tag('mango/mylibs/polyfills/respond') ?>
+<?= javascript_include_tag('mango/mylibs/polyfills/matchmedia') ?>
+<!--[if lt IE 9]><?= javascript_include_tag('js/mylibs/polyfills/selectivizr-min') ?><![endif]-->
+<!--[if lt IE 10]><?= javascript_include_tag('js/mylibs/charts/excanvas') ?><![endif]-->
+<!--[if lt IE 10]><?= javascript_include_tag('js/mylibs/polyfills/classlist') ?><![endif]-->
+
+<!-- Grab frameworks from CDNs -->
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<?= javascript_include_tag('mango/libs/jquery-1.7.2.min',true) ?>')</script>
+
+<!-- Do the same with jQuery UI -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+<script>
+window.jQuery.ui || document.write('<?= javascript_include_tag('mango/libs/jquery-ui-1.8.21.min',true) ?>')</script>
+
+<!-- Do the same with Lo-Dash.js -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/0.4.2/lodash.min.js"></script>
+<script>
+window._ || document.write('<?= javascript_include_tag('mango/libs/js/libs/lodash.min',true) ?>')</script>
+
+<!-- General Scripts -->
+<?= javascript_include_tag('mango/mylibs/jquery.hashchange') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.idle-timer') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.plusplus') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.jgrowl') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.scrollTo') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.ui.touch-punch') ?>
+<?= javascript_include_tag('mango/mylibs/jquery.ui.multiaccordion') ?>
+<?= javascript_include_tag('mango/mylibs/number-functions') ?>
+
+<!-- Forms -->
+<?= javascript_include_tag('mango/mylibs/forms/jquery.autosize') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.checkbox') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.chosen') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.cleditor') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.colorpicker') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.ellipsis') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.fileinput') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.fullcalendar') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.maskedinput') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.mousewheel') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.placeholder') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.pwdmeter') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.ui.datetimepicker') ?>
+<?= javascript_include_tag('mango/mylibs/forms/jquery.ui.spinner') ?>
+
+<?= javascript_include_tag('mango/mylibs/forms/uploader/plupload') ?>
+<?= javascript_include_tag('mango/mylibs/forms/uploader/plupload.html5') ?>
+<?= javascript_include_tag('mango/mylibs/forms/uploader/plupload.html4') ?>
+<?= javascript_include_tag('mango/mylibs/forms/uploader/plupload.flash') ?>
+<?= javascript_include_tag('mango/mylibs/forms/uploader/jquery.plupload.queue/jquery.plupload.queue') ?>
+
+<!-- Charts -->
+<?= javascript_include_tag('mango/mylibs/charts/jquery.flot') ?>
+<?= javascript_include_tag('mango/mylibs/charts/jquery.flot.orderBars') ?>
+<?= javascript_include_tag('mango/mylibs/charts/jquery.flot.pie') ?>
+<?= javascript_include_tag('mango/mylibs/charts/jquery.flot.resize') ?>
+
+<!-- Explorer -->
+<?= javascript_include_tag('mango/mylibs/explorer/jquery.elfinder') ?>
+
+<!-- Fullstats -->
+<?= javascript_include_tag('mango/mylibs/fullstats/jquery.css-transform') ?>
+<?= javascript_include_tag('mango/mylibs/fullstats/jquery.animate-css-rotate-scale') ?>
+<?= javascript_include_tag('mango/mylibs/fullstats/jquery.sparkline') ?>
+
+<!-- Syntax Highlighter -->
+<?= javascript_include_tag('mango/mylibs/syntaxhighlighter/shCore') ?>
+<?= javascript_include_tag('mango/mylibs/syntaxhighlighter/shAutoloader') ?>
+
+<!-- Dynamic Tables -->
+<?= javascript_include_tag('mango/mylibs/dynamic-tables/jquery.dataTables') ?>
+<?= javascript_include_tag('mango/mylibs/dynamic-tables/jquery.dataTables.tableTools.zeroClipboard') ?>
+<?= javascript_include_tag('mango/mylibs/dynamic-tables/jquery.dataTables.tableTools') ?>
+
+<!-- Gallery -->
+<?= javascript_include_tag('mango/mylibs/gallery/jquery.fancybox') ?>
+
+<!-- Tooltips -->
+<?= javascript_include_tag('mango/mylibs/tooltips/jquery.tipsy') ?>
+
+<!-- Do not touch! -->
+<?= javascript_include_tag('mango/mango') ?>
+<?= javascript_include_tag('mango/plugins') ?>
+<?= javascript_include_tag('mango/script') ?>
+
+<?= View::partial("mango/locker",false,"password: ".$password) ?>
+
+<!-- Your custom JS goes here -->
+<?= javascript_include_tag('mango/app') ?>
+
+<?= javascript_include_tag('jquery/jquery.form')."\n" ?>
+<?= javascript_include_tag('jquery/jquery.metadata')."\n" ?>
+<?= javascript_include_tag('jquery/jquery.validate')."\n" ?>
+<?= javascript_include_tag('jquery/kumbia_jquery') ?>
+<?= javascript_include_tag('kumbia/validations') ?>
+<?= javascript_include_tag('amecasoft') ?>
+
+<script>
+	$(document).ready(function(){
+		var image1 = $('<img />').attr('src', 'aspos/img/loader.gif');
+	}
+</script>
+<!-- end scripts -->

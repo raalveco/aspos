@@ -1,0 +1,110 @@
+<?php
+	$modulo = "Clientes";
+	$seccion = $cliente ? "Modificar Cliente" : "Nuevo Cliente";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $cliente ? "Modificar Cliente" : "Nuevo Cliente" ?></h1>
+	<?= Formulario::inicioAjax($cliente ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($cliente) echo Formulario::oculto("cliente", $cliente -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DEL CLIENTE
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>RFC</label>
+					<?= Formulario::rfc("rfc", $cliente ? $cliente -> rfc : "","class: required","minlength: 12","maxlength: 13") ?>
+				</p>
+				<p class="_50">
+					<label>Nombre o Razón Social</label>
+					<?= Formulario::mayusculas("nombre",$cliente ? $cliente -> nombre : "","class: required") ?>
+				</p> 
+				<p class="_25">
+					<?php $tipos = TipoCliente::reporte("contribuyente_id = 1"); ?>
+					<label>Tipo de Cliente</label>
+					<?= Formulario::selectModelo("tipo_cliente",$tipos,"nombre","id", $cliente ? $cliente -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				DOMICILIO FISCAL
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Calle</label>
+					<?= Formulario::mayusculas("calle",$cliente ? $cliente -> calle : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>No. Exterior</label>
+					<?= Formulario::mayusculas("exterior",$cliente ? $cliente -> exterior : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>No. Interior</label>
+					<?= Formulario::mayusculas("interior",$cliente ? $cliente -> interior : "") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Colonia</label>
+					<?= Formulario::mayusculas("colonia",$cliente ? $cliente -> colonia : "") ?>
+				</p>
+				<p class="_25">
+					<label>Localidad</label>
+					<?= Formulario::mayusculas("localidad",$cliente ? $cliente -> localidad : "") ?>
+				</p>
+				<p class="_25">
+					<label>Código Postal</label>
+					<?= Formulario::numerico("cpostal",$cliente ? $cliente -> cpostal : "","class: required digits","minlength: 5", "maxlength: 5") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Municipio</label>
+					<?= Formulario::mayusculas("municipio",$cliente ? $cliente -> municipio : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Estado</label>
+					<?= Formulario::selectEstados("estado",$cliente ? $cliente -> estado  : "","class: required search","data-placeholder: Selecciona Estado") ?>
+				</p>
+				<p class="_25">
+					<label>País</label>
+					<?= Formulario::select("pais",array("","MÉXICO" => "MÉXICO"),$cliente ? $cliente -> pais : "","class: required search","data-placeholder: Selecciona País") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE CONTACTO
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Teléfono</label>
+					<?= Formulario::numerico("telefono",$cliente ? $cliente -> telefono : "","class: maskPhone") ?>
+				</p>
+				<p class="_25">
+					<label>Celular</label>
+					<?= Formulario::numerico("celular",$cliente ? $cliente -> celular : "","class: maskPhone") ?>
+				</p>
+				<p class="_50">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo",$cliente ? $cliente -> correo : "","class: email") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($cliente ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->

@@ -1,0 +1,561 @@
+<script>
+	// ! Lock screen
+	// - Show the lock screen if
+	//   the user was idle for
+	//   a certain time.
+	//
+	// - Methods:
+	//     Call methods with: $$.lock('method')
+	//     - init	: Initialize the lock screen
+	//         - Options:
+	//            - passwordIsValid: function
+	//                 Validate the user password
+	//            - start: boolean (default: true)
+	//                 Start counting immediately
+	//                 If false, use $$.lock('start') to start.
+	//     - start	: Start counting
+	//     - stop	: Stop counting
+	// 
+	// - Note:
+	//   If you want to disable the lock screen,
+	//   simply remove '#lock-screen' and the
+	//   corresponding toolbar button from the html.
+
+(function($, mango, _, window, document, undefined) {
+	
+	var PLUGIN_NAME = 'lock', ns = '.mango_' + PLUGIN_NAME;
+	
+	// Instances will be stored here
+	var instance;
+	
+	// The publically callable function
+	$$[PLUGIN_NAME] = $.extend(function (method, options) {
+		
+		var inst;
+		
+		// ! Create instance	
+		if (!instance) {instance = inst = self(); }
+		else { inst = instance; }
+		
+		// ! Parse arguments
+		if (typeof method === "object") {
+			options = method;
+			method = undefined;
+		}
+		
+		// - Default method is 'init'
+		method = method || 'init';
+
+		// ! Call the requested method
+		if ($.isFunction(inst.get(method))) {
+		
+			var opts;
+			
+			// 'method' was not given, arguments contains all options
+			if (arguments[0] == options) {
+				opts = $.makeArray(arguments);
+				
+			// arguments[1,2,3,...] contains the optinos
+			} else if (arguments.length > 1) {
+				opts = Array.prototype.slice.call(arguments, 1);
+			
+			// Only options is given
+			} else {
+				opts = [options];
+			}
+					
+			return inst.get(method).apply(null, opts);
+			
+		// ! Return property value
+		} else if (inst.get(method)){
+		
+			var prop = arguments[0], val = arguments[1];
+		
+			// Dynamical getter & setter
+			return (!val && inst.get(prop)) || (inst.set(prop, val) && undefined);
+			
+		} else {
+		
+			// Method or property not found
+			return $.error('Method or property ' +  method + ' does not exist on jQuery.fn.' + PLUGIN_NAME);
+			
+		}
+		
+	}, {
+		// ! Default settings
+		defaults: {
+		
+			// Default password validator.
+			
+			// In this place, do some ajax to verify the user's password.
+			// For security reasons you should use an encrypted connection
+			// (or everyone could read the password in plain text).
+			
+			// Please also make sure, the user can't use the page in case he
+			// simply removes the lock screen using Firebug!
+			passwordIsValid: function(pw) {
+				return pw == '<?= $password ?>';
+			}
+			
+		} // End of 'defaults'
+		
+	});
+	
+	function self() {
+		
+		// Define public members (accessable via $.fn.PLUGIN_NAME[name])
+		var publics = ['init', 'start', 'stop'];
+		
+		$.extend(self, {
+			
+			// ### Functions
+		
+			// ! Open the dialog
+			open: function(){
+				// Open the dialog
+				$('#lock-screen').dialog({
+					modal: true,
+					draggable: false,
+					
+					open: function(){
+						$(this).parent().find('.ui-dialog-titlebar-close').remove(); // Remove the close button
+					}
+				});
+			},
+			
+			// ! Initialize the lock screen for the first use
+			// - TL;DR
+			//    - Set up Page Visibility API
+			//    - Cache used elements
+			//    - Show slider/password animations
+			//    - Set up the slider timer
+			//    - Set up the slider
+			//    - Set up the password form
+			//    - Set up password input
+			//    - Detect user activity
+			//    - Set up toolbar button
+			init: function(opts){
+			
+				self = this;
+				
+				self.options = $.extend({}, self.defaults, opts);
+				
+				// ! Set up Page Visibility API
+				// - Set name of hidden property and visibility change event
+				var hidden, visibilityChange; 
+				self.pageVisibility = {};
+				
+				if (typeof document.hidden !== "undefined") {
+					self.pageVisibility.hidden = "hidden";
+					self.pageVisibility.visibilityChange = "visibilitychange";
+				} else if (typeof document.mozHidden !== "undefined") {
+					self.pageVisibility.hidden = "mozHidden";
+					self.pageVisibility.visibilityChange = "mozvisibilitychange";
+				} else if (typeof document.msHidden !== "undefined") {
+					self.pageVisibility.hidden = "msHidden";
+					self.pageVisibility.visibilityChange = "msvisibilitychange";
+				} else if (typeof document.webkitHidden !== "undefined") {
+					self.pageVisibility.hidden = "webkitHidden";
+					self.pageVisibility.visibilityChange = "webkitvisibilitychange";
+				} else {
+					self.pageVisibility = undefined;
+				}
+				 
+				
+				// ! Cache the used elements
+				self.el = {
+					$lock: $('#lock-screen'),
+					$slider_wrapper: $("#slide_to_unlock"),
+					$display: $('#btn-lock').find('span')
+				}
+				$.extend(self.el, {
+					$form: self.el.$lock.find('form'),
+					$slider: self.el.$slider_wrapper.find('img')
+				});
+				$.extend(self.el, {
+					$pwd: self.el.$form.find('input[type=password]'),
+					$submit: self.el.$form.find('input[type=submit]'),
+					
+					$sliderText: self.el.$slider.next()
+				});
+				
+				
+				// ! Show slider/password animations
+				self.show = {
+				
+					slider: function(){
+					
+						// Revert password form
+						self.el.$pwd.val('').removeClass('error').next('.icon').remove();
+						self.el.$submit.attr('disabled', 'true');
+						
+						// Revert slider
+						self.el.$slider.css('left', 0);
+						self.el.$sliderText.css('opacity', 1);
+						
+						// Hide form and show slider
+						self.el.$form.stop().hide('fade', 500);
+						self.el.$slider_wrapper.stop().scale(1).show().animate({
+							opacity: 1,
+							bottom: 5
+						}, 300);
+						
+					}.bind(self),
+					
+					
+					password: function(){
+											
+						// Move down slider
+						self.el.$slider_wrapper.animate({
+							bottom: -50,
+							opacity: 0.2,
+							scale: 1.2
+						}, 500, function(){
+							// Hide slider, when moved down
+							self.el.$slider_wrapper.hide();
+						});
+						
+						// Show password form
+						self.el.$form.show('fade', 1000, function(){
+							self.el.$form.css('opacity', 1)
+						});
+						self.el.$pwd.focus();
+						
+						// Start idle timer (show slider if user gets idle)
+						self.sliderTimer();
+						
+					}.bind(self)
+					
+				} // End of 'self.show'
+				
+				
+				// ! Set up the slider timer
+				// - Show the slider again,
+				//   if the user is idle
+				self.sliderTimer = function(){
+									
+					self.sliderTimer.id = setTimeout(function(){
+					
+						self.show.slider(); //  Show slider
+						clearTimeout(self.sliderTimer.id); // Clear timeout
+						
+					}, mango.config.lock.idle * 1000); // * 1000 -> sec to ms
+					
+				} // End of 'self.sliderTimer = ...'
+				
+				self.sliderTimer.id = -1;
+				
+				// If there is user input, restart counting
+				self.el.$pwd.keydown(function(){
+					clearTimeout(self.sliderTimer.id); // Stop counting
+					self.sliderTimer(); // Restart counting
+				});
+				
+				
+				// ! Set up the slider itself
+				self.el.$slider.draggable({
+					axis: 'x',
+					containment: 'parent',
+					
+					// During user is dragging
+					drag: function(event, ui) {
+					
+						// Fade out slider text while dragging proceedes
+						self.el.$sliderText.css("opacity", 1 - (ui.position.left / 120))
+						
+					},
+					
+					// When user releases slider
+					stop: function(event, ui) {
+					
+						// If the user has not dragged the slider to the end
+						if (ui.position.left + self.el.$slider.outerWidth() < self.el.$slider_wrapper.innerWidth() - /* be tolerant*/ 5) {
+						
+							// Move slider back
+							$(this).animate({
+								left: 0
+							});
+							
+							// Show slider text again
+							self.el.$sliderText.animate({opacity: 1});
+							
+						// Slider was dragged to the end
+						} else {
+						
+							// Show password form
+							self.show.password();
+							
+						}
+						
+					} // End of 'stop'
+					
+				}); // End of 'draggable'
+				
+				// Make the slider touch compatible
+				// see: http://www.evanblack.com/blog/touch-slide-to-unlock/
+				if (self.el.$slider[0].addEventListener) {
+					self.el.$slider[0].addEventListener('touchmove', function(event) {
+						event.preventDefault();
+						var el = event.target;
+						var touch = event.touches[0];
+						curX = touch.pageX - self.offsetLeft - 73; // TODO: check -73
+						if(curX <= 0) return;
+						if(curX > 160){ // TODO: read from css
+							$slider_wrapper.fadeOut();
+							$form.fadeIn();
+						}
+						el.style.webkitTransform = 'translateX(' + curX + 'px)'; 
+					}, false);
+					self.el.$slider[0].addEventListener('touchend', function(event) {	
+						self.style.webkitTransition = '-webkit-transform 0.3s ease-in';
+						self.addEventListener( 'webkitTransitionEnd', function( event ) { self.style.webkitTransition = 'none'; }, false );
+						self.style.webkitTransform = 'translateX(0px)';
+					}, false);
+				}
+				
+				
+				// ! Set up the password form
+				// The button handlers
+				
+				// The reset button
+				// - Show the slider again
+				self.el.$form.find('input[type=reset]').click(function(){
+					self.show.slider();
+					return false;
+				});
+				
+				// The submit button
+				// - Check the password and
+				//   close the lock screen
+				self.el.$form.submit(function(){
+					
+					if (self.options.passwordIsValid(self.el.$pwd.val())) {
+						// Success
+						self.el.$lock.dialog('close');
+						self.el.$pwd.removeClass('error').next('.icon').remove();
+						setTimeout(self.show.slider, 500); // Show the slider again but only after the dialog has closed
+						self.start(); // Restart timer
+					} else {
+						$('<div class="icon error-icon">').insertAfter(self.el.$pwd).position({
+							my: 'right',
+							at: 'right',
+							of: self.el.$pwd,
+							offset: '-5 0',
+							overflow: 'none',
+							using: function(pos) {
+								// Figure out the right and bottom css properties 
+								var offsetWidth = $(this).offsetParent().outerWidth();
+								var right = offsetWidth - pos.left - $(this).outerWidth();
+								
+								// Position the element so that right and bottom are set.
+								$(this).css({left: '', right: right, top: pos.top});  
+							}
+						});
+						self.el.$pwd.addClass('error');
+						return false;
+					}
+					
+					return false;
+					
+				}); // End of '$form.submit'
+				
+				
+				// ! Set up the password input
+				// - Enable the 'OK' button if
+				//   the field is not empty.
+				self.el.$pwd.keyup(function(){
+				
+					if (self.el.$pwd.val() != '') {
+						self.el.$submit.removeAttr('disabled'); // Enable 'OK' button
+					} else {
+						self.el.$submit.attr('disabled', 'disabled'); // Disable 'OK' button
+					}
+					return true;
+					
+				});
+				
+				
+				// ! Detect the user's activity
+				// - If the user is still active,
+				//   do not count.
+				
+				// After 1 second: start counting down
+				$(document).idleTimer(1000);
+				
+				// User gets idle
+				$(document).on('idle.idleTimer', function(){
+					// If lock screen is not shown
+					if (!self.el.$lock.is(':visible')) {
+						self.start();
+					}
+				});
+				
+				// User gets active again
+				$(document).on('active.idleTimer', function(){
+					// If lock screen is not shown
+					if (!self.el.$lock.is(':visible')) {
+						self.stop();
+					}
+				});
+				
+				// If user switches to another browser tab, lock screen
+				mango.config.lock.lockWhenInactive && document.addEventListener(self.pageVisibility.visibilityChange, function(){
+				
+					// If the browser tab has gone inactive
+					if (document[self.pageVisibility.hidden]) {
+					
+						self.stop(); // Stop counting
+						self.el.$display.text('--:--'); // Clear counter display
+						self.open(); // Show lock screen
+						
+					}
+					
+				}, false);
+				
+				// ! Set up the toolbar button
+				$('#btn-lock').click(function(){
+				
+					self.stop(); // Stop counting
+					self.el.$display.text('--:--'); // Clear counter display
+					self.open(); // Show lock screen
+					
+					return false;
+				});
+			
+				// Start couting
+				self.start();
+				
+				// Ready
+				self.initialized = true;
+				
+			}, // End of 'init'
+			
+			// ! Start counting down
+			// - This will reset all timers
+			//   we have set and start counting
+			start: function(){
+			
+				self = this;
+				
+				if (!self.el) {
+					self.init();
+				}
+			
+				// Set up shorthands
+				var timeout = mango.config.lock.timeout; // Shorthand
+				var self = self; // Shorthand used in callbacks							
+				
+				// Set up the display
+				self.el.$display.data('t', timeout);
+				self.el.$display.text(self.utils.formatSeconds(timeout));
+				
+				
+				// Clear the old timer to set up a new one afterwards
+				clearInterval(self.timerId);
+				
+				// Set up the new timer
+				self.timerId = setInterval(function(){
+				
+					var t = self.el.$display.data('t'); // Get the seconds left
+					t--; // t-- : We're counting down
+					
+					// If we're done with counting
+					if (t == 0) {
+					
+						// Show the lock screen!
+						self.open();
+						
+						// ... turn off the timer ...
+						self.stop();
+						
+						// ... and clear the counting display
+						self.el.$display.text('--:--');
+						
+					// Continue counting
+					} else {
+					
+						// Display the current timer value...
+						self.el.$display.text(self.utils.formatSeconds(t));
+						
+						// ... and store the decreased value
+						self.el.$display.data('t', t);
+						
+					} // End of 't = 0'
+					
+				}, 1000); // End of 'self.timerId = setInterval ...'
+				
+			}, // End of 'start'
+			
+			
+			// ! Turn off the timer
+			stop: function() {
+			
+				self = this;
+			
+				// Stop counting
+				clearInterval(self.timerId);
+				
+				// Show the total waiting time again
+				self.el.$display.text(
+				
+					// Format seconds left
+					self.utils.formatSeconds( 
+						mango.config.lock.timeout
+					)
+					
+				); // End of '$display.text(...)'
+				
+			}, // End of 'stop'
+			
+			// Utilities
+			utils: {
+			
+				// ! Format seconds into mm:ss
+				formatSeconds: function(seconds) {
+					var minutes = 0;
+					while(seconds >= 60) {
+						minutes++;
+						seconds -= 60;
+					}
+					return new Number(minutes).numberFormat('00') + ':' + new Number(seconds).numberFormat('00');
+				}
+				
+			}, // End of 'util'
+		
+			
+			// ### Variables
+			
+			// ! Store the timer id
+			timerId: -1
+			
+		}, $$[PLUGIN_NAME]); // End of '$.extend(self, { ... })'
+		
+		// Publish members		
+		function pub() {
+		}
+		
+		$.extend(pub, {
+			publics: _.chain(self).keys().filter(_.bind(_.contains, _, publics)),
+		
+			get: function(prop){
+				if (_.contains(publics, prop)) {
+					if (_.isFunction(self[prop])) {
+						return self[prop].bind(self);
+					} else {
+						return self[prop];
+					}
+				}
+			},
+			
+			set: function(prop, val) {
+				if (_.contains(publics, prop)) {
+					self[prop] = val;
+				}
+			}
+		});
+		
+		return pub;
+	}; // End of 'function self() { ... }'
+
+})(jQuery, $$, _, this, document);
+</script>

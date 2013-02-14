@@ -1,0 +1,39 @@
+<?php
+	$modulo = "Tipos de Cliente";
+	$seccion = $tipo_cliente ? "Modificar Tipo de Cliente" : "Nuevo Tipo de Cliente";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $tipo_cliente ? "Modificar Tipo de Cliente" : "Nuevo Tipo de Cliente" ?></h1>
+	<?= Formulario::inicioAjax($tipo_cliente ? $controller_name."/modificarTipoCliente" : $controller_name."/registrarTipoCliente", "contenido", false, "class: grid_12") ?>
+	<?php if($tipo_cliente) echo Formulario::oculto("tipo_cliente", $tipo_cliente -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE TIPO DE CLIENTE
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$tipo_cliente ? $tipo_cliente -> nombre : "","class: required") ?>
+				</p>
+				<p class="_75">
+					<label>Descripción</label>
+					<?= Formulario::mayusculas("descripcion",$tipo_cliente ? $tipo_cliente -> descripcion : "","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($tipo_cliente ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->

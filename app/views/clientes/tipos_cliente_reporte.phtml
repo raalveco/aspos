@@ -1,0 +1,98 @@
+<?php
+	$modulo = "Tipos de Cliente";
+	$seccion = "Tipos de Cliente"; 
+
+	$campos = array("id","nombre","descripcion");
+	$orden = "id ASC";
+	$cantidad = 100;
+	$filtro = "id > 0";
+	
+	$tipos = TipoCliente::reporte($filtro,$orden,0,$cantidad,$campos);
+?>
+
+<?= View::partial("base/reporte") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<script>
+	function enviarFormulario(){
+		var parametros = "0";
+		
+		$("input:checkbox:checked").each(function(){
+			if($(this).attr("name")!="muestra"){
+				var elemento = $(this).attr("name").split('_');
+				parametros+="|"+elemento[1];  
+			} 
+		});
+		
+		if(parametros != "0"){
+			event.preventDefault();
+			
+			if(confirm('¿Estas seguro que deseas eliminar los registros seleccionados?')){
+				$('#contenido').load('<?= PROYECTO_BASE.$controller_name ?>/eliminarSeleccionadosTiposCliente/'+parametros);		
+			}
+			else{
+				return false;
+			}
+		}
+	}
+</script>
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<div class="grid_12">
+		<div class="box">
+			<div class="header">
+				<h2><?= "TIPOS DE CLIENTE" ?></h2>
+			</div>
+			<div class="content">
+				<div class="tabletools">
+					<div class="left">
+						<a class="open-add-client-dialog" href="javascript:void(0);" onclick="enviarFormulario()">Eliminar</a>
+					</div>
+					<div class="right">
+						<!-- LINKS PARA LOS FILTROS -->
+						<!--
+						<?= Html::linkAjax($controller_name."/".$action_name."/AC", 'A - C', "contenido","title: Filtrar A - C") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/DF", 'D - F', "contenido","title: Filtrar D - F") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/GI", 'G - I', "contenido","title: Filtrar G - I") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/JL", 'J - L', "contenido","title: Filtrar J - L") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/MO", 'M - O', "contenido","title: Filtrar M - O") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/PS", 'P - S', "contenido","title: Filtrar P - S") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/TW", 'T - W', "contenido","title: Filtrar T - W") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/XZ", 'X - Z', "contenido","title: Filtrar X - Z") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/09", '0 - 9', "contenido","title: Filtrar 0 - 9") ?>
+						-->
+					</div>
+				</div>
+				<table id="tabla" class="dynamic styled with-prev-next" data-table-tools='{"display":false}'>
+					<thead>
+						<!-- ENCABEZADOS DE LA TABLA -->
+						<tr>
+							<td>
+								<input type="checkbox" name="muestra" onchange="$(this).parents('table').find(':checkbox').attr('checked', $(this).attr('checked') || false)">
+							</td>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<td class="center" style="font-weight: bold;">Acciones</td>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- REGISTROS DE LA TABLA -->
+						<?php if($tipos) foreach($tipos as $tipo){ ?>
+						<tr>
+							<td width="25">
+								<?= Formulario::checkbox("registro_".$tipo -> id."") ?>
+							</td>
+							<td><?= $tipo -> nombre ?></td>
+							<td><?= $tipo -> descripcion ?></td>
+							<td style="width: 45px;">
+								<?= Html::linkAjax($controller_name."/consultaTipoCliente/".$tipo -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
+								<?= Html::linkAjaxConfirmado($controller_name."/eliminarTipoCliente/".$tipo -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
+							</td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,110 @@
+<!-- The settings dialog -->
+<div id="settings" class="settings-content" data-width=450>
+
+	<ul class="tabs center-elements">
+		<li>
+		    <?php $imagen = Html::imagen("icons/packs/fugue/24x24/user-business.png",""); ?>
+		    <?php $texto = "Configuración" ?>
+		    <?= Html::linkAncla("#settings-1", $imagen . "<span>". $texto ."</span>") ?>
+		</li>
+		<li>
+		    <?php $imagen = Html::imagen("icons/packs/fugue/24x24/balloon.png",""); ?>
+            <?php $texto = "Notificaciones" ?>
+            <?= Html::linkAncla("#settings-2", $imagen . "<span>". $texto ."</span>") ?>
+		</li>
+		<li>
+		    <?php $imagen = Html::imagen("icons/packs/fugue/24x24/credit-card.png",""); ?>
+            <?php $texto = "Facturación" ?>
+            <?= Html::linkAncla("#settings-3", $imagen . "<span>". $texto ."</span>") ?>
+		</li>
+	</ul>
+
+	<div class="change_password">
+		<?= Formulario::inicio("#",0,"class: validate","id: settings_password"); ?>
+			<p>
+				<label for="settings-password">Nueva Contrase&ntilde;a:</label>
+				<?= Formulario::password("settings-password","","class: required strongpw small password meter") ?>
+			</p>
+		<?= Formulario::fin() ?>
+		<div class="actions">
+			<div class="right">
+				<?= Formulario::reset("Cancelar","form: settings_password","class: grey"); ?>
+				<?= Formulario::submit("OK","form: settings_password") ?>
+			</div>
+		</div>
+	</div><!-- End of .change_password -->
+
+	<div class="content">
+
+		<div id="settings-1">
+			<?= Formulario::inicio("http://www.google.com.mx") ?>
+				<p>
+					<label for="settings-name">Nombre:</label>
+					<?= Formulario::texto("settings-name","","class: medium") ?>
+				</p>
+				<p>
+					<label for="settings-descr">Descripci&oacute;n:</label>
+					<?= Formulario::texto("settings-descr","","class: medium") ?>
+				</p>
+				<p class="divider"></p>
+				<p>
+					<label for="settings-pw">Contrase&ntilde;a: </label>
+					<?= Formulario::boton("Cambiar Contraseña","id: settings-pw", "class: grey change_password_button","data-lang-changed: ".utf8_encode("Contraseña Actualizada")) ?>
+				</p>
+			</form>
+		</div><!-- End of #settings-1 -->
+
+		<div id="settings-2">
+			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+			<?= Formulario::inicio("#") ?>
+				<div class="spacer"></div>
+				<p class="divider"></p>
+				<div class="spacer"></div>
+				<p>
+					<label for="settings-email">Correo Electr&oacute;nico:</label>
+					<?= Formulario::texto("settings-email","","class: medium") ?>
+				</p>
+				<p>
+					<label for="settings-interval">Intervalo: </label>
+					<?= Formulario::select("settings-interval",array("","Nunca","Diario","Semanal","Mensual","Anual"),"data-placeholder: Elige un intervalo...") ?>
+				</p>
+			<?= Formulario::fin() ?>
+		</div><!-- End of #settings-2 -->
+
+		<div id="settings-3">
+			<?= Formulario::inicio("#") ?>
+				<p>
+					<label for="settings-card-number">N&uacute;mero de Tarjeta:</label>
+					<?= Formulario::texto("settings-card-number","","class: medium") ?>
+				</p>
+				<p>
+					<label for="settings-cvv">CVV:</label>
+					<?= Formulario::texto("settings-cvv","","class: medium") ?>
+				</p>
+				<p>
+					<label for="settings-expiration">A&ntilde;o de Expiraci&oacute;n: </label>
+					<?= Formulario::select("settings-expiration",array("","2012","2013","2014","2015","2016"),"sname: settings-expiration","data-placeholder: "."Elige un Expiración...") ?>
+
+				</p>
+			<?= Formulario::fin() ?>
+		</div><!-- End of #settings-3 -->
+
+	</div><!-- End of .content -->
+
+	<div class="actions">
+		<div class="left">
+			<button class="grey cancel">
+				Cancelar
+			</button>
+		</div>
+		<div class="right">
+			<button class="save">
+				Guardar
+			</button>
+			<button class="hide saving" disabled >
+				Guardando...
+			</button>
+		</div>
+	</div><!-- End of .actions -->
+
+</div><!-- End of settings dialog -->

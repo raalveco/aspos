@@ -1,0 +1,57 @@
+<?= Load::lib("html"); ?>
+<?= Load::lib("formato"); ?>
+<?= Load::lib("formulario"); ?>
+<!-- The container of the sidebar and content box -->
+<section id="login" class="container_12 clearfix">
+	<?= Formulario::inicio("login/iniciar",0,"class: box validate") ?>
+	<div class="header">
+		<h2><span class="icon icon-lock"></span>Iniciar Sesi&oacute;n</h2>
+	</div>
+
+	<div class="content">
+
+		<!-- Login messages -->
+		<div class="login-messages">
+			<div class="message welcome">
+				<?= $mensaje ? $mensaje : "&#161;Bienvenido!" ?>
+			</div>
+			<div class="message failure">
+				Es necesario ingresar Usuario y Contrase&ntilde;a
+			</div>
+		</div>
+
+		<!-- The form -->
+		<div class="form-box">
+
+			<div class="row">
+				<label for="login_name"> <strong>Usuario</strong> <small>o RFC de la Empresa</small> </label>
+				<div>
+					<?= Formulario::texto("usuario","","tabindex: 1","class: required noerror") ?>
+				</div>
+			</div>
+
+			<div class="row">
+				<label for="login_pw"> <strong>Contrase&ntilde;a</strong><small>Clave de Acceso</small></label>
+				<div>
+					<?= Formulario::password("password","","tabindex: 2","class: required noerror") ?>
+				</div>
+			</div>
+
+		</div><!-- End of .form-box -->
+
+	</div><!-- End of .content -->
+
+	<div class="actions">
+		<div class="left">
+			<div class="rememberme">
+				<?= Html::link("login/recuperar","&iquest;Olvidaste tu Contraseña?"); ?>
+			</div>
+		</div>
+		<div class="right">
+			<?= Formulario::submit("Iniciar", "tabindex: 3", "name: login_btn") ?>
+		</div>
+	</div><!-- End of .actions -->
+
+	</form><!-- End of form -->
+
+</section>

@@ -1,0 +1,179 @@
+<div class="grid_12">
+				<div class="box">
+				
+					<div class="header">
+						<h2>Simple Static Table</h2>
+					</div>
+					
+					<div class="content">
+					
+						<table class="styled">
+							<colgroup>
+							   <col span="1" style="width: 55px;">
+							   <col span="1">
+							   <col span="1">
+							   <col span="1">
+							   <col span="1">
+							   <col span="1">
+							   <col span="1">
+							</colgroup>
+
+							<thead>
+								<tr>
+									<td><input type="checkbox" onchange="$(this).parents('table').find(':checkbox').attr('checked', $(this).attr('checked') || false)"></td>
+									<th>Rendering engine</th>
+									<th>Browser</th>
+									<th>Platform(s)</th>
+									<th>Engine version</th>
+									<th>CSS grade</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 4.0</td>
+									<td>Win 95+</td>
+									<td class="center">4</td>
+									<td class="center"><span class="badge blue dark">X</span></td>
+									<td class="center">
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Edit"><i class="icon-pencil"></i></a>
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Remove"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 5.0</td>
+									<td>Win 95+</td>
+									<td class="center">5</td>
+									<td class="center"><span class="badge blue">C</span></td>
+									<td class="center">
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Edit"><i class="icon-pencil"></i></a>
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Remove"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 5.5</td>
+									<td>Win 95+</td>
+									<td class="center">5.5</td>
+									<td class="center"><span class="badge blue light">A</span></td>
+									<td class="center">
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Edit"><i class="icon-pencil"></i></a>
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Remove"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 6</td>
+									<td>Win 98+</td>
+									<td class="center">6</td>
+									<td class="center"><span class="badge blue light">A</span></td>
+									<td class="center">
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Edit"><i class="icon-pencil"></i></a>
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Remove"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>Trident</td>
+									<td>Internet Explorer 7/td>
+									<td>Win XP SP2+</td>
+									<td class="center">7</td>
+									<td class="center"><span class="badge blue light">A</span></td>
+									<td class="center">
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Edit"><i class="icon-pencil"></i></a>
+										<a href="#" class="button small grey tooltip" data-gravity=s title="Remove"><i class="icon-remove"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div><!-- End of .content -->
+					
+				</div><!-- End of .box -->
+			</div><!-- End of .grid_12 -->
+			
+<div class="grid_12">
+				<div class="box">
+				
+					<div class="header">
+						<h2>Static Table with Toolbar</h2>
+					</div>
+					
+					<div class="content">
+					
+						<div class="tabletools">
+							<div class="left">
+								<a class="open-add-client-dialog" href="javascript:void(0);"><i class="icon-plus"></i>New Client</a>
+							</div>
+							<div class="right">
+								<a href="javascript:void(0);"><i class="icon-pencil"></i>Edit</a>
+								<a href="javascript:void(0);"><i class="icon-remove"></i>Delete</a>
+							</div>
+						</div>
+						<table class="styled">
+							<thead>
+								<tr>
+									<th>Rendering engine</th>
+									<th>Browser</th>
+									<th>Platform(s)</th>
+									<th>Engine version</th>
+									<th>CSS grade</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 4.0</td>
+									<td>Win 95+</td>
+									<td class="center">4</td>
+									<td class="center">X</td>
+								</tr>
+								<tr>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 5.0</td>
+									<td>Win 95+</td>
+									<td class="center">5</td>
+									<td class="center">C</td>
+								</tr>
+								<tr>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 5.5</td>
+									<td>Win 95+</td>
+									<td class="center">5.5</td>
+									<td class="center">A</td>
+								</tr>
+								<tr>
+									<td>Trident</td>
+									<td>Internet
+										 Explorer 6</td>
+									<td>Win 98+</td>
+									<td class="center">6</td>
+									<td class="center">A</td>
+								</tr>
+								<tr>
+									<td>Trident</td>
+									<td>Internet Explorer 7</td>
+									<td>Win XP SP2+</td>
+									<td class="center">7</td>
+									<td class="center">A</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div><!-- End of .content -->
+					
+				</div><!-- End of .box -->
+			</div><!-- End of .grid_12 -->

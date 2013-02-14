@@ -1,0 +1,187 @@
+<!-- The lock screen -->
+<div id="lock-screen" title="">
+
+    <?= Html::link("mango/index","Cerrar Sesión","class: header right button grey flat"); ?>
+    <p><?= "Debido a la inactividad de la sesión, su cuenta se ha bloqueado temporalmente." ?></p>
+    <p><?= "Para desbloquear su cuenta, basta con deslizar el botón e introduzca su contraseña." ?></p>
+
+    <div class="actions">
+        <div id="slide_to_unlock">
+            <?= Html::imagen("elements/slide-unlock/lock-slider.png","Deslizame"); ?>
+            <span>Deslizar</span>
+        </div>
+        <?= Formulario::inicio("#") ?>
+            <?= Formulario::password("pwd","",utf8_encode("placeholder: Ingresa tu contraseña..."),"autocorrect: off","autocapitalize: off") ?>
+            <?= Formulario::submit("Aceptar","name: send", "disabled: disabled") ?>
+            <?= Formulario::reset("X"); ?>
+        <?= Formulario::fin() ?>
+    </div><!-- End of .actions -->
+
+</div><!-- End of lock screen -->
+<script language="JavaScript">
+	function breadcrumb(acciones,titulos){
+		var secciones = acciones.split("/",2);
+		var textos = titulos.split("/",2);
+		
+		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'">'+textos[0]+'</a>';
+		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'/'+secciones[1]+'">'+textos[1]+'</a>';
+		
+		$("li#breadcrumb_controlador").html(tmp1);
+		$("li#breadcrumb_accion").html(tmp2);
+	}
+	
+	function breadcrumbParameters(acciones,titulos,parametros){
+		var secciones = acciones.split("/",2);
+		var textos = titulos.split("/",2);
+		
+		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'">'+textos[0]+'</a>';
+		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'/'+secciones[1]+'/'+parametros+'">'+textos[1]+'</a>';
+		
+		$("li#breadcrumb_controlador").html(tmp1);
+		$("li#breadcrumb_accion").html(tmp2);
+	}
+</script>
+<!-- The toolbar at the top -->
+<section id="toolbar">
+	<div class="container_12">
+
+		<!-- Left side -->
+		<div class="left">
+			<ul class="breadcrumb">
+				<li><?= Html::link("mango/index", "Ciberfactura") ?></li>
+				<li><?= Html::link("mango/index", "Amecasoft S.A. de C.V.") ?></li>
+				<li id="breadcrumb_controlador">
+					<?= Html::link("mango/index", "Cliente") ?>
+				</li>
+				<li id="breadcrumb_accion">
+					<?= Html::link("mango/index", "Nuevo Cliente") ?>
+				</li>
+			</ul>
+		</div>
+		<!-- End of .left -->
+
+		<!-- Right side -->
+		<div class="right">
+			<ul>
+				<li>
+					<?= Html::link("mango/index", '<span class="icon i14_admin-user"></span>Perfil'); ?>
+				</li>
+
+				<li>
+					<?= Html::link("#", '<span>3</span>Mensajes'); ?>
+
+					<!-- Mail popup -->
+					<div class="popup">
+						<h3>Mensajes Nuevos</h3>
+
+						<!-- Button bar -->
+						<?= Html::link("#", "Cerrar", "class: button flat left grey","onclick: $(this).parent().fadeToggle($$.config.fxSpeed)") ?>
+						<?= Html::link("mango/index", "Inbox", "class: button flat right") ?>
+
+						<!-- The mail content -->
+						<div class="content mail">
+							<ul>
+
+								<li>
+									<div class="avatar">
+										<?= Html::imagen("elements/mail/avatar.png","",40,40) ?>
+									</div>
+									<div class="info">
+										<strong>Ramiro Vera</strong>
+										<span>Gracias por este Proyecto!</span>
+										<small>09:32 am</small>
+									</div>
+									<div class="text">
+										<p>
+											Hola Alonso!
+										</p>
+										<p>
+											Este proyecto es verdaderamente interesante, esperemos que pronto esta en produccion
+										</p>
+										<p>
+											Felicidades!
+										</p>
+										<div class="actions">
+											<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog") ?>
+											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+										</div>
+									</div>
+								</li>
+
+								<li>
+									<div class="avatar">
+										<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
+									</div>
+									<div class="info">
+										<strong>Paola Teran</strong>
+										<span>Hola, Como estas?</span>
+										<small>08:47 am</small>
+									</div>
+									<div class="text">
+										<p>
+											Hola,
+										</p>
+										<p>
+											Este es solo un mensaje para saludarte y desearte un excelente dia.
+										</p>
+										<p>
+											Espero que nos podamos encontrar pronto.
+										</p>
+										<div class="actions">
+											<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog") ?>
+											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+										</div>
+									</div>
+								</li>
+
+								<li>
+									<div class="avatar">
+										<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
+									</div>
+									<div class="info">
+										<strong>Carlos Lizaola</strong>
+										<span>Facturas de Noviembre</span>
+										<small>Ayer</small>
+									</div>
+									<div class="text">
+										<p>
+											[ ... ]
+										</p>
+										<div class="actions">
+											<?= Html::link("javascript:void(0);", "Leer", "class: left open-message-dialog") ?>
+											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)") ?>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="space"></li>
+				<li>
+				    <?= Html::link("javascript:void(0);","<span>--:--</span>Bloquear","id: btn-lock"); ?>
+				</li>
+
+				<li class="red">
+				    <?= Html::link("logout","Cerrar Sesi&oacute;n"); ?>
+				</li>
+
+			</ul>
+		</div><!-- End of .right -->
+
+		<!-- Phone only items -->
+		<div class="phone">
+
+			<!-- User Link -->
+			<li>
+				<a href="pages_profile.html"><span class="icon icon-user"></span></a>
+			</li>
+			<!-- Navigation -->
+			<li>
+				<a class="navigation" href="#"><span class="icon icon-list"></span></a>
+			</li>
+
+		</div><!-- End of phone items -->
+
+	</div><!-- End of .container_12 -->
+</section><!-- End of #toolbar -->

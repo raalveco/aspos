@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title><?= PROYECTO_NOMBRE ?></title>
+		 
+		<?= View::partial("mango/metas") ?>
+		
+		<!-- The Styles -->
+		<!-- Layout Styles -->
+		<?= stylesheet_link_tag('mango/style') ?>
+		<?= stylesheet_link_tag('mango/grid') ?>
+		<?= stylesheet_link_tag('mango/layout') ?>
+		
+		<!-- Icon Styles -->
+		<?= stylesheet_link_tag('mango/icons') ?>
+		<?= stylesheet_link_tag('mango/fonts/font-awesome') ?>
+		
+		<!--[if IE 8]><?= stylesheet_link_tag('mango/fonts/font-awesome-ie7') ?><![endif]-->
+		
+		<!-- External Styles -->
+		<?= stylesheet_link_tag('mango/external/jquery-ui-1.8.21.custom') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.chosen') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.cleditor') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.colorpicker') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.elfinder') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.fancybox') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.jgrowl') ?>
+		<?= stylesheet_link_tag('mango/external/jquery.plupload.queue') ?>
+		<?= stylesheet_link_tag('mango/external/syntaxhighlighter/shCore') ?>
+		<?= stylesheet_link_tag('mango/external/syntaxhighlighter/shThemeDefault') ?>
+		
+		<!-- Elements -->
+		<?= stylesheet_link_tag('mango/elements') ?>
+		<?= stylesheet_link_tag('mango/forms') ?>
+		
+		<!-- OPTIONAL: Print Stylesheet for Invoice -->
+		<?= stylesheet_link_tag('mango/print-invoice') ?>
+		
+		<!-- Typographics -->
+		<?= stylesheet_link_tag('mango/typographics') ?>
+		
+		<!-- Responsive Design -->
+		<?= stylesheet_link_tag('mango/media-queries') ?>
+		
+		<!-- Bad IE Styles -->
+		<?= stylesheet_link_tag('mango/ie-fixes') ?>
+		
+		<?= View::partial("mango/js",false,"password: ".Session::get("password")) ?>
+	</head>
+	<body>
+		<!-- The loading box -->
+		<div id="loading-overlay"></div>
+		<div id="loading">
+			<span>Cargando...</span>
+		</div>
+		<!-- End of loading box -->
+		<?= View::partial("mango/toolbar_top") ?>
+		<?= View::partial("mango/header") ?>
+		
+		<?= View::partial("mango/dialogos/settings") ?>
+		<?= View::partial("mango/dialogos/add_client") ?>
+		<?= View::partial("mango/dialogos/mensajes") ?>
+		
+		<!-- The container of the sidebar and content box -->
+		<div role="main" id="main" class="container_12 clearfix">
+			<?= View::partial("mango/toolbar") ?>
+			<?= View::partial("mango/sidebar") ?>
+		
+			<!-- Here goes the content. -->
+			<div id="contenido"><?= View::content(); ?></div>
+			<!-- End of #content -->
+		
+		</div><!-- End of #main -->
+		
+		<?= View::partial("mango/footer") ?>
+		
+		<!-- Spawn $$.loaded -->
+		<script>$$.loaded();</script>
+		
+		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+		chromium.org/developers/how-tos/chrome-frame-getting-started -->
+		<!--[if lt IE 7 ]>
+		<script defer src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+		<script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+		<![endif]-->
+	</body>
+</html>

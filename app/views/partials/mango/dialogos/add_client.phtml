@@ -1,0 +1,72 @@
+<!-- Add Client Example Dialog -->
+<div style="display: none;" id="dialog_add_client" title="Add Client Example Dialog">
+	<form action="" class="full validate">
+		<div class="row">
+			<label for="d2_username"> <strong>Username</strong> </label>
+			<div>
+				<input class="required" type=text name=d2_username id=d2_username />
+			</div>
+		</div>
+		<div class="row">
+			<label for="d2_email"> <strong>Email Address</strong> </label>
+			<div>
+				<input class="required" type=text name=d2_email id=d2_email />
+			</div>
+		</div>
+		<div class="row">
+			<label for="d2_role"> <strong>Role</strong> </label>
+			<div>
+				<select style="padding-bottom: 10px" name=d2_role id=d2_role class="search required" data-placeholder="Choose a Role">
+					<option value=""></option>
+					<option value="Applicant">Applicant</option>
+					<option value="Member">Member</option>
+					<option value="Moderator">Moderator</option>
+					<option value="Administrator">Administrator</option>
+				</select>
+			</div>
+		</div>
+	</form>
+	<div class="actions">
+		<div class="left">
+			<button class="grey cancel">
+				Cancel
+			</button>
+		</div>
+		<div class="right">
+			<button class="submit">
+				Add User
+			</button>
+		</div>
+	</div>
+</div><!-- End if #dialog_add_client -->
+
+<script>
+	$$.ready(function() {
+		$("#dialog_add_client").dialog({
+			autoOpen : false,
+			modal : true,
+			width : 400,
+			open : function() {
+				$(this).parent().css('overflow', 'visible');
+				$$.utils.forms.resize()
+			}
+		}).find('button.submit').click(function() {
+			var $el = $(this).parents('.ui-dialog-content');
+			if ($el.validate().form()) {
+				$el.find('form')[0].reset();
+				$el.dialog('close');
+			}
+		}).end().find('button.cancel').click(function() {
+			var $el = $(this).parents('.ui-dialog-content');
+			$el.find('form')[0].reset();
+			$el.dialog('close');
+			;
+		});
+
+		$(".open-add-client-dialog").click(function() {
+			$("#dialog_add_client").dialog("open");
+			return false;
+		});
+	}); 
+</script>
+<!--  End of Add Client Example Dialog -->
