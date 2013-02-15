@@ -13,6 +13,14 @@
 				$this -> mensaje = "&#161;Acceso Inv&aacute;lido! <br> El Usuario y/o Contrase&ntilde;a son incorrectos.";
 			}
 			
+			if($opcion == "rfc_incorrecto"){
+				$this -> mensaje = "&#161;Acceso Inv&aacute;lido! <br> El RFC ingresado es incorrecto.";
+			}
+			
+			if($opcion == "usuario_incorrecto"){
+				$this -> mensaje = "&#161;Acceso Inv&aacute;lido! <br> El Usuario y/o Contrase&ntilde;a son incorrectos.";
+			}
+			
 			if($opcion == "logout"){
 				$this -> mensaje = "&#161;La sesi&oacute;n ha sido terminada exitosamente.";
 			}
@@ -21,16 +29,28 @@
 		public function iniciar(){
 			$this -> render(null,null);
 			
-			if($this -> post("usuario")=="raalveco" && $this -> post("password") == "vera"){
-				Session::set("acceso",true);
-				Session::set("cuenta_id",1);
+			//VALIDAR CUENTA DE USUARIO
+			if(Cuenta::existe("rfc = '".$this -> post("rfc")."'")){
+				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");
 				
-				Session::set("password","vera");
+				//INGRESAR COMO ADMINISTRADOR
+				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
+					Session::set("acceso",true);
+					Session::set("cuenta_id",$cuenta -> id);
+					Session::set("password",$this -> post("password"));
+					
+					$this -> redirect("main");
+					return;
+				}
 				
-				$this -> redirect("main");
+				//INGRESAR CON OTRO USUARIO
+				
+				$this -> redirect("login/index/usuario_incorrecto");
+				return;
 			}
 			else{
-				$this -> redirect("login/index/error_iniciar");	
+				$this -> redirect("login/index/rfc_incorrecto");
+				return;
 			}
 		}
 		

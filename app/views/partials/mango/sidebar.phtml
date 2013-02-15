@@ -18,7 +18,7 @@
 		<!-- Navigation -->
 		<nav>
 			<ul class="collapsible accordion">
-				<?php $menus = Menu::reporte("activo = 'SI'","orden ASC"); ?>
+				<?php $menus = Menu::reporte("tipo= 'CLIENTE' AND activo = 'SI'","orden ASC"); ?>
 				<?php if($menus) foreach($menus as $menu){ ?>
 					<li id="menu<?= $menu -> id ?>">
 						<?= Html::link("javascript:void(0);", Html::imagen($menu -> imagen,$menu -> nombre,16,16).$menu -> nombre,"class: ".($menu -> abierto == "SI" ? "open" : "close")) ?>
