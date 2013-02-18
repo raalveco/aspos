@@ -104,6 +104,15 @@ class ActiveRecord extends ActiveRecordBase {
 	
 	//Sirve para guardar en la base de datos los cambios que haya podido tener le objeto.
 	public function guardar(){
+		if(Session::get("usuario_id")){
+			$cuenta -> usuario_edicion_id = Session::get("usuario_id");
+		}
+		else{
+			$cuenta -> usuario_edicion_id = 0;
+		}
+			
+		$cuenta -> fecha_edicion = date("Y-m-d H:i:s");
+		
 		$this -> save();
 	}
 }

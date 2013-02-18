@@ -11,6 +11,7 @@
 	<?= isset($alerta) ? $alerta : "" ?>
 	<h1 class="grid_12"><?= $cliente ? "Modificar Cliente" : "Nuevo Cliente" ?></h1>
 	<?= Formulario::inicioAjax($cliente ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::oculto("cuenta",Session::get("cuenta_id")); ?>
 	<?php if($cliente) echo Formulario::oculto("cliente", $cliente -> id) ?>
 		<fieldset>
 			<legend>
@@ -26,7 +27,7 @@
 					<?= Formulario::mayusculas("nombre",$cliente ? $cliente -> nombre : "","class: required") ?>
 				</p> 
 				<p class="_25">
-					<?php $tipos = $cliente ? TipoCliente::reporte("cuenta_id = ".$cliente -> cuenta_id) : array(); ?>
+					<?php $tipos = TipoCliente::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
 					<label>Tipo de Cliente</label>
 					<?= Formulario::selectModelo("tipo_cliente",$tipos,"nombre","id", $cliente ? $cliente -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
 				</p>

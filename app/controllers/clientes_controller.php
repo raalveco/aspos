@@ -36,12 +36,13 @@
 		public function registrar(){
 			$this -> render("cliente");
 			
+			$cuenta = utf8_decode($this -> post("cuenta_id"));
 			$rfc = utf8_decode($this -> post("rfc"));
 			$nombre = utf8_decode($this -> post("nombre"));
 			$estado = utf8_decode($this -> post("estado"));
 			$pais = utf8_decode($this -> post("pais"));
 			
-			$cliente = Cliente::registrar($rfc,$nombre,$estado,$pais);
+			$cliente = Cliente::registrar($cuenta,$rfc,$nombre,$estado,$pais);
 			
 			if($cliente){
 				$cliente -> tipo_cliente_id = utf8_decode($this -> post("tipo_cliente"));
@@ -65,9 +66,11 @@
 				$this -> alerta = Alerta::error("El RFC del Cliente fue registrado anteriormente.");
 			}
 			
-			$this -> registro = $cliente;
+			$this -> cliente = $cliente;
 			
 			$this -> set_response("view");
+			
+			$this -> render(null,null);
 		}
 		
 		public function consulta($id){

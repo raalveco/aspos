@@ -36,6 +36,8 @@
 				//INGRESAR COMO ADMINISTRADOR
 				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
 					Session::set("acceso",true);
+					//USUARIO ADMIN
+					Session::set("usuario_id",0);
 					Session::set("cuenta_id",$cuenta -> id);
 					Session::set("password",$this -> post("password"));
 					
