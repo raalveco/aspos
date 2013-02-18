@@ -54,6 +54,8 @@
 				$password = Formato::ceros(rand(0,999999),6);
 				$cuenta -> password = sha1($password);
 				
+				$cuenta -> save();
+				
 				$this -> alerta = Alerta::success("La Cuenta ha sido REGISTRADA correctamente. [Contraseña: ".$password."][ENVIAR CORREO]");
 			}
 			else{
