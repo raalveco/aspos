@@ -1,4 +1,4 @@
-<?php
+<?php 
 	class Alerta{
 		public static function mensaje($mensaje, $tipo = "note"){
 			return '<div class="alert '.$tipo.'"><span class="icon"></span><span class="close">x</span>'.$mensaje.'</div><br />';
