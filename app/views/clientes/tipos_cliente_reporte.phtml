@@ -7,7 +7,7 @@
 	$cantidad = 100;
 	$filtro = "id > 0";
 	
-	$tipos = TipoCliente::reporte($filtro,$orden,0,$cantidad,$campos);
+	$tipos = ClienteTipo::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>
 
 <?= View::partial("base/reporte") ?>

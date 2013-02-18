@@ -1,11 +1,11 @@
 <?php
-	class Unidad extends ActiveRecord{
+	class ClienteTipo extends ActiveRecord{
 		public static function registrar($nombre, $descripcion){
-			if(Unidad::existe("nombre = '".$nombre."'")){
+			if(ClienteTipo::existe("nombre = '".$nombre."'")){
 				return false;
 			}
 			
-			$tipo = new Unidad();
+			$tipo = new ClienteTipo();
 			
 			$tipo -> cuenta_id = Session::get("cuenta_id");
 			$tipo -> activo = "SI";

@@ -9,13 +9,13 @@
 			
 			$cuenta -> activo = "SI";
 			
-			if(Session::get("administrador_id")){
-				$cuenta -> usuario_creacion_id = Session::get("administrador_id");	
-				$cuenta -> usuario_edicion_id = Session::get("administrador_id");
+			if(Session::get("usuario_id")){
+				$tipo -> usuario_creacion_id = Session::get("usuario_id");	
+				$tipo -> usuario_edicion_id = Session::get("usuario_id");
 			}
 			else{
-				$cuenta -> usuario_creacion_id = 0;	
-				$cuenta -> usuario_edicion_id = 0;
+				$tipo -> usuario_creacion_id = 0;	
+				$tipo -> usuario_edicion_id = 0;
 			}
 			
 			$cuenta -> fecha_creacion = date("Y-m-d H:i:s");
