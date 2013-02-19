@@ -1,7 +1,7 @@
 <?php
 	class ClienteTipo extends ActiveRecord{ 
 		public static function registrar($nombre, $descripcion){
-			if(ClienteTipo::existe("cuenta_id = '".Session::get("cuenta_id")." AND nombre = '".$nombre."'")){
+			if(ClienteTipo::existe("cuenta_id = '".Session::get("cuenta_id")."' AND nombre = '".$nombre."'")){
 				return false;
 			}
 			

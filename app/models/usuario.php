@@ -1,7 +1,7 @@
 <?php
 	class Usuario extends ActiveRecord{ 
 		public static function registrar($user, $password, $activo = "SI"){
-			if(Usuario::existe("cuenta_id = ".Session::get("cuenta_id")." AND usuario = '".$usuario."'")){
+			if(Usuario::existe("cuenta_id = '".Session::get("cuenta_id")."' AND usuario = '".$usuario."'")){
 				return false;
 			}
 			

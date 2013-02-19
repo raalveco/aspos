@@ -10,7 +10,7 @@
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
 	<h1 class="grid_12"><?= $impuesto ? "Modificar Impuesto" : "Nuevo Impuesto" ?></h1>
-	<?= Formulario::inicioAjax($impuesto ? $controller_name."/modificarImpuesto" : $controller_name."/registrarImpuesto", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::inicio($impuesto ? $controller_name."/modificarImpuesto" : $controller_name."/registrarImpuesto", "contenido", false, "class: grid_12") ?>
 	<?php if($impuesto) echo Formulario::oculto("impuesto", $impuesto -> id) ?>
 		<fieldset>
 			<legend>
