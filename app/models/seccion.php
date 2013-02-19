@@ -1,5 +1,5 @@
 <?php
-	class Seccion extends ActiveRecord{
+	class Seccion extends ActiveRecord{ 
 		public static function registrar($menu, $nombre, $imagen, $link, $contenedor = "principal", $activo = "SI"){
 			$seccion = new Seccion();
 			

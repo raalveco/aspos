@@ -14,7 +14,6 @@
 <!-- The sidebar -->
 <aside>
 	<div class="top">
-
 		<!-- Navigation -->
 		<nav>
 			<ul class="collapsible accordion">
@@ -27,7 +26,7 @@
 						<ul>
 						<?php foreach($secciones as $seccion){ ?>
 							<li>
-								<?= Html::linkAjax($seccion -> link, Html::imagen($seccion -> imagen,utf8_encode($seccion -> nombre),16,16).utf8_encode($seccion -> nombre).'<span class="icon"></span>', $seccion -> contenedor, "id: menu".$menu -> id) ?>
+								<?= Html::linkAjax($seccion -> link, Html::imagen($seccion -> imagen,($seccion -> nombre),16,16).($seccion -> nombre).'<span class="icon"></span>', $seccion -> contenedor, "id: menu".$menu -> id) ?>
 							</li>
 						<?php } ?>
 						</ul>	

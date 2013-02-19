@@ -1,5 +1,5 @@
 <?php
-	class Usuario extends ActiveRecord{
+	class Usuario extends ActiveRecord{ 
 		public static function registrar($usuario, $password, $rol, $activo = "SI"){
 			$usuario = new Usuario();
 			

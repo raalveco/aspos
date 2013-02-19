@@ -1,5 +1,5 @@
 <?php
-	class Moneda extends ActiveRecord{
+	class Moneda extends ActiveRecord{ 
 		public static function registrar($nombre, $descripcion){
 			if(Moneda::existe("nombre = '".$nombre."'")){
 				return false;

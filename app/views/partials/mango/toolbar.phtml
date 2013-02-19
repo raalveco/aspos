@@ -6,46 +6,47 @@
 			<!-- <span>7</span> -->
 		</div>
 		<span>Configuraci&oacute;n</span>
+		<nav>
 		<ul>
 			<li>
-				<?= Html::link("javascript:$$.settings();", "General") ?>
+				<?= Html::linkAjax("configuracion/index", "General","contenido") ?>
 			</li>
 			<li class="line"></li>
 			<li>
-				<?= Html::link("mango/index", "Unidades") ?>
+				<?= Html::linkAjax("unidades/reporte", "Unidades","contenido") ?>
 			</li>
 			<li>
-				<?= Html::link("mango/index", "Impuestos") ?>
+				<?= Html::linkAjax("impuestos/reporte", "Impuestos","contenido") ?>
 			</li>
 			<li>
-				<?= Html::link("mango/index", "Monedas") ?>
+				<?= Html::linkAjax("monedas/reporte", "Monedas","contenido") ?>
 			</li>
 			<li class="line"></li>
 			<li>
-				<?= Html::link("mango/index", "Usuarios") ?>
+				<?= Html::linkAjax("usuarios/reporte", "Usuarios","contenido") ?>
 			</li>
+			<!--
 			<li>
 				<?= Html::linkAjax("roles/index", "Roles","contenido") ?>
 			</li>
-			<li class="line"></li>
-			<li>
-				<?= Html::link("mango/index", "Facturaci&oacute;n Electr&oacute;nica") ?>
-			</li>
+			-->
 			<li class="line"></li>
 			<li>
 				<?= Html::link("logout", "Cerrar Sesi&oacute;n") ?>
 			</li>
 		</ul>
+		</nav>
 	</div>
+	<!-- Possible sizes: small/medium/large -->
+	<!--
 	<ul class="shortcuts">
 		<li>
 			<?= Html::link("javascript:void(0);", '<span class="icon i24_user"></span>') ?>
-			<!-- Possible sizes: small/medium/large -->
+			
 			<div class="large">
 				<?= Formulario::inicioAjax("clientes/registro","contenido",0,"class: full grid") ?>
 					<h3>Nuevo Cliente</h3>
 	
-					<!-- Button bar -->
 					<button class="button flat left grey" onclick="$(this).parent().fadeToggle($$.config.fxSpeed).parent().removeClass('active')">
 						Cerrar
 					</button>
@@ -69,15 +70,13 @@
 						</div>
 					</div>
 				<?= Formulario::fin() ?>
-			</div><!-- End of popup -->
+			</div>
 		</li>
 		<li>
 			<?= Html::link("javascript:void(0);", '<span class="icon i24_user-business"></span>') ?>
-			<!-- Possible sizes: small/medium/large -->
 			<div class="large">
 				<h3>Nuevo Proveedor</h3>
 
-				<!-- Button bar -->
 				<button class="button flat left grey" onclick="$(this).parent().fadeToggle($$.config.fxSpeed).parent().removeClass('active')">
 					Cerrar
 				</button>
@@ -100,15 +99,13 @@
 						</div>
 					<?= Formulario::fin() ?>
 				</div>
-			</div><!-- End of popup -->
+			</div>
 		</li>
 		<li>
 			<?= Html::link("javascript:void(0);", '<span class="icon i24_wooden-box-label"></span>') ?>
-			<!-- Possible sizes: small/medium/large -->
 			<div class="large">
 				<h3>Nuevo Producto</h3>
 
-				<!-- Button bar -->
 				<button class="button flat left grey" onclick="$(this).parent().fadeToggle($$.config.fxSpeed).parent().removeClass('active')">
 					Cerrar
 				</button>
@@ -131,9 +128,10 @@
 						</div>
 					<?= Formulario::fin() ?>
 				</div>
-			</div><!-- End of popup -->
+			</div>
 		</li>
-	</ul><!-- End of .shortcuts -->
+	</ul>
+	-->
 
 	<input type="search" data-source="extras/search.php" placeholder="Buscar..." autocomplete="off" class="tooltip" title="Ingresa palabra de busqueda" data-gravity=s>
 </section><!-- End of .toolbar-->

@@ -1,5 +1,5 @@
 <?php
-	class Producto extends ActiveRecord{
+	class Producto extends ActiveRecord{ 
 		public static function registrar($nombre, $precio){
 			if(Producto::existe("nombre = '".$nombre."'")){
 				return false;

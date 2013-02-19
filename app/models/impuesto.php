@@ -1,7 +1,7 @@
 <?php
 	class Impuesto extends ActiveRecord{
-		public static function registrar($nombre, $descripcion){
-			if(Impuesto::existe("nombre = '".$nombre."'")){
+		public static function registrar($nombre, $descripcion, $tasa, $tipo = "TRASLADADO"){
+			if(Impuesto::existe("nombre = '".$nombre."' AND tasa = '".$tasa."' AND tipo = '".$tipo."'")){
 				return false;
 			}
 			
@@ -24,6 +24,8 @@
 			
 			$tipo -> nombre = $nombre;
 			$tipo -> descripcion = $descripcion;
+			$tipo -> tasa = $tasa;
+			$tipo -> tipo = $tipo;
 			
 			$tipo -> save();
 			

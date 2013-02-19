@@ -1,5 +1,5 @@
 <?php
-	class Menu extends ActiveRecord{
+	class Menu extends ActiveRecord{ 
 		public static function registrar($nombre, $imagen, $activo = "SI"){
 			$menu = new Menu();
 			

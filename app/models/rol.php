@@ -1,5 +1,5 @@
 <?php
-	class Rol extends ActiveRecord{
+	class Rol extends ActiveRecord{ 
 		public static function registrar($nombre, $activo = "SI"){
 			$rol = new Rol();
 			

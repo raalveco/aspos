@@ -1,5 +1,5 @@
 <?php
-	class Cliente extends ActiveRecord{
+	class Cliente extends ActiveRecord{ 
 		public static function registrar($rfc, $nombre, $estado, $pais){
 			if(Cliente::existe("rfc = '".$rfc."'")){
 				return false;

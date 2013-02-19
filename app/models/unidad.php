@@ -1,5 +1,5 @@
 <?php
-	class Unidad extends ActiveRecord{
+	class Unidad extends ActiveRecord{ 
 		public static function registrar($nombre, $descripcion){
 			if(Unidad::existe("nombre = '".$nombre."'")){
 				return false;
