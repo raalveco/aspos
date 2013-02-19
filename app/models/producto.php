@@ -1,7 +1,7 @@
 <?php
 	class Producto extends ActiveRecord{ 
 		public static function registrar($nombre, $precio){
-			if(Producto::existe("nombre = '".$nombre."'")){
+			if(Producto::existe("cuenta_id = '".Session::get("cuenta_id")." AND nombre = '".$nombre."'")){
 				return false;
 			}
 			

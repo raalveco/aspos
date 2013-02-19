@@ -1,7 +1,7 @@
 <?php
 	class Cliente extends ActiveRecord{ 
 		public static function registrar($rfc, $nombre, $estado, $pais){
-			if(Cliente::existe("rfc = '".$rfc."'")){
+			if(Cliente::existe("cuenta_id = '".Session::get("cuenta_id")." AND rfc = '".$rfc."'")){
 				return false;
 			}
 			

@@ -18,8 +18,6 @@
 		
 		public function x(){
 			$this -> render(null,null);
-			
-			echo "Hola";
 		}
 		
 		public function formularios(){

@@ -1,0 +1,50 @@
+<?php
+	$modulo = "Usuarios";
+	$seccion = $usuario ? "Modificar Usuario" : "Nuevo Usuario";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $usuario ? "Modificar Usuario" : "Nuevo Usuario" ?></h1>
+	<?= Formulario::inicioAjax($usuario ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($usuario) echo Formulario::oculto("usuario_id", $usuario -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DEL USUARIO
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Nombre(s)</label>
+					<?= Formulario::mayusculas("nombres",$usuario ? $usuario -> nombres : "","class: required") ?>
+				</p>
+				<p class="_50">
+					<label>Apellidos</label>
+					<?= Formulario::mayusculas("apellidos",$usuario ? $usuario -> apellidos : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Usuario</label>
+					<?= Formulario::texto("usuario",$usuario ? $usuario -> usuario : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Contraseña</label>
+					<?= Formulario::password("password",$usuario ? "**********" : "","class: required") ?>
+				</p>
+				<p class="_50">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo",$usuario ? $usuario -> correo : "","class: email required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($usuario ? "Modificar" : "Registrar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
