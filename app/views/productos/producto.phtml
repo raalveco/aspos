@@ -1,0 +1,72 @@
+<?php
+	$modulo = "Productos";
+	$seccion = $producto ? "Modificar Producto" : "Nuevo Producto";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $producto ? "Modificar Producto" : "Nuevo Producto" ?></h1>
+	<?= Formulario::inicioAjax($producto ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($producto) echo Formulario::oculto("producto", $producto -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DEL PRODUCTO
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Código</label>
+					<?= Formulario::mayusculas("codigo", $producto ? $producto -> codigo : "") ?>
+				</p>
+				<p class="_25">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$producto ? $producto -> nombre : "","class: required") ?>
+				</p> 
+				<p class="_50">
+					<label>Descripción</label>
+					<?= Formulario::mayusculas("descripcion",$producto ? $producto -> descripcion : "") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<?php $categorias = ProductoCategoria::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<label>Categoría</label>
+					<?= Formulario::selectModelo("categoria",$categorias,"nombre","id", $producto ? $producto -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+				</p>
+				<p class="_25">
+					<?php $unidades = Unidad::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<label>Unidad</label>
+					<?= Formulario::selectModelo("unidad",$unidades,"nombre","id", $producto ? $producto -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+				</p>
+				<p class="_25">
+					<label>Precio Unitario</label>
+					<?= Formulario::dinero("precio",$producto ? $producto -> precio_unitario : "","class: required") ?>
+				</p> 
+				<p class="_25">
+					<?php $monedas = Moneda::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<label>Moneda</label>
+					<?= Formulario::selectModelo("moneda",$monedas,"nombre","id", $producto ? $producto -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<?php $impuestos = Impuesto::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<label>Impuesto</label>
+					<?= Formulario::selectModelo("impuesto",$impuestos,"nombre","id", $producto ? $producto -> tipo_cliente_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+				</p>
+			</div>
+		</fieldset>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($producto ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
