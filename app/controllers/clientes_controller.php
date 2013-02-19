@@ -176,5 +176,100 @@
 			
 			$this -> set_response("view");
 		}
+						
+		public function registrarTipoCliente(){
+			$this -> render("tipos_cliente_reporte");		
+			
+			$nombre = utf8_decode($this -> post("nombre"));			
+			$descripcion = utf8_decode($this -> post("descripcion"));	
+			
+			$cliente_tipo = ClienteTipo::registrar($nombre,$descripcion);
+			
+			if($cliente_tipo){
+								
+				$cliente_tipo -> guardar();
+				
+				$this -> alerta = Alerta::success("El Tipo de Cliente ha sido REGISTRADO correctamente.");
+			}
+			else{
+				$this -> alerta = Alerta::error("El Tipo de Cliente fue registrado anteriormente.");
+			}
+			
+			$this -> $cliente_tipo = $cliente_tipo;
+			
+			$this -> set_response("view");
+		}
+		
+		public function modificarTipoCliente(){
+			$this -> render("tipos_cliente_reporte");
+			
+			$cliente_tipo = ClienteTipo::consultar($this -> post("tipo_cliente"));
+			
+			if($cliente_tipo){
+				$cliente_tipo -> nombre = utf8_decode($this -> post("nombre"));			
+				$cliente_tipo -> descripcion = utf8_decode($this -> post("descripcion"));
+				
+				$cliente_tipo -> guardar();
+				
+				$this -> alerta = Alerta::success("El Tipo de Cliente ha sido ACTUALIZADO correctamente.");
+			}
+			else{
+				$this -> producto = false;
+				
+				$this -> alerta = Alerta::error("el Tipo de Cliente buscado no fue encontrado en la Base de Datos.");
+			}
+			
+			$this -> set_response("view");
+		}
+			
+				
+		public function consultaTipoCliente($id){
+			$this -> render("tipo_cliente");
+			
+			$this -> tipo_cliente = ClienteTipo::consultar($id);
+			
+			if(!$this -> tipo_cliente){
+				$this -> render("tipos_cliente_reporte");
+				
+				$this -> alerta = Alerta::error("El Tipo de Cliente buscado no fue encontrado en la Base de Datos.");
+			}
+			
+			$this -> set_response("view");
+		}
+			
+		public function eliminarTipoCliente($id){
+			$this -> render("tipos_cliente_reporte");
+			
+			$cliente_tipo = ClienteTipo::consultar($id);
+			
+			$cliente_tipo -> eliminar();
+			
+			$this -> alerta = Alerta::success("El Tipo de Cliente ha sido eliminado correctamente.");
+			
+			$this -> set_response("view");
+		}
+		
+		public function eliminarTiposCliente($parametros){
+			$this -> render("tipos_cliente_reporte");
+			
+			$parametros = substr($parametros,2);
+			
+			$ids = explode("|",$parametros);
+			
+			foreach($ids as $id){
+				$cliente_tipo = ClienteTipo::consultar($id);
+				
+				$cliente_tipo -> delete();
+			}
+			
+			if(count($ids) > 1){
+				$this -> alerta = Alerta::success("Los Tipos de Cliente seleccionados han sido eliminados correctamente.");
+			}
+			else{
+				$this -> alerta = Alerta::success("El Tipo de Cliente seleccionado ha sido eliminado correctamente.");
+			}
+			
+			$this -> set_response("view");
+		}
 	}
 ?>
