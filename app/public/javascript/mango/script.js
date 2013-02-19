@@ -1386,7 +1386,7 @@
 				 
 			})
 			.find('ul')
-				.click();
+				.click(mango.utils.noBubbling);
 		
 	});
 	
