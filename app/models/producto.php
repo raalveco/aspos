@@ -23,7 +23,7 @@
 			$producto -> fecha_edicion = date("Y-m-d H:i:s");
 			
 			$producto -> nombre = $nombre;
-			$producto -> precio = $precio;
+			$producto -> precio_unitario = $precio;
 			
 			$producto -> save();
 			
