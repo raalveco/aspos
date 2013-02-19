@@ -3,7 +3,7 @@
 
 	class ConfiguracionController extends ApplicationController {
 		public function index(){
-			
+			$this -> set_response("view");
 		} 
 	}
 ?>
