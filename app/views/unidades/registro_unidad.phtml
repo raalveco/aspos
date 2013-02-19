@@ -1,0 +1,39 @@
+<?php
+	$modulo = "Unidades";
+	$seccion = $unidad ? "Modificar Unidad" : "Nueva Unidad";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $unidad ? "Modificar Unidad" : "Nueva Unidad" ?></h1>
+	<?= Formulario::inicioAjax($unidad ? $controller_name."/modificarUnidad" : $controller_name."/registrarUnidad", "contenido", false, "class: grid_12") ?>
+	<?php if($unidad) echo Formulario::oculto("unidad", $unidad -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACION DE UNIDAD
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$unidad ? $unidad -> nombre : "","class: required") ?>
+				</p>
+				<p class="_75">
+					<label>Descripción</label>
+					<?= Formulario::mayusculas("descripcion",$unidad ? $unidad -> descripcion : "","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($unidad ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->

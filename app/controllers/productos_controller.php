@@ -10,6 +10,7 @@
 		
 		public function reporte(){
 			$this -> set_response("view");
+			Session::set("filtro","id>0");
 		}
 		
 		public function registro(){
