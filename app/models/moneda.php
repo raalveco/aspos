@@ -1,7 +1,7 @@
 <?php
 	class Moneda extends ActiveRecord{ 
-		public static function registrar($nombre, $descripcion){
-			if(Moneda::existe("nombre = '".$nombre."'")){
+		public static function registrar($nombre, $descripcion, $tipo_cambio = 1){
+			if(Moneda::existe("cuenta_id = '".Session::get("cuenta_id")." AND nombre = '".$nombre."'")){
 				return false;
 			}
 			
@@ -24,6 +24,7 @@
 			
 			$tipo -> nombre = $nombre;
 			$tipo -> descripcion = $descripcion;
+			$tipo -> tipo_cambio = $tipo_cambio;
 			
 			$tipo -> save();
 			

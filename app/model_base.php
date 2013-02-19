@@ -104,7 +104,7 @@ class ActiveRecord extends ActiveRecordBase {
 	
 	//Sirve para guardar en la base de datos los cambios que haya podido tener le objeto.
 	public function guardar(){
-		if(Session::get("usuario_id")){
+		if(Session::get("usuario_id")==0 || Session::get("usuario_id")){
 			$this -> usuario_edicion_id = Session::get("usuario_id");
 		}
 		else{

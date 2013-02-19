@@ -58,7 +58,7 @@
 				$cliente -> celular = utf8_decode($this -> post("celular"));
 				$cliente -> correo = utf8_decode($this -> post("correo"));
 				
-				$cliente -> save();
+				$cliente -> guardar();
 				
 				$this -> alerta = Alerta::success("El Cliente ha sido REGISTRADO correctamente.");
 			}
@@ -113,7 +113,7 @@
 				
 				$cliente -> comentarios = utf8_decode($this -> post("comentarios"));
 				
-				$cliente -> save();
+				$cliente -> guardar();
 				
 				$this -> cliente = $cliente;
 				

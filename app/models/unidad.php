@@ -1,7 +1,7 @@
 <?php
 	class Unidad extends ActiveRecord{ 
 		public static function registrar($nombre, $descripcion){
-			if(Unidad::existe("nombre = '".$nombre."'")){
+			if(Unidad::existe("cuenta_id = '".Session::get("cuenta_id")." AND  nombre = '".$nombre."'")){
 				return false;
 			}
 			

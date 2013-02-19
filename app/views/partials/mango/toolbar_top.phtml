@@ -63,6 +63,7 @@
 		<!-- Right side -->
 		<div class="right">
 			<ul>
+			<!--
 				<li>
 					<?= Html::link("mango/index", '<span class="icon i14_admin-user"></span>Perfil'); ?>
 				</li>
@@ -70,15 +71,12 @@
 				<li>
 					<?= Html::link("#", '<span>3</span>Mensajes'); ?>
 
-					<!-- Mail popup -->
 					<div class="popup">
 						<h3>Mensajes Nuevos</h3>
 
-						<!-- Button bar -->
 						<?= Html::link("#", "Cerrar", "class: button flat left grey","onclick: $(this).parent().fadeToggle($$.config.fxSpeed)") ?>
 						<?= Html::link("mango/index", "Inbox", "class: button flat right") ?>
 
-						<!-- The mail content -->
 						<div class="content mail">
 							<ul>
 
@@ -158,6 +156,7 @@
 					</div>
 				</li>
 				<li class="space"></li>
+			-->
 				<li>
 				    <?= Html::link("javascript:void(0);","<span>--:--</span>Bloquear","id: btn-lock"); ?>
 				</li>

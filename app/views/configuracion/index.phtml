@@ -1,6 +1,6 @@
 <?php
-	$modulo = "Clientes";
-	$seccion = $cliente ? "Modificar Cliente" : "Nuevo Cliente";
+	$modulo = "Configuración";
+	$seccion = "General";
 ?>
 
 <?= View::partial("base/edicion") ?>
@@ -9,9 +9,8 @@
 <!-- Here goes the content. -->
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
-	<h1 class="grid_12"><?= $cliente ? "Modificar Cliente" : "Nuevo Cliente" ?></h1>
-	<?= Formulario::inicioAjax($cliente ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
-	<?php if($cliente) echo Formulario::oculto("cliente", $cliente -> id) ?>
+	<h1 class="grid_12"><?= "Configuración" ?></h1>
+	<?= Formulario::inicioAjax($controller_name."/modificar", "contenido", false, "class: grid_12") ?>
 		<fieldset>
 			<legend>
 				INFORMACIÓN DE LA CUENTA
@@ -28,13 +27,13 @@
 				<p class="_25">
 					<?php $tipos = ClienteTipo::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
 					<label>Paquete</label>
-					<?= Formulario::selectModelo("paquete",$tipos,"nombre","id", $cliente ? $cliente -> tipo_cliente_id : "","disabled: disabled","class: search","data-placeholder: Selecciona Paquete") ?>
+					<?= Formulario::selectModelo("paquete",$tipos,"nombre","id", "","disabled: disabled","class: search","data-placeholder: Selecciona Paquete") ?>
 				</p>
 			</div>
 			<div class="row">
 				<p class="_50">
 					<label>Correo Electrónico</label>
-					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email") ?>
+					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email required") ?>
 				</p>
 				<p class="_25">
 					<label>Usuario</label>
@@ -42,7 +41,7 @@
 				</p>
 				<p class="_25">
 					<label>Contraseña</label>
-					<?= Formulario::password("password","**********","class: required","readonly: readonly") ?>
+					<?= Formulario::password("password","**********","class: required") ?>
 				</p>
 			</div>
 		</fieldset>

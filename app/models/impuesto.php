@@ -1,7 +1,7 @@
 <?php
 	class Impuesto extends ActiveRecord{
 		public static function registrar($nombre, $descripcion, $tasa, $tipo = "TRASLADADO"){
-			if(Impuesto::existe("nombre = '".$nombre."' AND tasa = '".$tasa."' AND tipo = '".$tipo."'")){
+			if(Impuesto::existe("cuenta_id = '".Session::get("cuenta_id")." AND nombre = '".$nombre."' AND tasa = '".$tasa."' AND tipo = '".$tipo."'")){
 				return false;
 			}
 			
