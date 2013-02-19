@@ -66,7 +66,7 @@
 			if($moneda){
 				$moneda -> nombre = utf8_decode($this -> post("nombre"));			
 				$moneda -> descripcion = utf8_decode($this -> post("descripcion"));
-				$moneda -> cambio = utf8_decode($this -> post("cambio"));
+				$moneda -> tipo_cambio = utf8_decode($this -> post("cambio"));
 				
 				$moneda -> guardar();
 				
