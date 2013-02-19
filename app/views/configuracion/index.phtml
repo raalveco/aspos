@@ -1,0 +1,55 @@
+<?php
+	$modulo = "Clientes";
+	$seccion = $cliente ? "Modificar Cliente" : "Nuevo Cliente";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $cliente ? "Modificar Cliente" : "Nuevo Cliente" ?></h1>
+	<?= Formulario::inicioAjax($cliente ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($cliente) echo Formulario::oculto("cliente", $cliente -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LA CUENTA
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>RFC</label>
+					<?= Formulario::rfc("rfc",$cuenta ? $cuenta -> rfc : "","readonly: readonly") ?>
+				</p>
+				<p class="_50">
+					<label>Nombre</label>
+					<?= Formulario::texto("nombre",$cuenta ? $cuenta -> nombre : "","class: required","readonly: readonly") ?>
+				</p>
+				<p class="_25">
+					<?php $tipos = ClienteTipo::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<label>Paquete</label>
+					<?= Formulario::selectModelo("paquete",$tipos,"nombre","id", $cliente ? $cliente -> tipo_cliente_id : "","disabled: disabled","class: search","data-placeholder: Selecciona Paquete") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email") ?>
+				</p>
+				<p class="_25">
+					<label>Usuario</label>
+					<?= Formulario::texto("usuario","admin","class: required","readonly: readonly") ?>
+				</p>
+				<p class="_25">
+					<label>Contraseña</label>
+					<?= Formulario::password("password","**********","class: required","readonly: readonly") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit("Modificar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->

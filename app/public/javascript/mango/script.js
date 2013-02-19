@@ -1383,7 +1383,7 @@
 					$this.addClass('clicked');
 					
 				}
-				
+				 
 			})
 			.find('ul')
 				.click();
