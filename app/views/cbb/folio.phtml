@@ -1,0 +1,67 @@
+<?php
+	$modulo = "Facturación";
+	$seccion = $folios ? "Modificar Folios" : "Nuevos Folios";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $folios ? "Modificar Folios" : "Nuevos Folios" ?></h1>
+	<?= Formulario::inicioAjax($folios ? $controller_name."/modificarFolios" : $controller_name."/registrarFolios", "contenido", false, "class: grid_12") ?>
+	<?php if($folios) echo Formulario::oculto("folios", $folios -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LOS FOLIOS
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Serie</label>
+					<?= Formulario::mayusculas("serie",$folios ? $folios -> serie : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Fecha de Recepción</label>
+					<?= Formulario::fecha("fecha",$folios ? Formato::fecha($folios -> fecha_recepcion) : date("d/m/Y"),"dd/mm/yy",false,false,"class: required") ?>
+				</p> 
+				<p class="_25">
+					<label>Número de Aprobación</label>
+					<?= Formulario::numerico("numero",$folios ? $folios -> numero_aprobacion : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Tipo de Documento</label>
+					<?php $tipos = array("FACTURA" => "FACTURA", "RECIBO DE HONORARIOS" => "RECIBO DE HONORARIOS", "NOTA DE CREDITO" => "NOTA DE CREDITO","NOTA DE CARGO" => "NOTA DE CARGO") ?>
+					<?= Formulario::select("tipo_documento",$tipos,$folios ? $folios -> tipo_documento : "FACTURA","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Inicial</label>
+					<?= Formulario::numerico("inicial",$folios ? $folios -> inicial : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Final</label>
+					<?= Formulario::numerico("final",$folios ? $folios -> final : "","class: required") ?>
+				</p> 
+				<p class="_25">
+					<label>Actual</label>
+					<?= Formulario::numerico("actual",$folios ? $folios -> actual : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Activo</label>
+					<?php $estados = array("SI" => "SI", "NO" => "NO") ?>
+					<?= Formulario::select("activo",$estados,$folios ? $folios -> activo : "SI","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($folios ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
