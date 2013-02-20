@@ -1,0 +1,109 @@
+<?php
+	$modulo = "Configuración";
+	$seccion = "Modificar Contribuyente";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= "Modificar Contribuyente"?></h1>
+	<?= Formulario::inicioAjax($controller_name."/modificarContribuyente", "contenido", false, "class: grid_12") ?>
+	<?php if($contribuyente) echo Formulario::oculto("contribuyente", $contribuyente -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DEL CONTRIBUYENTE
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>RFC</label>
+					<?= Formulario::rfc("rfc", $contribuyente ? $contribuyente -> rfc : "","class: required","minlength: 12","maxlength: 13") ?>
+				</p>
+				<p class="_50">
+					<label>Nombre o Razón Social</label>
+					<?= Formulario::mayusculas("nombre",$contribuyente ? $contribuyente -> nombre : "","class: required") ?>
+				</p> 
+				<p class="_25">
+					<label>Nombre Comercial</label>
+					<?= Formulario::mayusculas("nombre_comercial",$contribuyente ? $contribuyente -> nombre_comercial : "","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				DOMICILIO FISCAL
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Calle</label>
+					<?= Formulario::mayusculas("calle",$contribuyente ? $contribuyente -> calle : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>No. Exterior</label>
+					<?= Formulario::mayusculas("exterior",$contribuyente ? $contribuyente -> exterior : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>No. Interior</label>
+					<?= Formulario::mayusculas("interior",$contribuyente ? $contribuyente -> interior : "") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Colonia</label>
+					<?= Formulario::mayusculas("colonia",$contribuyente ? $contribuyente -> colonia : "") ?>
+				</p>
+				<p class="_25">
+					<label>Localidad</label>
+					<?= Formulario::mayusculas("localidad",$contribuyente ? $contribuyente -> localidad : "") ?>
+				</p>
+				<p class="_25">
+					<label>Código Postal</label>
+					<?= Formulario::numerico("cpostal",$contribuyente ? $contribuyente -> cpostal : "","class: required digits","minlength: 5", "maxlength: 5") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Municipio</label>
+					<?= Formulario::mayusculas("municipio",$contribuyente ? $contribuyente -> municipio : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Estado</label>
+					<?= Formulario::selectEstados("estado",$contribuyente ? $contribuyente -> estado  : "","class: required search","data-placeholder: Selecciona Estado") ?>
+				</p>
+				<p class="_25">
+					<label>País</label>
+					<?= Formulario::select("pais",array("","MÉXICO" => "MÉXICO"),$contribuyente ? $contribuyente -> pais : "","class: required search","data-placeholder: Selecciona País") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE CONTACTO
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Teléfono</label>
+					<?= Formulario::numerico("telefono",$contribuyente ? $contribuyente -> telefono : "","class: maskPhone") ?>
+				</p>
+				<p class="_25">
+					<label>Celular</label>
+					<?= Formulario::numerico("celular",$contribuyente ? $contribuyente -> celular : "","class: maskPhone") ?>
+				</p>
+				<p class="_50">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo",$contribuyente ? $contribuyente -> correo : "","class: email") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit("Modificar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
