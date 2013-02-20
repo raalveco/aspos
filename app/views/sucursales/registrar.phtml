@@ -1,0 +1,62 @@
+<?php
+	$modulo = "Sucursales";
+	$seccion = $sucursal ? "Modificar Sucursal" : "Nueva Sucursal";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $sucursal ? "Modificar Sucursal" : "Nueva Sucursal" ?></h1>
+	<?= Formulario::inicioAjax($sucursal ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($sucursal) echo Formulario::oculto("sucursal", $sucursal -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE SUCURSAL
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Código</label>
+					<?= Formulario::mayusculas("codigo", $sucursal ? $sucursal -> codigo : "") ?>
+				</p>
+				<p class="_25">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$sucursal ? $sucursal -> nombre : "","class: required") ?>
+				</p> 
+				<p class="_50">
+					<label>Domicilio</label>
+					<?= Formulario::mayusculas("domicilio",$sucursal ? $sucursal -> domicilio : "") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Colonia</label>
+					<?= Formulario::mayusculas("colonia", $sucursal ? $sucursal -> colonia : "") ?>
+				</p>
+				<p class="_25">
+					<label>Ciudad</label>
+					<?= Formulario::mayusculas("ciudad", $sucursal ? $sucursal -> ciudad : "","class: required") ?>
+				</p> 
+				<p class="_25">
+					<label>Estado</label>
+					<?= Formulario::mayusculas("estado",$sucursal ? $sucursal -> estado : "") ?>
+				</p>
+				<p class="_25">
+					<label>Código Postal</label>
+					<?= Formulario::mayusculas("cpostal",$sucursal ? $sucursal -> cpostal : "") ?>
+				</p>
+			</div>
+		</fieldset>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($sucursal ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
