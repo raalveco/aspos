@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-02-2013 a las 14:34:52
+-- Tiempo de generación: 20-02-2013 a las 04:17:22
 -- Versión del servidor: 5.5.28
 -- Versión de PHP: 5.3.18
 
@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Estructura de tabla para la tabla `cbb_concepto`
 --
 
-CREATE TABLE IF NOT EXISTS `categoria` (
+CREATE TABLE IF NOT EXISTS `cbb_concepto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
   `activo` varchar(2) DEFAULT 'SI',
@@ -28,8 +28,96 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `fecha_creacion` datetime DEFAULT NULL,
   `usuario_edicion_id` int(11) DEFAULT NULL,
   `fecha_edicion` datetime DEFAULT NULL,
-  `nombre` varchar(25) NOT NULL,
+  `cbb_id` int(11) NOT NULL,
+  `cantidad` decimal(16,4) DEFAULT '0.0000',
   `descripcion` varchar(255) DEFAULT NULL,
+  `precio_unitario` decimal(16,4) DEFAULT '0.0000',
+  `descuento` decimal(16,4) NOT NULL DEFAULT '0.0000',
+  `importe` decimal(16,4) NOT NULL DEFAULT '0.0000',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cbb_factura`
+--
+
+CREATE TABLE IF NOT EXISTS `cbb_factura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cbb_folios_id` int(11) DEFAULT NULL,
+  `sucursal_id` int(11) DEFAULT NULL,
+  `serie` varchar(25) DEFAULT NULL,
+  `folio` varchar(25) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `no_aprobacion` varchar(25) DEFAULT NULL,
+  `forma_pago` varchar(50) DEFAULT NULL,
+  `subtotal` decimal(16,4) DEFAULT '0.0000',
+  `descuento` decimal(16,4) DEFAULT '0.0000',
+  `total` decimal(16,4) DEFAULT '0.0000',
+  `comentarios` tinytext,
+  `status` varchar(10) DEFAULT 'EMITIDA',
+  `motivo_cancelacion` varchar(255) DEFAULT NULL,
+  `pago` varchar(2) DEFAULT 'NO',
+  `envio` varchar(2) DEFAULT 'NO',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cbb_folio`
+--
+
+CREATE TABLE IF NOT EXISTS `cbb_folio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `serie` varchar(25) NOT NULL,
+  `inicial` int(11) DEFAULT NULL,
+  `final` int(11) DEFAULT NULL,
+  `actual` int(11) DEFAULT NULL,
+  `fecha_recepcion` date DEFAULT NULL,
+  `numero_aprobacion` varchar(15) DEFAULT NULL,
+  `tipo_documento` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cbb_receptor`
+--
+
+CREATE TABLE IF NOT EXISTS `cbb_receptor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cbb_id` int(11) NOT NULL,
+  `rfc` varchar(15) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `exterior` varchar(5) DEFAULT NULL,
+  `interior` varchar(5) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `municipio` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `pais` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -105,6 +193,39 @@ INSERT INTO `cliente_tipo` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `contribuyente`
+--
+
+CREATE TABLE IF NOT EXISTS `contribuyente` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `rfc` varchar(14) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `exterior` varchar(5) DEFAULT NULL,
+  `interior` varchar(5) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `municipio` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `pais` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
+  `telefono` varchar(25) DEFAULT NULL,
+  `celular` varchar(25) DEFAULT NULL,
+  `correo` varchar(100) DEFAULT NULL,
+  `nombre_comercial` varchar(100) DEFAULT NULL,
+  `cedula` varchar(25) DEFAULT NULL,
+  `logotipo` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cuenta`
 --
 
@@ -173,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   `orden` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -188,7 +309,8 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (6, 'CLIENTE', 'miniconos/cart.png', 'Ventas', 'NO', 6),
 (7, 'CLIENTE', 'miniconos/coins.png', 'Caja', 'NO', 7),
 (8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturación', 'NO', 8),
-(9, 'ADMIN', 'miniconos/group.png', 'Cuentas', 'SI', 1);
+(9, 'ADMIN', 'miniconos/group.png', 'Cuentas', 'SI', 1),
+(10, 'CLIENTE', 'miniconos/page_white_key.png', 'Información Fiscal', 'SI', 9);
 
 -- --------------------------------------------------------
 
@@ -256,24 +378,6 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
---
-
-CREATE TABLE IF NOT EXISTS `rol` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cuenta_id` int(11) NOT NULL,
-  `activo` varchar(2) DEFAULT 'SI',
-  `usuario_creacion_id` int(11) DEFAULT NULL,
-  `fecha_creacion` datetime DEFAULT NULL,
-  `usuario_edicion_id` int(11) DEFAULT NULL,
-  `fecha_edicion` datetime DEFAULT NULL,
-  `nombre` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `seccion`
 --
 
@@ -288,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -317,7 +421,35 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (20, 1, 'Nuevo Tipo Cliente', 'miniconos/user_add.png', 'clientes/registroTipoCliente', 'contenido', 'NO', 4, '2012-11-01 00:00:00'),
 (21, 9, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (22, 9, 'Todas las Cuentas', 'miniconos/folder_user.png', 'cuentas/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
-(23, 3, 'Categorías de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00');
+(23, 3, 'Categorías de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
+(24, 10, 'Contribuyente', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sucursal`
+--
+
+CREATE TABLE IF NOT EXISTS `sucursal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `codigo` varchar(10) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `domicilio` varchar(100) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `ciudad` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
+  `cbb_folios_id` int(11) DEFAULT '0',
+  `cfd_folios_id` int(11) DEFAULT '0',
+  `cfdi_folios_id` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
