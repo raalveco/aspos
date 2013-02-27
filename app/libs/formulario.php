@@ -272,7 +272,6 @@
             			        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
                                 dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
                                 firstDay: 1,
-                                defaultDate: '-5y',
                                 yearRange: 'c-20:c-0',
                                 changeMonth: true,
 								changeYear: true,
