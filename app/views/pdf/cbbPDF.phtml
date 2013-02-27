@@ -1,0 +1,272 @@
+<?php Load::lib("html"); ?>
+<?php Load::lib("formato"); ?>
+<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm" style="font-size: 12pt">
+<div style="border: 1px solid">
+	<table border="0">
+		<tr>
+			<td align="center" valign="middle">
+				<?= Html::imagen("http://www.amecasoft.com.mx/erp/img/universo.jpg","",270,90) ?>
+			</td>
+			<td style="width: 280px; text-align: center; font-size: 11px;">
+				<br/>
+				<span style="font-size: 14px; font-weight: bold;">AMECASOFT S.A. DE C.V.</span>
+				<br/>
+				<span style="font-size: 14px; font-weight: bold;">R.F.C. AME1003254S1</span>
+				<br /><br />
+				FRAY JUAN CALERO 8A, COLONIA EL MANANTIAL
+				<br/>
+				C.P. 46600 AMECA, JALISCO. TEL. 3757558841
+				<br/><br/>
+				http://www.universodigital.mx
+			</td>
+			<td>
+				<table border="0">
+					<tr>
+						<td style="font-weight: bold; font-size: 14px; border: solid 1px; #000; height: 5px; padding: 5px;" align="center" valign="middle">FACTURA</td>
+					</tr>
+					<tr>
+						<td style="height: 1px;"></td>
+					</tr>
+					<tr>
+						<td style="border: solid 1px; #000;">
+							<table>
+								<tr>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Serie - Folio</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $factura -> serie ?><?= Formato::ceros($factura -> folio,3) ?></span></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="height: 1px;"></td>
+								</tr>
+								<tr>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha de Aprobacion</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> folio() -> fecha_recepcion) ?></span></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="height: 1px;"></td>
+								</tr>
+								<tr>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">No. de Aprobacion</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> folio() -> numero_aprobacion) ?></span></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="height: 1px;"></td>
+								</tr>
+								<tr>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha Emisión</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> fecha) ?></span></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table> 
+</div>
+<div style="padding: 5px 0px;">
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+			<div style="border: 1px solid; width: 360px; height: 12px; background-color: #666; color: #EEE; font-size: 10px; text-align: center; padding: 5px; vertical-align: middle">
+				DATOS DEL CLIENTE
+			</div>
+			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
+				<?php $receptor = $factura -> receptor(); ?>
+				<?= $receptor -> rfc == "XXXX000000XXX" ? "" : $receptor -> rfc." :: " ?><?= $receptor -> nombre ?>
+				<br /><br />
+				<?= $receptor -> calle ?> <?= $receptor -> exterior ?>
+				<br />
+				<?= $receptor -> colonia ? "COLONIA ".$receptor -> colonia.", C.P.: ".$receptor -> cpostal."<br />" : "" ?>
+				<?= $receptor -> municipio ?>, <?= $receptor -> estado ?>. MÉXICO
+			</div>
+		</td>
+		<td style="width: 5px;"></td>
+		<td>
+			<div style="border: 1px solid; width: 360px; height: 12px; background-color: #666; color: #EEE; font-size: 10px; text-align: center; padding: 5px; vertical-align: middle">
+				LUGAR DE EMISIÓN
+			</div>
+			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
+				UNIVERSO DIGITAL
+				<br /><br />
+				VALLARTA 12A
+				<br />
+				COLONIA CENTRO, C.P. 46600
+				<br />
+				AMECA, JALISCO. MÉXICO
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
+<div style="border: 1px solid">
+	<?php $conceptos = $factura -> conceptos(); $tmp = count($conceptos) ?>
+	<?php
+		$bandera = false;
+	
+		if($conceptos){
+			foreach($conceptos as $concepto){
+				if($concepto -> descuento>0){
+					$bandera = true;
+				}
+			}
+		}
+	?>
+	<?php if($conceptos){ ?>
+	<table border="0">
+		<tr>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 40px;">Cantidad</th>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "375" : "462" ?>px;">Descripción</th>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 75px;">Precio Unitario</th>
+			<?php if($bandera){ ?>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 65px;">Descuento</th>
+			<?php } ?>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 65px;">Importe</th>
+		</tr>
+		<?php $i=0; foreach($conceptos as $concepto){ $i++; $color = $i % 2 == 0 ? "#EEE" : "#DDD"; ?>
+		<tr>
+			<td style="height: <?= $tmp<=12 ? 20 : 5 ?>px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= $concepto -> cantidad ?></td>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: left; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "396" : "483" ?>px;"><?= Formato::mayusculas($concepto -> descripcion) ?></td>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;">$</td>
+						<td style="text-align: right; width: 52px;"><?= Formato::numero($concepto -> precio_unitario) ?></td>
+					</tr>
+				</table>
+			</td>
+			<?php if($bandera){ ?>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;">$</td>
+						<td style="text-align: right; width: 40px;"><?= Formato::numero($concepto -> descuento) ?></td>
+					</tr>
+				</table>
+			</td>
+			<?php } ?>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;">$</td>
+						<td style="text-align: right; width: 40px;"><?= Formato::numero($concepto -> importe) ?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<?php } ?>
+		<?php while($i < ($bandera ? 11 : 12)) { $i++; $color = $i % 2 == 0 ? "#EEE" : "#DDD"; ?>
+		<tr>
+			<td style="height: 28px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"></td>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: left; vertical-align:middle; font-size: 10px; width: 396px;"></td>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;"></td>
+						<td style="text-align: right; width: 52px;"></td>
+					</tr>
+				</table>
+			</td>
+			<?php if($bandera){ ?>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;"></td>
+						<td style="text-align: right; width: 40px;"></td>
+					</tr>
+				</table>
+			</td>
+			<?php } ?>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 20px;"></td>
+						<td style="text-align: right; width: 40px;"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<?php } ?>
+		<tr>
+			<td style="background-color: #666;" colspan="<?= $bandera ? "5" : "4" ?>"></td>
+		</tr>
+		<tr>
+			<td height="30" colspan="<?= $bandera ? "3" : "2" ?>" rowspan="4" style="font-weight: bold; background-color:<?= ++$i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 14px;"><?= Formato::numeroLetra($factura -> total) ?> PESOS <?= substr(number_format($factura -> total,2),strlen(number_format($factura -> total,2))-2) ?>/100 M.N.</td>
+			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">SubTotal</td>
+			<td align="right" style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 10px;">$</td>
+						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> subtotal) ?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<?php if($bandera){ ?>
+		<tr>
+			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">Descuentos</td>
+			<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 10px;">$</td>
+						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> descuento) ?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<?php } ?>
+		<tr>
+			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">IVA (16%)</td>
+			<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 10px;">$</td>
+						<td style="text-align: right; width: 50px;"><?= Formato::numero(($factura -> subtotal - $factura -> descuento) * 0.16) ?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">Total</td>
+			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+				<table border="0">
+					<tr>
+						<td style="text-align: left; width: 10px;">$</td>
+						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> total) ?></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<?php } ?>
+</div>
+<div style="font-size: 10px; font-weight: bold; width: 100%; padding: 2px;">
+	<table border="0">
+		<tr>
+			<td style="width: 355px; text-align: left;">PAGO EN UNA SOLA EXHIBICIÓN</td>
+			<td style="width: 25px;"></td>
+			<td style="width: 355px; text-align: right;">EFECTOS FISCALES AL PAGO</td>
+		</tr>
+	</table>
+</div>
+<div style="border: solid 1px; padding: 2px;">
+    <table border="0">
+        <tr>
+            <td>
+            	<?= Html::imagen("http://www.amecasoft.com.mx/erp/app/public/img/cbb/22525239_AME1003254S1_.jpg","style: width: 27.5mm; height: 27.5mm;") ?>
+            </td>
+			<td valign="top" style="width: 420px; padding: 5px;">
+				<div style="padding: 0px; 15px 0px 15px; font-size: 11px; text-align: justify;">
+					<i>La reproducción apócrifa de este comprobante constituye un delito en los términos de las disposiciones fiscales.</i>
+				</div>
+				<br /><br />
+				<div style="font-size: 11px; text-align: justify;">
+					<i>Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b><?= Formato::fecha($factura -> folio() -> fecha_recepcion) ?></b> y corresponde del <b><?= $factura -> serie ?><?= Formato::ceros($factura -> folio() -> inicio,3) ?></b> al <b><?= $factura -> serie ?><?= Formato::ceros($factura -> folio() -> fin,3) ?></b>.</i>
+				</div>
+            </td>
+			<td>
+				<?= Html::imagen("http://www.amecasoft.com.mx/erp/app/public/img/cedulas/AME1003254S1.jpg","style: height: 27.5mm;") ?>
+            </td>
+        </tr>
+    </table>
+</div>
+</page>

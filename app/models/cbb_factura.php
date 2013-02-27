@@ -35,5 +35,21 @@
 			
 			return $factura;
 		}
+		
+		public function conceptos(){
+			return CbbConcepto::reporte("cbb_id = ".$this -> id);
+		}
+		
+		public function emisor(){
+			return Contribuyente::consultar("cuenta_id = ".$this -> cuenta_id);
+		}
+		
+		public function receptor(){
+			return CbbReceptor::consultar("cbb_id = ".$this -> id);
+		}
+		
+		public function folio(){
+			return CbbFolio::consultar("cbb_id = ".$this -> id);
+		}
 	}
 ?>
