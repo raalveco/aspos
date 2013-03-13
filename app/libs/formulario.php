@@ -342,13 +342,34 @@
             $tmp = array();
             
             $bandera = true;
-				
-            if(!isset($params["include_blank"])){
-            	$tmp[""] = "...";
-			}
             
             if($registros) foreach($registros as $registro){
                 $tmp[$registro -> {$valor}] = $nombre == "profesor" || $nombre == "alumno" ? $registro -> nombre_completo : $registro -> {$opcion};
+                if($seleccion == $registro -> {$valor} && $seleccion != 0){
+                    $bandera = false;
+                }
+            }
+            
+			if(!isset($params["include_blank"])){
+				if($bandera) $tmp[""] = $seleccion;
+            }
+			
+			$params[1] = $tmp;
+            
+            
+            return select_tag($params);
+        }
+		
+		public static function selectModeloClientes($nombre, $registros, $opcion="id", $valor="id", $seleccion=""){
+            $params = is_array($nombre) ? $nombre : Util::getParams(func_get_args());
+            
+            $params["selected"] = utf8_encode($seleccion);
+            $tmp = array();
+            
+            $bandera = true;
+            
+            if($registros) foreach($registros as $registro){
+                $tmp[$registro -> {$valor}] = $registro -> rfc." - ".$registro -> nombre;
                 if($seleccion == $registro -> {$valor} && $seleccion != 0){
                     $bandera = false;
                 }

@@ -5,7 +5,7 @@
 	$campos = array("id","serie","fecha_recepcion","numero_aprobacion","inicial","final","actual","tipo_documento");
 	$orden = "id ASC";
 	$cantidad = 100;
-	$filtro = "id > 0";
+	$filtro = "cuenta_id = ".Session::get("cuenta_id");
 	
 	$folios = CbbFolio::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>

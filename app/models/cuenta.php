@@ -28,5 +28,9 @@
 			
 			return $cuenta;
 		}
+		
+		public function paquete(){
+			return Paquete::consultar($this -> paquete_id);
+		}
 	}
 ?>

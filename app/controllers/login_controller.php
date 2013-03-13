@@ -41,6 +41,11 @@
 					Session::set("cuenta_id",$cuenta -> id);
 					Session::set("password",$this -> post("password"));
 					
+					//VARIABLES DE CONFIGURACION
+					$paquete = $cuenta -> paquete();
+					
+					Session::set("paquete_id",$paquete -> id);
+					
 					$this -> redirect("main");
 					return;
 				}
