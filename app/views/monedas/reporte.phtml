@@ -91,7 +91,7 @@
 							</td>
 							<td><?= $moneda -> nombre ?></td>
 							<td><?= $moneda -> descripcion ?></td>
-							<td><?= $moneda -> tipo_cambio ?></td>
+							<td>1 <?= $moneda -> nombre ?> = <?= $moneda -> tipo_cambio ?> MXN</td>
 							<td style="width: 45px;">
 								<?= Html::linkAjax($controller_name."/consultaMoneda/".$moneda -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
 								<?= Html::linkAjaxConfirmado($controller_name."/eliminarMoneda/".$moneda -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>

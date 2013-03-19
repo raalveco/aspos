@@ -30,8 +30,16 @@
 			return $numero;
 		}
 		
+		public static function totalLetra($n){
+			$tmp = round($n * 100);
+			$tmp = $tmp % 100;
+			
+			return Formato::numeroLetra($n)." PESOS, ".$tmp."/100";
+		}
+		
 		public static function numeroLetra($n){
-            $unidades = $n % 1000;
+			
+			$unidades = $n % 1000;
             $millares = intval($n / 1000) % 1000;
             $millones = intval(intval($n / 1000)/1000);
             

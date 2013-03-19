@@ -28,7 +28,7 @@
 			$this -> render(null,null);
 			
 			$nombre = utf8_decode($this -> post("nombre"));			
-			$descripcion = utf8_decode($this -> post("descripcion"));	
+			$descripcion = utf8_decode($this -> post("nombre"));	
 			$tasa = utf8_decode($this -> post("tasa"));	
 			$tipo = utf8_decode($this -> post("tipo"));	
 			
@@ -71,7 +71,9 @@
 			
 			if($impuesto){
 				$impuesto -> nombre = utf8_decode($this -> post("nombre"));			
-				$impuesto -> descripcion = utf8_decode($this -> post("descripcion"));
+				$impuesto -> descripcion = utf8_decode($this -> post("nombre"));
+				$impuesto -> tasa = utf8_decode($this -> post("tasa"));
+				$impuesto -> tipo = utf8_decode($this -> post("tipo"));	
 				
 				$impuesto -> guardar();
 				

@@ -67,11 +67,12 @@
 		
 		public function modificar(){
 			$this -> render("producto");
+			$this -> render(null,null);
 			
 			$producto = Producto::consultar($this -> post("producto"));
 			
 			if($producto){
-				$prodcto -> nombre = utf8_decode($this -> post("nombre"));			
+				$producto -> nombre = utf8_decode($this -> post("nombre"));			
 				$producto -> precio_unitario = Formato::noDinero(utf8_decode($this -> post("precio")));
 				$producto -> codigo = utf8_decode($this -> post("codigo"));
 				$producto -> descripcion = utf8_decode($this -> post("descripcion"));

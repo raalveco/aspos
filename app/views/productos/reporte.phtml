@@ -84,8 +84,8 @@
 							</td>
 							<td><?= $producto -> codigo ?></td>
 							<td><?= $producto -> nombre ?></td>
-							<td><?= $producto -> precio_unitario ?></td>
-							<td class="center"><?= $producto -> categoria_id ?></td>
+							<td class="center"><?= Formato::dinero($producto -> precio_unitario) ?></td>
+							<td class="center"><?= $producto -> categoria() ? $producto -> categoria() -> nombre : "" ?></td>
 							<td style="width: 45px;">
 								<?= Html::linkAjax($controller_name."/consulta/".$producto -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
 								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$producto -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>

@@ -2,6 +2,10 @@
 	class Estadistica{
 		public static function facturas($cuenta_id, $mes = false){
 			
+			if(!$cuenta_id){
+				return 0;
+			}
+			
 			if($mes){
 				$m = substr($mes, 0, 2);
 				$y = substr($mes, 2, 4);
@@ -20,10 +24,18 @@
 		}
 		
 		public static function almacenamiento($cuenta_id){
+			if(!$cuenta_id){
+				return 0;
+			}
+			
 			return 67;
 		}
 		
 		public static function usuarios($cuenta_id){
+			if(!$cuenta_id){
+				return 0;
+			}
+			
 			return Usuario::total("cuenta_id = ".$cuenta_id);
 		}
 	}

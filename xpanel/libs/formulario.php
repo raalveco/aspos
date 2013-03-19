@@ -74,36 +74,6 @@
             return submit_tag($params);
         }
         
-		public static function submitBoton($texto, $color = "neutral", $icono="") {
-			if($color == "positivo"){
-				$color = "azul";
-			}
-			if(PROYECTO_TEMPLATE == "green_menu"){
-				$color = "verde";
-			}	
-			if($icono==""){
-				switch($color){
-					case "neutral": return '<button type="submit">'.$texto.'</button>';
-					case "positivo": return '<button type="submit" class="positive">'.$texto.'</button>';
-					case "negativo": return '<button type="submit" class="negative">'.$texto.'</button>';
-					case "verde": return '<button type="submit" class="green">'.$texto.'</button>';
-					case "azul": return '<button type="submit" class="blue">'.$texto.'</button>';
-				}	
-			}
-			else{
-				switch($color){
-					case "neutral": return '<button type="submit">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-					case "positivo": return '<button type="submit" class="positive">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-					case "negativo": return '<button type="submit" class="negative">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-					case "verde": return '<button type="submit" class="green">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-					case "azul": return '<button type="submit" class="blue">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-						
-				}
-			}
-			
-			return '<button type="submit" class="negative">'.Html::imagen($icono,$texto)." ".$texto.'</button>';
-		}
-        
         public static function imagen($alt, $src){
             $params = is_array($alt) ? $alt : Util::getParams(func_get_args());
             

@@ -21,15 +21,13 @@
 					<label>Nombre</label>
 					<?= Formulario::mayusculas("nombre",$moneda ? $moneda -> nombre : "","class: required") ?>
 				</p>
-				<p class="_75">
+				<p class="_50">
 					<label>Descripción</label>
 					<?= Formulario::mayusculas("descripcion",$moneda ? $moneda -> descripcion : "","class: required") ?>
 				</p>
-			</div>
-			<div class="row">
 				<p class="_25">
 					<label>Tipo de Cambio</label>
-					<?= Formulario::mayusculas("cambio",$moneda ? $moneda -> tipo_cambio : "","class: required") ?>
+					<?= Formulario::numerico("cambio",$moneda ? $moneda -> tipo_cambio : "","class: required") ?>
 				</p>
 			</div>
 		</fieldset>

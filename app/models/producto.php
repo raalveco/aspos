@@ -29,5 +29,13 @@
 			
 			return $producto;
 		}
+		
+		public function unidad(){
+			return Unidad::consultar($this -> unidad_id);
+		}
+		
+		public function categoria(){
+			return ProductoCategoria::consultar($this -> categoria_id);
+		}
 	}
 ?>

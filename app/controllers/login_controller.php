@@ -45,6 +45,7 @@
 					$paquete = $cuenta -> paquete();
 					
 					Session::set("paquete_id",$paquete -> id);
+					Session::set("tipo_facturacion",strtoupper($paquete -> tipo));
 					
 					$this -> redirect("main");
 					return;
@@ -66,6 +67,13 @@
 			
 			Session::set("acceso",false);
 			Session::set("cuenta",0);
+			
+			Session::set("usuario_id",false);
+			Session::set("password","");
+			
+			Session::set("tipo_facturacion","");
+			
+			Session::set("paquete_id",0);
 			
 			$this -> redirect("login/index/logout");	
 		}

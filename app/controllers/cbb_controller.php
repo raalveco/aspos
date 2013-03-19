@@ -3,6 +3,165 @@
 	Load::lib("formato");
 
 	class CbbController extends ApplicationController {
+		public function index($mensaje = false){
+			$this -> set_response("view");
+			
+			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			
+			if(Session::get("conceptos")){
+				$conceptos = Session::get("conceptos");
+			}
+			else{
+				$conceptos = array();
+				Session::set("conceptos", $conceptos);
+			}
+			
+			$this -> conceptos = $conceptos;
+			
+			$campos = array("id","rfc","nombre");
+			$this -> clientes = Cliente::reporte("cuenta_id = ".$this -> cuenta -> id,"rfc ASC",0,0,$campos);
+			
+			$campos = array("id","codigo","nombre");
+			$this -> productos = Producto::reporte("cuenta_id = ".$this -> cuenta -> id,"nombre ASC",0,0,$campos);
+			
+			$this -> factura = false;
+			
+			$tipo_factura = "cbb";
+			
+			$campos = array("id","nombre");
+			$this -> sucursales = Sucursal::reporte("cuenta_id = ".$this -> cuenta -> id." AND cbb_folios_id > 0","nombre ASC",0,0,$campos);
+			
+			if(count($this -> sucursales)==1){
+				foreach($this -> sucursales as $sucursal){
+					$this -> matrix = $sucursal -> id;
+				}
+			}
+			else{
+				$this -> matrix = "";
+			}
+			
+			$campos = array("id","serie");
+			$this -> series = CbbFolio::reporte("cuenta_id = ".$this -> cuenta -> id." AND actual <= final","serie ASC",0,0,$campos);
+			
+			if(count($this -> series)==0){
+				$this -> alerta = Alerta::error("Para poder facturar es necesario tener al menos una serie configurada.");
+			}
+			else{
+				if(count($this -> series)==1){
+					foreach($this -> series as $serie){
+						$this -> xerie = $serie -> id;
+					}
+				}
+				else{
+					$this -> xerie = "";
+				}
+			}
+			
+			if($mensaje){
+				switch($mensaje){
+					case "agregado": $this -> alerta = Alerta::success("El Concepto ha sido registrado correctamente"); break;
+					case "quitado": $this -> alerta = Alerta::success("El Concepto ha sido eliminado correctamente"); break;
+					case "limpiado": $this -> alerta = Alerta::success("Los Conceptos de la Factura han sido eliminados."); break;
+				}
+			}
+		}
+
+		public function agregar(){
+			$this -> render(null,null);
+			
+			if(Session::get("conceptos")){
+				$conceptos = Session::get("conceptos");
+			}
+			else{
+				$conceptos = array();
+				Session::set("conceptos", $conceptos);
+			}
+			
+			$concepto = array("cantidad" => 0, "id" => 0, "producto" => "", "precio" => 0);
+			
+			$producto = Producto::consultar($this -> post("producto"));
+			
+			$px = false;
+			$n = 0;
+			
+			if($conceptos) foreach($conceptos as $tmp){
+				if($tmp["id"] == $producto -> id){
+					$px = $n;
+					$concepto = $tmp;
+					
+					echo $px."<br>";
+					echo $tmp["id"]."<br>";
+					
+					break;
+				}
+				
+				$n++;
+			}
+			
+			$concepto["cantidad"] += $this -> post("cantidad");
+			$concepto["id"] = $producto -> id;
+			$concepto["unidad"] = $producto -> unidad_id > 0 ? $producto -> unidad() -> nombre : "PIEZA";
+			$concepto["producto"] = $producto -> nombre;
+			$concepto["precio"] = $producto -> precio_unitario;
+			
+			if($px === false){
+				$conceptos[count($conceptos)] = $concepto;
+			}
+			else{
+				$conceptos[$px] = $concepto;
+			}
+			
+			Session::set("conceptos", $conceptos);
+			
+			$this -> redirect("cbb/index/agregado");
+		}
+		
+		public function quitar($n = false){
+			$this -> render(null,null);
+			
+			if($n === false){
+				$this -> redirect("cbb/index");
+				return;
+			}
+			
+			if(Session::get("conceptos")){
+				$conceptos = Session::get("conceptos");
+			}
+			else{
+				$conceptos = array();
+				Session::set("conceptos", $conceptos);
+				
+				$this -> redirect("cbb/index");
+				return;
+			}
+			
+			$tmp = array();
+			$x = 0;
+			$y;
+			
+			if($conceptos) foreach($conceptos as $concepto){
+				if($n - 1 != $y){
+					$tmp[$x] = $concepto;
+					$x++;
+				}
+				
+				$y++;
+			}
+			
+			Session::set("conceptos", $tmp);
+			
+			$this -> redirect("cbb/index/quitado");
+		}
+		
+		public function limpiar(){
+			$this -> render(null,null);
+			
+			$conceptos = array();
+			Session::set("conceptos", $conceptos);
+			
+			$this -> redirect("cbb/index/limpiado");
+		}
+			
 		public function folios(){
 			$this -> set_response("view");
 		}

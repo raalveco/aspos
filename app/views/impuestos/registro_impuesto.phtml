@@ -17,18 +17,12 @@
 				INFORMACION DE IMPUESTO
 			</legend>
 			<div class="row">
-				<p class="_25">
+				<p class="_50">
 					<label>Nombre</label>
 					<?= Formulario::mayusculas("nombre",$impuesto ? $impuesto -> nombre : "","class: required") ?>
 				</p>
-				<p class="_75">
-					<label>Descripción</label>
-					<?= Formulario::mayusculas("descripcion",$impuesto ? $impuesto -> descripcion : "","class: required") ?>
-				</p>
-			</div>
-			<div class="row">
 				<p class="_25">
-					<label>Tasa</label>
+					<label>Tasa (%)</label>
 					<?= Formulario::numerico("tasa",$impuesto ? $impuesto -> tasa : "","class: required") ?>
 				</p>
 				<p class="_25">
