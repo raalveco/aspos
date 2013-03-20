@@ -34,7 +34,6 @@
 			$this -> render("cbbPDF",null);
 			
 			$this -> cliente = Cliente::consultar($id);
-			
 			$this -> saludo = "Ola k ase";
 		}
 	}

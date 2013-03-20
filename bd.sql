@@ -2,22 +2,22 @@
 -- version 3.5.3
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 20-03-2013 a las 02:00:39
--- Versión del servidor: 5.5.28
--- Versión de PHP: 5.3.18
+-- Host: localhost
+-- Generation Time: Mar 20, 2013 at 03:52 AM
+-- Server version: 5.5.28
+-- PHP Version: 5.3.18
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `aspos`
+-- Database: `aspos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_concepto`
+-- Table structure for table `cbb_concepto`
 --
 
 CREATE TABLE IF NOT EXISTS `cbb_concepto` (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `cbb_concepto` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=106 ;
 
 --
--- Volcado de datos para la tabla `cbb_concepto`
+-- Dumping data for table `cbb_concepto`
 --
 
 INSERT INTO `cbb_concepto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `cantidad`, `descripcion`, `precio_unitario`, `descuento`, `importe`) VALUES
@@ -151,7 +151,7 @@ INSERT INTO `cbb_concepto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_factura`
+-- Table structure for table `cbb_factura`
 --
 
 CREATE TABLE IF NOT EXISTS `cbb_factura` (
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `cbb_factura` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=72 ;
 
 --
--- Volcado de datos para la tabla `cbb_factura`
+-- Dumping data for table `cbb_factura`
 --
 
 INSERT INTO `cbb_factura` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_folios_id`, `sucursal_id`, `serie`, `folio`, `fecha`, `no_aprobacion`, `forma_pago`, `subtotal`, `descuento`, `total`, `comentarios`, `status`, `motivo_cancelacion`, `pago`, `envio`) VALUES
@@ -255,7 +255,7 @@ INSERT INTO `cbb_factura` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_folio`
+-- Table structure for table `cbb_folio`
 --
 
 CREATE TABLE IF NOT EXISTS `cbb_folio` (
@@ -277,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `cbb_folio` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Volcado de datos para la tabla `cbb_folio`
+-- Dumping data for table `cbb_folio`
 --
 
 INSERT INTO `cbb_folio` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `serie`, `inicial`, `final`, `actual`, `fecha_recepcion`, `numero_aprobacion`, `tipo_documento`) VALUES
@@ -289,7 +289,7 @@ INSERT INTO `cbb_folio` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fe
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_impuesto`
+-- Table structure for table `cbb_impuesto`
 --
 
 CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=107 ;
 
 --
--- Volcado de datos para la tabla `cbb_impuesto`
+-- Dumping data for table `cbb_impuesto`
 --
 
 INSERT INTO `cbb_impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `nombre`, `tasa`, `importe`, `tipo`) VALUES
@@ -423,7 +423,7 @@ INSERT INTO `cbb_impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_receptor`
+-- Table structure for table `cbb_receptor`
 --
 
 CREATE TABLE IF NOT EXISTS `cbb_receptor` (
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `cbb_receptor` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
 
 --
--- Volcado de datos para la tabla `cbb_receptor`
+-- Dumping data for table `cbb_receptor`
 --
 
 INSERT INTO `cbb_receptor` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`) VALUES
@@ -520,7 +520,7 @@ INSERT INTO `cbb_receptor` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente`
+-- Table structure for table `cliente`
 --
 
 CREATE TABLE IF NOT EXISTS `cliente` (
@@ -553,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `cliente`
+-- Dumping data for table `cliente`
 --
 
 INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `tipo_cliente_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `comentarios`, `fecha_registro_at`) VALUES
@@ -563,7 +563,7 @@ INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fech
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente_tipo`
+-- Table structure for table `cliente_tipo`
 --
 
 CREATE TABLE IF NOT EXISTS `cliente_tipo` (
@@ -580,7 +580,7 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Volcado de datos para la tabla `cliente_tipo`
+-- Dumping data for table `cliente_tipo`
 --
 
 INSERT INTO `cliente_tipo` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
@@ -589,7 +589,7 @@ INSERT INTO `cliente_tipo` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contribuyente`
+-- Table structure for table `contribuyente`
 --
 
 CREATE TABLE IF NOT EXISTS `contribuyente` (
@@ -621,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Volcado de datos para la tabla `contribuyente`
+-- Dumping data for table `contribuyente`
 --
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
@@ -630,7 +630,7 @@ INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuenta`
+-- Table structure for table `cuenta`
 --
 
 CREATE TABLE IF NOT EXISTS `cuenta` (
@@ -651,7 +651,7 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `cuenta`
+-- Dumping data for table `cuenta`
 --
 
 INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `paquete_id`, `rfc`, `nombre`, `password`, `telefono_contacto`, `celular_contacto`, `correo_contacto`) VALUES
@@ -660,7 +660,7 @@ INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `impuesto`
+-- Table structure for table `impuesto`
 --
 
 CREATE TABLE IF NOT EXISTS `impuesto` (
@@ -679,7 +679,7 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Volcado de datos para la tabla `impuesto`
+-- Dumping data for table `impuesto`
 --
 
 INSERT INTO `impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tasa`, `tipo`) VALUES
@@ -689,7 +689,7 @@ INSERT INTO `impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fec
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
@@ -700,10 +700,10 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   `orden` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Volcado de datos para la tabla `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
@@ -718,12 +718,13 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (9, 'CLIENTE', 'miniconos/group.png', 'Cuentas', 'SI', 1),
 (10, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturación', 'SI', 9),
 (11, 'CLIENTE', 'miniconos/building_add.png', 'Sucursales', 'SI', 10),
-(12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11);
+(12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11),
+(13, 'CLIENTE', 'miniconos/package.png', 'Paquetes', 'SI', 12);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `moneda`
+-- Table structure for table `moneda`
 --
 
 CREATE TABLE IF NOT EXISTS `moneda` (
@@ -741,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `moneda` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Volcado de datos para la tabla `moneda`
+-- Dumping data for table `moneda`
 --
 
 INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tipo_cambio`) VALUES
@@ -752,41 +753,42 @@ INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `paquete`
+-- Table structure for table `paquete`
 --
 
 CREATE TABLE IF NOT EXISTS `paquete` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `tipo` varchar(5) NOT NULL,
-  `facturas_incluidas` smallint(6) NOT NULL,
-  `costo_factura_adicional` decimal(10,2) NOT NULL,
-  `usuarios` smallint(6) NOT NULL,
-  `almacenamiento` int(11) NOT NULL,
-  `soporte_online` varchar(2) NOT NULL DEFAULT 'SI',
-  `soporte_chat` varchar(2) NOT NULL DEFAULT 'NO',
-  `soporte_telefono` varchar(2) NOT NULL DEFAULT 'NO',
-  `multiple_moneda` varchar(2) NOT NULL DEFAULT 'NO',
-  `multiple_sucursal` varchar(2) NOT NULL DEFAULT 'NO',
-  `costo_mensual` decimal(10,2) NOT NULL,
-  `costo_anual` decimal(10,2) NOT NULL,
-  `vigencia` date NOT NULL,
-  `activo` varchar(2) NOT NULL DEFAULT 'SI',
+  `facturas_incluidas` smallint(6) DEFAULT NULL,
+  `costo_factura_adicional` decimal(10,2) DEFAULT NULL,
+  `usuarios` smallint(6) DEFAULT NULL,
+  `almacenamiento` int(11) DEFAULT NULL,
+  `soporte_online` varchar(2) DEFAULT 'SI',
+  `soporte_chat` varchar(2) DEFAULT 'NO',
+  `soporte_telefono` varchar(2) DEFAULT 'NO',
+  `multiple_moneda` varchar(2) DEFAULT 'NO',
+  `multiple_sucursal` varchar(2) DEFAULT 'NO',
+  `costo_mensual` decimal(10,2) DEFAULT NULL,
+  `costo_anual` decimal(10,2) DEFAULT NULL,
+  `vigencia` date DEFAULT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Volcado de datos para la tabla `paquete`
+-- Dumping data for table `paquete`
 --
 
 INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_factura_adicional`, `usuarios`, `almacenamiento`, `soporte_online`, `soporte_chat`, `soporte_telefono`, `multiple_moneda`, `multiple_sucursal`, `costo_mensual`, `costo_anual`, `vigencia`, `activo`) VALUES
 (1, 'GRATUITO', 'CBB', 3, '10.00', 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', '0.00', '0.00', '2013-12-31', 'SI'),
-(2, 'BASICO', 'CBB', 10, '5.00', 1, 250, 'SI', 'SI', 'NO', 'SI', 'NO', '125.00', '1350.00', '2013-12-31', 'SI');
+(2, 'BASICO', 'CBB', 10, '5.00', 1, 250, 'SI', 'SI', 'NO', 'SI', 'NO', '125.00', '1350.00', '2013-12-31', 'SI'),
+(8, 'MARZO', 'CBB', NULL, NULL, NULL, 100, 'NO', 'NO', 'NO', 'NO', 'NO', NULL, NULL, '2013-03-13', 'NO');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto`
+-- Table structure for table `producto`
 --
 
 CREATE TABLE IF NOT EXISTS `producto` (
@@ -809,7 +811,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Volcado de datos para la tabla `producto`
+-- Dumping data for table `producto`
 --
 
 INSERT INTO `producto` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `codigo`, `nombre`, `descripcion`, `categoria_id`, `impuesto_id`, `unidad_id`, `precio_unitario`, `moneda_id`, `cuenta_id`) VALUES
@@ -820,7 +822,7 @@ INSERT INTO `producto` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto_categoria`
+-- Table structure for table `producto_categoria`
 --
 
 CREATE TABLE IF NOT EXISTS `producto_categoria` (
@@ -837,7 +839,7 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Volcado de datos para la tabla `producto_categoria`
+-- Dumping data for table `producto_categoria`
 --
 
 INSERT INTO `producto_categoria` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
@@ -848,7 +850,7 @@ INSERT INTO `producto_categoria` (`id`, `cuenta_id`, `activo`, `usuario_creacion
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `seccion`
+-- Table structure for table `seccion`
 --
 
 CREATE TABLE IF NOT EXISTS `seccion` (
@@ -862,10 +864,10 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Volcado de datos para la tabla `seccion`
+-- Dumping data for table `seccion`
 --
 
 INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`, `activo`, `orden`, `fecha_registro`) VALUES
@@ -900,12 +902,14 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (29, 12, 'Impuestos', 'miniconos/money.png', 'impuestos/reporte', 'contenido', 'SI', 3, '2013-02-19 00:00:00'),
 (30, 10, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cbb/folios', 'contenido', 'SI', 4, '2012-11-01 00:00:00'),
 (31, 10, 'Todas las Facturas', 'miniconos/newspaper.png', 'cbb/reporte', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
-(32, 10, 'Nueva Factura', 'miniconos/newspaper.png', 'cbb/index', 'contenido', 'SI', 1, '2012-11-01 00:00:00');
+(32, 10, 'Nueva Factura', 'miniconos/newspaper.png', 'cbb/index', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(33, 13, 'Nuevo Paquete', 'miniconos/text_list_numbers.png', 'paquetes/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(34, 13, 'Reporte', 'miniconos/text_list_numbers.png', 'paquetes/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sucursal`
+-- Table structure for table `sucursal`
 --
 
 CREATE TABLE IF NOT EXISTS `sucursal` (
@@ -932,7 +936,7 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `unidad`
+-- Table structure for table `unidad`
 --
 
 CREATE TABLE IF NOT EXISTS `unidad` (
@@ -949,7 +953,7 @@ CREATE TABLE IF NOT EXISTS `unidad` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `unidad`
+-- Dumping data for table `unidad`
 --
 
 INSERT INTO `unidad` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
@@ -959,7 +963,7 @@ INSERT INTO `unidad` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
@@ -980,7 +984,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `avatar`, `usuario`, `password`, `nombres`, `apellidos`, `correo`) VALUES

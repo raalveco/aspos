@@ -32,28 +32,28 @@
 							<table>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Serie - Folio</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $factura -> serie ?><?= Formato::ceros($factura -> folio,3) ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> folio() -> fecha_recepcion) ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">No. de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> folio() -> numero_aprobacion) ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha Emisión</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> fecha) ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
 								</tr>
 							</table>
 						</td>
@@ -71,13 +71,12 @@
 				DATOS DEL CLIENTE
 			</div>
 			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
-				<?php $receptor = $factura -> receptor(); ?>
-				<?= $receptor -> rfc == "XXXX000000XXX" ? "" : $receptor -> rfc." :: " ?><?= $receptor -> nombre ?>
+				<?= $cliente -> rfc == "XXXX000000XXX" ? "" : $cliente -> rfc." :: " ?><?= $cliente -> nombre ?>
 				<br /><br />
-				<?= $receptor -> calle ?> <?= $receptor -> exterior ?>
+				<?= $cliente -> calle ?> <?= $cliente -> exterior ?>
 				<br />
-				<?= $receptor -> colonia ? "COLONIA ".$receptor -> colonia.", C.P.: ".$receptor -> cpostal."<br />" : "" ?>
-				<?= $receptor -> municipio ?>, <?= $receptor -> estado ?>. MÉXICO
+				<?= $cliente -> colonia ? "COLONIA ".$cliente -> colonia.", C.P.: ".$cliente -> cpostal."<br />" : "" ?>
+				<?= $cliente -> municipio ?>, <?= $cliente -> estado ?>. MÉXICO
 			</div>
 		</td>
 		<td style="width: 5px;"></td>
