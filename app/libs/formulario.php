@@ -344,7 +344,7 @@
             $bandera = true;
             
             if($registros) foreach($registros as $registro){
-                $tmp[$registro -> {$valor}] = $nombre == "profesor" || $nombre == "alumno" ? $registro -> nombre_completo : $registro -> {$opcion};
+                $tmp[$registro -> {$valor}] = $registro -> {$opcion};
                 if($seleccion == $registro -> {$valor} && $seleccion != 0){
                     $bandera = false;
                 }
@@ -369,7 +369,7 @@
             $bandera = true;
             
             if($registros) foreach($registros as $registro){
-                $tmp[$registro -> {$valor}] = $registro -> rfc." - ".$registro -> nombre;
+                $tmp[$registro -> {$valor}] = $registro -> rfc." || ".$registro -> {$opcion};
                 if($seleccion == $registro -> {$valor} && $seleccion != 0){
                     $bandera = false;
                 }

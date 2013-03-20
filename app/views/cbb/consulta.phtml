@@ -1,0 +1,141 @@
+<?php
+	$modulo = "Facturación";
+	$seccion = "Consulta Factura";
+?>
+
+<?= View::partial("base/reporte") ?>
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<?= isset($cobro) ? $cobro : "" ?>
+	<?= Formulario::inicioAjax($controller_name."/opcionesFactura/".$factura -> id, "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LA FACTURA <?= $factura -> status == "CANCELADA" ? "(CANCELADA)" : "" ?>
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Cliente (Receptor)</label>
+					<?= Formulario::selectModeloClientes("cliente", array(),"nombre","id","","readonly: readonly","data-placeholder: ".$factura -> receptor() -> rfc_nombre()) ?>
+				</p>
+				<p class="_25">
+					<label>Nombre o Razón Social</label>
+					<?= Formulario::fecha("fecha",Formato::fecha($factura -> fecha),"dd/mm/yy","readonly: readonly") ?>
+				</p> 
+				<p class="_25">
+					<label><?= "Serie / Folio" ?></label>
+					<?php
+						echo Formulario::selectModelo("serie",array(),"serie","id", "","readonly: readonly","data-placeholder: ".$factura -> serie." / ".$factura -> folio);
+					?>
+				</p>
+			</div>
+		</fieldset>
+	<?= Formulario::fin(); ?>
+	<?php $conceptos = $factura -> conceptos(); ?>
+	<?php if($conceptos){ ?>
+	<div class="grid_12">
+		<div class="box">
+			<div class="content">
+				<table id="tabla" class="styled with-prev-next" data-table-tools='{"display":false}'>
+					<thead>
+						<!-- ENCABEZADOS DE LA TABLA -->
+						<tr>
+							<!--
+							<td>
+								<input type="checkbox" name="muestra" onchange="$(this).parents('table').find(':checkbox').attr('checked', $(this).attr('checked') || false)">
+							</td>
+							-->
+							<th style="width: 30px;">No.</th>
+							<th style="width: 30px;">Cantidad</th>
+							<th style="width: 30px;">Unidad</th>
+							<th style="width: 300px;">Concepto</th>
+							<th style="width: 30px;">Precio Unitario</th>
+							<th style="width: 30px;">Importe</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- REGISTROS DE LA TABLA -->
+						<?php $subtotal = 0; ?>
+						<?php $x=0; if($conceptos) foreach($conceptos as $concepto){ $x++; ?>
+						<?php
+							$subtotal += $concepto -> cantidad * $concepto -> precio_unitario;
+						?>
+						<tr>
+							<td style="width: 15px;" align="center"><?= $x ?></td>
+							<td style="width: 100px;" align="center"><?= Formato::numero($concepto -> cantidad,2) ?></td>
+							<td style="width: 100px;" align="center"><?= $concepto -> unidad ?></td>
+							<td style="width: 300px;" align="center"><?= $concepto -> descripcion ?></td>
+							<td style="width: 100px;" align="center"><?= Formato::dinero($concepto -> precio_unitario) ?></td>
+							<td style="width: 100px;" align="right"><?= Formato::dinero($concepto -> importe) ?></td>
+						</tr>
+						<?php } ?>
+						<?php $impuestos = Impuesto::reporte("cuenta_id = ".Session::get("cuenta_id")); ?>
+						<?php $imp = count($impuestos) ?>
+						
+						<?php if($impuestos){ $total_impuestos = 0; ?>
+							<?php foreach($impuestos as $impuesto){ ?>
+								<?php $total_impuestos += $subtotal * $impuesto -> tasa / 100 ?>
+							<?php } ?>
+						<?php } ?>
+						<?php $total = $subtotal + $total_impuestos ?>
+						<tr>
+							<th colspan="4" rowspan="<?= $imp + 2 ?>">
+								<?= Formato::totalLetra($subtotal + $total_impuestos); ?>
+							</th>
+							<td align="center">SubTotal</th>
+							<td align="right"><?= Formato::dinero($subtotal) ?></td>
+						</tr>
+						<?php if($impuestos){ ?>
+							<?php foreach($impuestos as $impuesto){ ?>
+								<tr>
+									<td align="center"><?= $impuesto -> nombre ?> (<?= $impuesto -> tasa ?>%)</td>
+									<td align="right"><?= Formato::dinero($subtotal * $impuesto -> tasa / 100) ?></td>
+								</tr>
+							<?php } ?>
+						<?php } ?>
+						<tr>
+							<th>TOTAL</th>
+							<td align="right"><b><?= Formato::dinero($subtotal + $total_impuestos) ?></b></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+	<?= Formulario::inicioAjax($controller_name."/opcionesFactura/".$factura -> id, "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
+		<fieldset>
+			<legend>
+				OPCIONES DE LA FACTURA
+			</legend>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<table>
+					<tr>
+						<!--
+						<td><?= Html::linkAjax($controller_name."/enviar/".$factura -> id, "Enviar Correo","contenido","class: button") ?></td>
+						<td><?= Html::linkAjax($controller_name."/pagar/".$factura -> id, "Registrar Pago","contenido","class: button") ?></td>
+						-->
+						<td><?= Html::link("pdf/cbb/".$factura -> id, "Imprimir","class: button", "target: _blank") ?></td>
+					</tr>
+				</table>
+			</div>
+			<?php if($factura -> status != "CANCELADA"){ ?>
+			<div class="left" style="margin: 5px;">
+				<table>
+					<tr>
+						<td>
+							<?= Html::linkAjaxCancelar($controller_name."/cancelar/".$factura -> id, "Cancelar","contenido","class: button red") ?>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<?php } ?>
+		</div>
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->

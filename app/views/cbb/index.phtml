@@ -8,10 +8,10 @@
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
 
 <!-- Here goes the content. -->
+
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
-	<?= Formulario::inicioAjax($factura ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
-	<?php if($factura) echo Formulario::oculto("factura", $factura -> id) ?>
+	<?= Formulario::inicioAjax($controller_name."/completar", "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
 		<fieldset>
 			<legend>
 				INFORMACIÓN DE LA FACTURA
@@ -23,7 +23,7 @@
 				</p>
 				<p class="_25">
 					<label>Nombre o Razón Social</label>
-					<?= Formulario::fecha("fecha",date("d/m/Y"),"dd/mm/yy",false,0,"class: required") ?>
+					<?= Formulario::fecha("fecha",date("d/m/Y"),"dd/mm/yy",$desde,$hasta,"class: required") ?>
 				</p> 
 				<p class="_25">
 					<label><?= $sucursales ? "Sucursal" : "Serie / Folio" ?></label>
@@ -38,6 +38,16 @@
 				</p>
 			</div>
 		</fieldset>
+		<?php if($conceptos){ ?>
+				<div class="actions">
+					<div class="right" style="margin: 5px;">
+						<?= Formulario::submit("Generar Factura") ?>
+					</div>
+					<div class="left" style="margin: 5px;">
+						<?= Html::linkAjax($controller_name."/limpiar", "Limpiar","contenido","class: button red") ?>
+					</div>
+				</div>
+			<?php } ?>
 	<?= Formulario::fin(); ?>
 	<?php if($conceptos){ ?>
 	<div class="grid_12">
@@ -120,6 +130,7 @@
 		</div>
 	</div>
 	<?php } ?>
+	<?= Formulario::fin(); ?>
 	<?= $factura ? "" : Formulario::inicioAjax($controller_name."/agregar", "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
 	<?php if($factura) echo Formulario::oculto("factura", $factura -> id) ?>
 		<fieldset>
@@ -151,22 +162,4 @@
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
-	<?php if($conceptos){ ?>
-	<span class="grid_12">
-		<table style="width: 100%">
-			<tr>
-				<td align="left">
-					<?= Formulario::inicioAjax("cbb/limpiar", "contenido", false, "style: background: none; border: 0px; margin-bottom: 5px;") ?>
-						<?= Formulario::submit("Limpiar") ?>
-					<?= Formulario::fin() ?>
-				</td>
-				<td align="right">
-					<?= Formulario::inicioAjax("cbb/completar", "contenido", false, "style: background: none; border: 0px; margin-bottom: 5px;") ?>
-						<?= Formulario::submit("Completar") ?>
-					<?= Formulario::fin() ?>
-				</td>
-			</tr>
-		</table>
-	</span>
-	<?php } ?>
 </section><!-- End of #content -->

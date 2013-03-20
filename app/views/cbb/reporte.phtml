@@ -1,0 +1,66 @@
+<?php
+	$modulo = "Facturas";
+	$seccion = "Todas las Facturas"; 
+
+	$campos = array("id","fecha","serie","folio","subtotal","total","status");
+	$orden = "id ASC";
+	$cantidad = 100;
+	$filtro = Session::get("filtro");
+	
+	$facturas = CbbFactura::reporte($filtro,$orden,0,$cantidad,$campos);
+?>
+
+<?= View::partial("base/reporte") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<div class="grid_12">
+		<div class="box">
+			<div class="header">
+				<h2><?= "FACTURAS" ?></h2>
+			</div>
+			<div class="content">
+				<div class="tabletools">
+					<div class="right">
+						<!-- LINKS PARA LOS FILTROS -->
+						<?= Html::linkAjax($controller_name."/".$action_name."/ANO", 'AÑO', "contenido","title: Filtrar AÑO") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/MES", 'MES', "contenido","title: Filtrar MES") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/SEMANA", 'SEMANA', "contenido","title: Filtrar SEMANA") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/DIA", 'DIA', "contenido","title: Filtrar DIA") ?>
+					</div>
+				</div>
+				<table id="tabla" class="dynamic styled with-prev-next" data-table-tools='{"display":false}'>
+					<thead>
+						<!-- ENCABEZADOS DE LA TABLA -->
+						<tr>
+							<th>Fecha</th>
+							<th>Serie</th>
+							<th>Receptor</th>
+							<th>SubTotal</th>
+							<th>Total</th>
+							<th>Estado</th>
+							<td class="center" style="font-weight: bold;"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- REGISTROS DE LA TABLA -->
+						<?php if($facturas) foreach($facturas as $factura){ ?>
+						<tr>
+							<td class="center"><?= Formato::fecha($factura -> fecha) ?></td>
+							<td class="center"><?= $factura -> serie ?> - <?= Formato::ceros($factura -> folio,4) ?></td>
+							<td class="center"><?= $factura -> receptor() ? $factura -> receptor() -> nombre : "" ?></td>
+							<td class="center"><?= Formato::dinero($factura -> subtotal) ?></td>
+							<td class="center"><?= Formato::dinero($factura -> total) ?></td>
+							<td class="center"><?= $factura -> status ?></td>
+							<td style="width: 15px;">
+								<?= Html::linkAjax($controller_name."/consulta/".$factura -> id, '<i class="icon-file"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Consultar") ?>
+							</td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

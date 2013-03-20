@@ -1,7 +1,13 @@
 <?php
 	class CbbFactura extends ActiveRecord{
 		public static function registrar($folios, $sucursal, $serie, $folio, $fecha){
-			if(CbbFactura::existe("cuenta_id = '".Session::get("cuenta_id")."' serie = '".$serie."' AND folio = '".$folio."'")){
+			if(CbbFactura::existe("cuenta_id = '".Session::get("cuenta_id")."' AND serie = '".$serie."' AND folio = '".$folio."'")){
+				return false;
+			}
+			
+			$folios = CbbFolio::consultar($folios);
+			
+			if(!$folios){
 				return false;
 			}
 			
@@ -24,7 +30,7 @@
 			
 			Load::lib("formato");
 			
-			$factura -> cbb_folios_id = $folios;
+			$factura -> cbb_folios_id = $folios -> id;
 			$factura -> sucursal_id = $sucursal;
 			$factura -> serie = $serie;
 			$factura -> folio = $folio;
@@ -32,6 +38,11 @@
 			$factura -> fecha = Formato::FechaDB($fecha);
 			
 			$factura -> save();
+			
+			if($factura){
+				$folios -> actual = $folios -> actual + 1;
+				$folios -> save();
+			}
 			
 			return $factura;
 		}
@@ -50,6 +61,32 @@
 		
 		public function folio(){
 			return CbbFolio::consultar("cbb_id = ".$this -> id);
+		}
+		
+		public function sucursal(){
+			return Sucursal::consultar($this -> sucursal_id);
+		}
+		
+		public static function fechaUltimaFactura(){
+			$factura = CbbFactura::buscar("cuenta_id = '".Session::get("cuenta_id")."'","fecha DESC");
+			
+			if($factura){
+				$d = substr($factura -> fecha, 8,2);
+				$m = substr($factura -> fecha, 5,2);
+				$y = substr($factura -> fecha, 0,4);
+				
+				if(date("d/m/Y") == $d."/".$m."/".$y){
+					$time = time();
+				}
+				else{
+					$time = mktime(0,0,0,$m,$d,$y);
+				}
+				
+				return date("d/m/Y",$time);
+			}
+			else{
+				return date("01/01/Y");
+			}
 		}
 	}
 ?>

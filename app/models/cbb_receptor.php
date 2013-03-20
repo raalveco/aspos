@@ -32,5 +32,9 @@
 			
 			return $receptor;
 		}
+		
+		public function rfc_nombre(){
+			return $this -> rfc." || ".$this -> nombre;
+		}
 	}
 ?>

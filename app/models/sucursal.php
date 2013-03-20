@@ -28,5 +28,25 @@
 			
 			return $sucursal;
 		}
+		
+		public function cbbFolios(){
+			$folios = CbbFolio::consultar($this -> cbb_folios_id);
+			
+			if($folios -> actual > $folios -> final){
+				$folios = CbbFolio::consultar("serie = '".$folios -> serie."' AND inicial <= ".$folios -> actual." AND final >= ".$folios -> actual);
+			
+				if($folios){
+					$this -> cbb_folios_id = $folios -> id;
+					$this -> save();
+					
+					return $folios;
+				}
+				else{
+					return false;
+				}
+			}
+			
+			return $folios;
+		}
 	}
 ?>

@@ -8,6 +8,14 @@
 			
 			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
 			
+			$paquete = $this -> cuenta -> paquete();
+			
+			Load::lib("permisos");
+			
+			if(!Permisos::facturasIncluidas(Session::get("cuenta_id"))){
+				$this -> alerta = Alerta::warning("El Paquete contratado solo te permite emitir <b>".$paquete -> facturas_incluidas."</b> facturas por mes, emitir una nueva factura tendrá un costo de <b>".$paquete -> costo_factura_adicional." Pesos</b>.");
+			}
+			
 			if(Session::get("conceptos")){
 				$conceptos = Session::get("conceptos");
 			}
@@ -57,13 +65,70 @@
 				}
 			}
 			
+			$this -> desde = CbbFactura::fechaUltimaFactura();
+			$this -> hasta = date("d/m/Y");
+			
 			if($mensaje){
 				switch($mensaje){
 					case "agregado": $this -> alerta = Alerta::success("El Concepto ha sido registrado correctamente"); break;
 					case "quitado": $this -> alerta = Alerta::success("El Concepto ha sido eliminado correctamente"); break;
 					case "limpiado": $this -> alerta = Alerta::success("Los Conceptos de la Factura han sido eliminados."); break;
+					case "completado": $this -> alerta = Alerta::success("La Factura ha sido generada correctamente."); break;
+					case "no_folios": $this -> alerta = Alerta::error("No se encontraron folios para esta Sucursal/Serie."); break;
 				}
 			}
+		}
+		
+		public function reporte($filtro = false){
+			$this -> set_response("view");
+			
+			$si = date("N") - 1;
+			$sf = 7 - date("N");
+			
+			switch($filtro){
+				case "DIA": Session::set("filtro","fecha >= '".date("Y-m-d 00:00:00")."' AND fecha <= '".date("Y-m-d 23:59:59")."'"); break;
+				case "SEMANA": Session::set("filtro","fecha >= '".date("Y-m-d 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-d 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				case "MES": Session::set("filtro","fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				case "AÑO": Session::set("filtro","fecha >= '".date("Y-01-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-12-31 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				default: Session::set("filtro","fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+			}
+		}
+		
+		public function consulta($cbb_id, $mensaje = false){
+			$this -> set_response("view");
+			
+			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			
+			$this -> factura = CbbFactura::consultar($cbb_id);
+			
+			if($mensaje){
+				switch($mensaje){
+					case "generada": $this -> alerta = Alerta::success("La Factura ha sido generada correctamente."); break;
+					case "cancelado": $this -> alerta = Alerta::success("La Factura ha sido cancelada correctamente."); break;
+				}
+			}
+			
+			if($mensaje == "generada"){
+				$paquete = $this -> cuenta -> paquete();
+				
+				Load::lib("permisos");
+				
+				if(!Permisos::facturasIncluidas(Session::get("cuenta_id"))){
+					//GENERAR CARGO
+					$this -> cobro = Alerta::information("Se ha generado un cargo por ".$paquete -> costo_factura_adicional." Pesos que se verán reflejados en su próxima factura.");
+				}
+			}
+		}
+		
+		public function cancelar($cbb_id){
+			$this -> render(null,null);
+			
+			$factura = CbbFactura::consultar($cbb_id);
+			
+			$factura -> status = "CANCELADA";
+			$factura -> guardar();
+			
+			$this -> redirect("cbb/consulta/".$factura -> id."/cancelado");
 		}
 
 		public function agregar(){
@@ -88,9 +153,6 @@
 				if($tmp["id"] == $producto -> id){
 					$px = $n;
 					$concepto = $tmp;
-					
-					echo $px."<br>";
-					echo $tmp["id"]."<br>";
 					
 					break;
 				}
@@ -160,6 +222,94 @@
 			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/index/limpiado");
+		}
+		
+		public function completar(){
+			$this -> render(null,null);
+			
+			$folios = false;
+			$sucursal = 0;
+			
+			if($this -> post("sucursal")){
+				$sucursal_id = $this -> post("sucursal");
+				
+				$sucursal = Sucursal::consultar($sucursal_id);
+				
+				$folios = $sucursal -> cbbFolios();
+			}
+			
+			if($this -> post("serie")){
+				$folios_id = $this -> post("serie");
+				
+				$folios = CbbFolio::consultar($folios_id);
+			}
+			
+			if($folios){
+				$factura = CbbFactura::registrar($folios -> id, $this -> post("sucursal"), $folios -> serie, $folios -> actual, Formato::FechaDB($this -> post("fecha")));
+				
+				if($factura){
+					$factura -> no_aprobacion = $folios -> numero_aprobacion;
+					$factura -> forma_pago = "UNA SOLA EXHIBICIÓN";
+					
+					$conceptos = Session::get("conceptos");
+					
+					$subtotal = 0;
+					
+					if($conceptos) foreach($conceptos as $concepto){
+						$subtotal += $concepto["cantidad"] * $concepto["precio"];
+						
+						$partida = CbbConcepto::registrar($factura -> id, $concepto["cantidad"], $concepto["producto"], $concepto["precio"]);
+					}
+					
+					$impuestos = Impuesto::reporte("cuenta_id = ".Session::get("cuenta_id"));
+					
+					if($impuestos){
+						$total_impuestos = 0;
+						foreach($impuestos as $impuesto){
+							$tmp = $subtotal * $impuesto -> tasa / 100;
+							
+							$total_impuestos += $tmp;
+							
+							$tax = CbbImpuesto::registrar($factura -> id, $impuesto -> nombre, $impuesto -> tasa, $tmp, $impuesto -> tipo);
+						}
+					}
+					
+					$total = $subtotal + $total_impuestos;
+					
+					$factura -> subtotal = $subtotal;
+					$factura -> total = $total;
+					$factura -> status = "EMITIDA";
+					$factura -> pago = "NO";
+					$factura -> envio = "NO";
+					
+					$factura -> save();
+					
+					$cliente_id = $this -> post("cliente");
+				
+					$cliente = Cliente::consultar($cliente_id);
+					
+					$receptor = CbbReceptor::registrar($factura -> id, $cliente -> rfc, $cliente -> nombre, $cliente -> estado, $cliente -> pais);
+					
+					if($receptor){
+						$receptor -> calle = $cliente -> calle;
+						$receptor -> exterior = $cliente -> exterior;
+						$receptor -> interior = $cliente -> interior;
+						$receptor -> colonia = $cliente -> colonia;
+						
+						$receptor -> localidad = $cliente -> localidad;
+						$receptor -> municipio = $cliente -> municipio;
+						$receptor -> cpostal = $cliente -> cpostal;
+						
+						$receptor -> save();
+					}
+				}
+			}
+			else{
+				$this -> redirect("cbb/index/no_folios");
+				return;
+			}
+			
+			$this -> redirect("cbb/consulta/".$factura -> id."/generada");
 		}
 			
 		public function folios(){

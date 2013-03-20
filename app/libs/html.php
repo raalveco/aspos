@@ -71,6 +71,23 @@
             return link_to($params);
         }
 		
+		public static function linkAjaxCancelar($accion, $text, $contenedor){
+            $params = is_array($accion) ? $accion : Util::getParams(func_get_args());
+            
+            $params["rel"] = "#" . $contenedor;
+			$params["class"] = isset($params["class"]) ? $params["class"]." jsRemoteCancelar" : "jsRemoteCancelar";
+			$params["id"] = isset($params["id"]) ? $params["id"] : "jsRemoteCancelar";
+            
+            $controlador = substr($accion,0,strpos($accion,"/"));
+            $acciontmp = substr($accion,strpos($accion,"/")+1);
+            
+            if(strpos($acciontmp,"/")!==false){
+            	$acciontmp = substr($acciontmp,0,strpos($acciontmp,"/"));
+            }
+            
+            return link_to($params);
+        }
+		
 		public static function linkear($url, $texto, $contenedor = ""){
 			if($contenedor == ""){
 				

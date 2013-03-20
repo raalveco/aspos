@@ -18,8 +18,8 @@
 			$concepto -> fecha_creacion = date("Y-m-d H:i:s");
 			$concepto -> fecha_edicion = date("Y-m-d H:i:s");
 				
-			if(CbbConcepto::existe("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descipcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."")){
-				$concepto = CbbConcepto::consultar("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descipcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."");
+			if(CbbConcepto::existe("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."")){
+				$concepto = CbbConcepto::consultar("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."");
 				
 				$cantidad += $concepto -> cantidad;
 			}
