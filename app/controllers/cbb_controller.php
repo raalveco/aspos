@@ -259,6 +259,9 @@
 						$subtotal += $concepto["cantidad"] * $concepto["precio"];
 						
 						$partida = CbbConcepto::registrar($factura -> id, $concepto["cantidad"], $concepto["producto"], $concepto["precio"]);
+					
+						$partida -> unidad = $concepto["unidad"];
+						$partida -> guardar();
 					}
 					
 					$impuestos = Impuesto::reporte("cuenta_id = ".Session::get("cuenta_id"));

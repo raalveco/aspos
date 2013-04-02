@@ -32,5 +32,9 @@
 		public function paquete(){
 			return Paquete::consultar($this -> paquete_id);
 		}
+		
+		public function contribuyente(){
+			return Contribuyente::consultar("cuenta_id = ".$this -> id);
+		}
 	}
 ?>

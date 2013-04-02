@@ -1,0 +1,58 @@
+<?php
+	$modulo = "Configuración";
+	$seccion = "Modificar Contribuyente";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+<!-- Here goes the content. -->
+<script>
+	function stopUpload(success){
+	      if (success == 1){
+	         document.getElementById('alerta').innerHTML =
+	           '<div class="alert success"><span class="icon"></span><span class="close">x</span>Archivo cargado correctamente.</div>';
+	      }
+	      else {
+	         document.getElementById('alerta').innerHTML = 
+	           '<span class="emsg">There was an error during file upload!<\/span><br/><br/>';
+	      }
+	      
+	      return true;   
+	}
+</script>
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<span id="alerta" class="grid_12"></span>
+	<?= Formulario::inicio($controller_name."/cargarImagenes", false, "class: grid_12", "target: upload_target") ?>
+	<?php if($contribuyente) echo Formulario::oculto("contribuyente", $contribuyente -> id) ?>
+		<fieldset>
+			<legend>
+				IMAGENES DEL CONTRIBUYENTE
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Cedula Fiscal</label>
+					<?= Formulario::archivo("cedula","") ?>
+				</p>
+				<p class="_50">
+					<label>Logotipo</label>
+					<?= Formulario::archivo("logotipo","") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit("Cargar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Formulario::reset("Cancelar") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;">
+	<script language="javascript" type="text/javascript">
+	   alert("Iframe");
+	   window.top.window.stopUpload(<?php echo $result; ?>);
+	</script> 
+</iframe>

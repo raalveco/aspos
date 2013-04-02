@@ -39,7 +39,7 @@
 			$nombre = utf8_decode($this -> post("nombre"));
 			$rfc = utf8_decode($this -> post("rfc"));
 			
-			$cuenta = Cuenta::registrar($rfc, $nombre);
+			$cuenta = Cuenta::registrar($rfc, $nombre, $this -> post("paquete"));
 			
 			if($cuenta){
 				
@@ -54,7 +54,22 @@
 				$password = Formato::ceros(rand(0,999999),6);
 				$cuenta -> password = sha1($password);
 				
-				$cuenta -> save();
+				$cuenta -> guardar();
+				
+				$contribuyente = Contribuyente::registrar($rfc, $nombre);
+				$contribuyente -> cuenta_id = $cuenta -> id;
+				
+				$contribuyente -> calle = utf8_decode($this -> post("calle"));
+				$contribuyente -> exterior = utf8_decode($this -> post("exterior"));			
+				$contribuyente -> interior = utf8_decode($this -> post("interior"));				
+				$contribuyente -> colonia = utf8_decode($this -> post("colonia"));
+				$contribuyente -> localidad = utf8_decode($this -> post("localidad"));			
+				$contribuyente -> cpostal = utf8_decode($this -> post("cpostal"));				
+				$contribuyente -> municipio = utf8_decode($this -> post("municipio"));
+				$contribuyente -> estado = utf8_decode($this -> post("estado"));			
+				$contribuyente -> pais = utf8_decode($this -> post("pais"));
+				
+				$contribuyente -> guardar();
 				
 				$this -> alerta = Alerta::success("La Cuenta ha sido REGISTRADA correctamente. [Contraseña: ".$password."][ENVIAR CORREO]");
 			}
@@ -89,8 +104,11 @@
 			$cuenta = Cuenta::consultar($this -> post("cuenta"));
 			
 			if($cuenta){
+				$contribuyente = $cuenta -> contribuyente();
+				
 				$cuenta -> nombre = utf8_decode($this -> post("nombre"));
 				$cuenta -> rfc = utf8_decode($this -> post("rfc"));
+				$cuenta -> paquete_id = utf8_decode($this -> post("paquete"));
 				
 				$cuenta -> activo = utf8_decode($this -> post("activo"));
 				
@@ -107,9 +125,21 @@
 				
 				$cuenta -> fecha_edicion = date("Y-m-d H:i:s");
 				
-				$cuenta -> save();
+				$cuenta -> guardar();
 				
 				$this -> cuenta = $cuenta;
+				
+				$contribuyente -> calle = utf8_decode($this -> post("calle"));
+				$contribuyente -> exterior = utf8_decode($this -> post("exterior"));			
+				$contribuyente -> interior = utf8_decode($this -> post("interior"));				
+				$contribuyente -> colonia = utf8_decode($this -> post("colonia"));
+				$contribuyente -> localidad = utf8_decode($this -> post("localidad"));			
+				$contribuyente -> cpostal = utf8_decode($this -> post("cpostal"));				
+				$contribuyente -> municipio = utf8_decode($this -> post("municipio"));
+				$contribuyente -> estado = utf8_decode($this -> post("estado"));			
+				$contribuyente -> pais = utf8_decode($this -> post("pais"));
+				
+				$contribuyente -> guardar();
 				
 				$this -> alerta = Alerta::success("La Cuenta ha sido ACTUALIZADA correctamente.");
 			}

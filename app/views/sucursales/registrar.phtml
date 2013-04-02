@@ -1,6 +1,9 @@
 <?php
 	$modulo = "Sucursales";
 	$seccion = $sucursal ? "Modificar Sucursal" : "Nueva Sucursal";
+	
+	$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+	$paquete = $cuenta -> paquete();
 ?>
 
 <?= View::partial("base/edicion") ?>
@@ -18,10 +21,6 @@
 			</legend>
 			<div class="row">
 				<p class="_25">
-					<label>Código</label>
-					<?= Formulario::mayusculas("codigo", $sucursal ? $sucursal -> codigo : "") ?>
-				</p>
-				<p class="_25">
 					<label>Nombre</label>
 					<?= Formulario::mayusculas("nombre",$sucursal ? $sucursal -> nombre : "","class: required") ?>
 				</p> 
@@ -29,6 +28,26 @@
 					<label>Domicilio</label>
 					<?= Formulario::mayusculas("domicilio",$sucursal ? $sucursal -> domicilio : "") ?>
 				</p>
+				<p class="_25">
+					<label>Serie / Folios</label>
+					<?php if($paquete -> tipo == "CBB"){ ?>
+						<?php $folios = CbbFolio::distintos("serie","cuenta_id = ".Session::get("cuenta_id"),"serie ASC"); ?>
+						<?php
+							$tmp = array();
+							if($folios) foreach($folios as $folio){
+								$tpx = CbbFolio::buscar("cuenta_id = ".Session::get("cuenta_id")." AND serie = '".$folio."' AND actual >= inicial AND actual <= final","inicial ASC");
+								$tmp[$tpx -> id] = $tpx;
+							}
+						?>
+						<?= Formulario::selectModelo("serie",$tmp,"serie","id",$sucursal ? $sucursal -> cbb_folios_id : "","class: required search","data-placeholder: Selecciona Serie") ?>
+					<?php } ?>
+					<?php if($paquete -> tipo == "CFD"){ ?>
+						
+					<?php } ?>
+					<?php if($paquete -> tipo == "CFDI"){ ?>
+						
+					<?php } ?>
+				</p> 
 			</div>
 			<div class="row">
 				<p class="_25">
@@ -37,7 +56,7 @@
 				</p>
 				<p class="_25">
 					<label>Ciudad</label>
-					<?= Formulario::mayusculas("ciudad", $sucursal ? $sucursal -> ciudad : "","class: required") ?>
+					<?= Formulario::mayusculas("ciudad", $sucursal ? $sucursal -> ciudad : "") ?>
 				</p> 
 				<p class="_25">
 					<label>Estado</label>

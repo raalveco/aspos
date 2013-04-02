@@ -5,12 +5,19 @@
 
 <?= View::partial("base/edicion") ?>
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
-
 <!-- Here goes the content. -->
+<script>
+	function stopUpload(){
+	      document.getElementById('alerta').innerHTML = '<div class="alert success"><span class="icon"></span><span class="close">x</span>El Contribuyente ha sido ACTUALIZADO correctamente.</div>';
+	      
+	      return true;   
+	}
+</script>
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
+	<span id="alerta" class="grid_12"></span>
 	<h1 class="grid_12"><?= "Modificar Contribuyente"?></h1>
-	<?= Formulario::inicioAjax($controller_name."/modificarContribuyente", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::inicio($controller_name."/modificarContribuyente", false, "class: grid_12", "target: upload_target") ?>
 	<?php if($contribuyente) echo Formulario::oculto("contribuyente", $contribuyente -> id) ?>
 		<fieldset>
 			<legend>
@@ -28,6 +35,16 @@
 				<p class="_25">
 					<label>Nombre Comercial</label>
 					<?= Formulario::mayusculas("nombre_comercial",$contribuyente ? $contribuyente -> nombre_comercial : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Cedula Fiscal</label>
+					<?= Formulario::archivo("cedula","") ?>
+				</p>
+				<p class="_50">
+					<label>Logotipo</label>
+					<?= Formulario::archivo("logotipo","") ?>
 				</p>
 			</div>
 		</fieldset>
@@ -107,3 +124,4 @@
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
 </section><!-- End of #content -->
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

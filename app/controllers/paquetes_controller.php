@@ -8,9 +8,18 @@
 			$this -> redirect("paquetes/reporte");
 		}
 		
-		public function reporte(){
+		public function reporte($filtro = "todos"){
 			$this -> set_response("view");
-			Session::set("filtro","id>0");
+			
+			switch($filtro){
+				case "activos": Session::set("filtro","activo = 'SI'"); break;
+				case "inactivos": Session::set("filtro","activo = 'NO'"); break;
+				case "vigentes": Session::set("filtro","vigencia > '".date("Y-m-d")."'"); break;
+				case "cbb": Session::set("filtro","tipo = 'CBB'"); break;
+				case "cfd": Session::set("filtro","tipo = 'CFD'"); break;
+				case "cfdi": Session::set("filtro","tipo = 'CFDI'"); break;
+				case "default": Session::set("filtro","id>0"); break;
+			}
 		}
 		
 		public function registro(){

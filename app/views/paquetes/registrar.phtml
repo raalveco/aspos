@@ -17,14 +17,20 @@
 				INFORMACIÓN DE PAQUETE
 			</legend>
 			<div class="row">
-				<p class="_25">
+				<p class="_50">
 					<label>Nombre</label>
 					<?= Formulario::mayusculas("nombre", $paquete ? $paquete -> nombre: "") ?>
 				</p>
 				<p class="_25">
 					<label>Tipo</label>
 					<?= Formulario::select("tipo",array("CBB" => "CBB","CFD" => "CFD","CFDI" => "CFDI"),$paquete ? $paquete -> tipo  : "CBB","data-placeholder: Selecciona Tipo") ?>
-				</p> 
+				</p>
+				<p class="_25">
+					<label>Activo</label>
+					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> activo  : "NO","class: search required","data-placeholder: Activo?") ?>
+				</p>
+			</div>
+			<div class="row">
 				<p class="_25">
 					<label>Facturas Incluidas</label>
 					<?= Formulario::numerico("facturas_incluidas",$paquete ? $paquete -> facturas_incluidas : "") ?>
@@ -33,30 +39,16 @@
 					<label>Costo Factura Adicional</label>
 					<?= Formulario::numerico("costo_factura_adicional", $paquete ? $paquete -> costo_factura_adicional : "") ?>
 				</p>
-			</div>
-			<div class="row">
 				<p class="_25">
 					<label>Número de Usuarios</label>
 					<?= Formulario::numerico("usuarios", $paquete ? $paquete -> usuarios : "") ?>
 				</p> 
 				<p class="_25">
-					<label>Alamcenamiento</label>
+					<label>Almacenamiento</label>
 					<?= Formulario::numerico("almacenamiento",$paquete ? $paquete -> almacenamiento : "") ?>
-				</p>
-				<p class="_25">
-					<label>Soporte Online</label>
-					<?= Formulario::select("soporte_online",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_online  : "NO","class: search required","data-placeholder: Soporte Activo?") ?>
-				</p>
-				<p class="_25">
-					<label>Soporte Chat</label>
-					<?= Formulario::select("soporte_chat",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_chat  : "NO","class: search required","data-placeholder: Soporte Activo?") ?>
 				</p>
 			</div>
 			<div class="row">
-				<p class="_25">
-					<label>Soporte Telefono</label>
-					<?= Formulario::select("soporte_telefono",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_telefono  : "NO","class: search required","data-placeholder: Soporte Activo?") ?>
-				</p> 
 				<p class="_25">
 					<label>Multiple Moneda</label>
 					<?= Formulario::select("multiple_moneda",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> multiple_moneda  : "NO","class: search required","data-placeholder: Multiple Moneda?") ?>
@@ -69,19 +61,27 @@
 					<label>Costo Mensual</label>
 					<?= Formulario::numerico("costo_mensual", $paquete ? $paquete -> costo_mensual : "") ?>
 				</p>
-			</div>
-			<div class="row">
 				<p class="_25">
 					<label>Costo Anual</label>
 					<?= Formulario::numerico("costo_anual", $paquete ? $paquete -> costo_anual : "") ?>
 				</p> 
+			</div>
+			<div class="row">
 				<p class="_25">
-					<label>Vigencia</label>
-					<?= Formulario::fecha("vigencia",$paquete ? $paquete -> vigencia : "") ?>
+					<label>Soporte Online</label>
+					<?= Formulario::select("soporte_online",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_online  : "SI","class: search required","data-placeholder: Soporte Activo?") ?>
 				</p>
 				<p class="_25">
-					<label>Activo</label>
-					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> activo  : "NO","class: search required","data-placeholder: Activo?") ?>
+					<label>Soporte Chat</label>
+					<?= Formulario::select("soporte_chat",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_chat  : "NO","class: search required","data-placeholder: Soporte Activo?") ?>
+				</p>
+				<p class="_25">
+					<label>Soporte Telefono</label>
+					<?= Formulario::select("soporte_telefono",array("SI" => "SI","NO" => "NO"),$paquete ? $paquete -> soporte_telefono  : "NO","class: search required","data-placeholder: Soporte Activo?") ?>
+				</p> 
+				<p class="_25">
+					<label>Vigencia</label>
+					<?= Formulario::fecha("vigencia",$paquete ? $paquete -> vigencia : date("d/m/Y", mktime(0,0,0,12,31,date("Y")))) ?>
 				</p>
 			</div>
 		</fieldset>

@@ -22,7 +22,7 @@
 		}
 		
 		public function registrar(){
-			$this -> render("reporte");		
+			$this -> render("reporte");
 			
 			$nombre = utf8_decode($this -> post("nombre"));			
 			
@@ -35,6 +35,21 @@
 				$sucursal -> ciudad = utf8_decode($this -> post("ciudad"));
 				$sucursal -> estado = utf8_decode($this -> post("estado"));
 				$sucursal -> cpostal = utf8_decode($this -> post("cpostal"));
+				
+				$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+				$paquete = $cuenta -> paquete();
+				
+				if($paquete -> tipo == "CBB"){
+					$sucursal -> cbb_folios_id = utf8_decode($this -> post("serie"));
+				}
+				
+				if($paquete -> tipo == "CFD"){
+					$sucursal -> cfd_folios_id = utf8_decode($this -> post("serie"));
+				}
+				
+				if($paquete -> tipo == "CFDI"){
+					$sucursal -> cfdi_folios_id = utf8_decode($this -> post("serie"));
+				}
 				
 				$sucursal -> guardar();
 				
@@ -76,6 +91,21 @@
 				$sucursal -> ciudad = utf8_decode($this -> post("ciudad"));
 				$sucursal -> estado = utf8_decode($this -> post("estado"));
 				$sucursal -> cpostal = utf8_decode($this -> post("cpostal"));
+				
+				$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+				$paquete = $cuenta -> paquete();
+				
+				if($paquete -> tipo == "CBB"){
+					$sucursal -> cbb_folios_id = utf8_decode($this -> post("serie"));
+				}
+				
+				if($paquete -> tipo == "CFD"){
+					$sucursal -> cfd_folios_id = utf8_decode($this -> post("serie"));
+				}
+				
+				if($paquete -> tipo == "CFDI"){
+					$sucursal -> cfdi_folios_id = utf8_decode($this -> post("serie"));
+				}
 				
 				$sucursal -> guardar();
 				

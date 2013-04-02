@@ -1,5 +1,5 @@
 <?php
-	class Cuenta extends ActiveRecord{ 
+	class Cuenta extends ActiveRecord{
 		public static function registrar($rfc, $nombre){
 			if(Cuenta::existe("rfc = '".$rfc."'")){
 				return false;
@@ -9,13 +9,13 @@
 			
 			$cuenta -> activo = "SI";
 			
-			if(Session::get("usuario_id")){
-				$tipo -> usuario_creacion_id = Session::get("usuario_id");	
-				$tipo -> usuario_edicion_id = Session::get("usuario_id");
+			if(Session::get("administrador_id")){
+				$cuenta -> usuario_creacion_id = Session::get("administrador_id");	
+				$cuenta -> usuario_edicion_id = Session::get("administrador_id");
 			}
 			else{
-				$tipo -> usuario_creacion_id = 0;	
-				$tipo -> usuario_edicion_id = 0;
+				$cuenta -> usuario_creacion_id = 0;	
+				$cuenta -> usuario_edicion_id = 0;
 			}
 			
 			$cuenta -> fecha_creacion = date("Y-m-d H:i:s");
@@ -31,6 +31,10 @@
 		
 		public function paquete(){
 			return Paquete::consultar($this -> paquete_id);
+		}
+		
+		public function contribuyente(){
+			return Contribuyente::consultar("cuenta_id = ".$this -> id);
 		}
 	}
 ?>

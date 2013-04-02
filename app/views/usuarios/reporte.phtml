@@ -10,6 +10,13 @@
 	$usuarios = usuario::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>
 
+<?php
+	$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+	$paquete = $cuenta -> paquete();
+	
+	Load::lib("estadistica");
+?>
+
 <?= View::partial("base/reporte") ?>
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
 
@@ -38,12 +45,14 @@
 </script>
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
+	<?php if($paquete -> usuarios < Estadistica::usuarios(Session::get("cuenta_id"))){ ?>
 	<div class="right" style="margin: 9px;">
 		<?= Formulario::inicioAjax("usuarios/registro", "contenido", false, "class: grid_12") ?>
 			<?= Formulario::submit("Agregar Nuevo","style: float: right") ?>
 		<?= Formulario::fin() ?>
 		<br><br>
 	</div>
+	<?php } ?>
 	<div class="grid_12">
 		<div class="box">
 			<div class="header">

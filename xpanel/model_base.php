@@ -50,6 +50,16 @@ class ActiveRecord extends ActiveRecordBase {
     }
 	
 	//Regresa un arreglo con los registros encontrados en el SQL dado.
+	public static function distintos($columnas, $condiciones = "id > 0", $orden = "id ASC"){
+        $objeto = get_called_class();	
+		$objeto = new $objeto;  
+		
+		$params = Util::getParams(func_get_args());
+		
+		return $objeto -> distinct("columns: ".$columnas, "conditions: ".$condiciones, "order: ".$orden);
+    }
+	
+	//Regresa un arreglo con los registros encontrados en el SQL dado.
 	public static function buscar($sql="id>0", $orden="id ASC"){
         $objeto = get_called_class();	
 		$objeto = new $objeto;  
@@ -104,6 +114,15 @@ class ActiveRecord extends ActiveRecordBase {
 	
 	//Sirve para guardar en la base de datos los cambios que haya podido tener le objeto.
 	public function guardar(){
+		if(Session::get("usuario_id")==0 || Session::get("usuario_id")){
+			$this -> usuario_edicion_id = Session::get("usuario_id");
+		}
+		else{
+			$this -> usuario_edicion_id = 0;
+		}
+			
+		$this -> fecha_edicion = date("Y-m-d H:i:s");
+		
 		$this -> save();
 	}
 }

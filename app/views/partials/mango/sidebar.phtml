@@ -19,6 +19,18 @@
 			<ul class="collapsible accordion">
 				<?php $menus = Menu::reporte("tipo= 'CLIENTE' AND activo = 'SI'","orden ASC"); ?>
 				<?php if($menus) foreach($menus as $menu){ ?>
+					<?php
+						$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+						$paquete = $cuenta -> paquete();
+						
+						if($paquete -> multiple_sucursal == "NO" && strtoupper($menu -> nombre) == "SUCURSALES"){
+							continue;
+						}
+						
+						if($paquete -> multiple_moneda == "NO" && strtoupper($menu -> nombre) == "MONEDAS"){
+							continue;
+						}
+					?>
 					<li id="menu<?= $menu -> id ?>">
 						<?= Html::link("javascript:void(0);", Html::imagen($menu -> imagen,$menu -> nombre,16,16).$menu -> nombre,"class: ".($menu -> abierto == "SI" ? "open" : "close")) ?>
 					<?php $secciones = $menu -> secciones() ?>

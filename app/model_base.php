@@ -50,6 +50,16 @@ class ActiveRecord extends ActiveRecordBase {
     }
 	
 	//Regresa un arreglo con los registros encontrados en el SQL dado.
+	public static function distintos($columnas, $condiciones = "id > 0", $orden = "id ASC"){
+        $objeto = get_called_class();	
+		$objeto = new $objeto;  
+		
+		$params = Util::getParams(func_get_args());
+		
+		return $objeto -> distinct("columns: ".$columnas, "conditions: ".$condiciones, "order: ".$orden);
+    }
+	
+	//Regresa un arreglo con los registros encontrados en el SQL dado.
 	public static function buscar($sql="id>0", $orden="id ASC"){
         $objeto = get_called_class();	
 		$objeto = new $objeto;  

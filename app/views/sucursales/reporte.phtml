@@ -2,7 +2,7 @@
 	$modulo = "Sucursales";
 	$seccion = "Nueva Sucursal"; 
 
-	$campos = array("id","codigo","nombre","domicilio","ciudad","estado","cpostal");
+	$campos = array("id","codigo","nombre","domicilio","ciudad","estado","cpostal","cbb_folios_id","cfd_folios_id","cfdi_folios_id");
 	$orden = "id ASC";
 	$cantidad = 100;
 	$filtro = Session::get("filtro");
@@ -68,7 +68,7 @@
 							<td>
 								<input type="checkbox" name="muestra" onchange="$(this).parents('table').find(':checkbox').attr('checked', $(this).attr('checked') || false)">
 							</td>
-							<th>Codigo</th>
+							<th>Serie</th>
 							<th>Nombre</th>
 							<th>Domicilio</th>
 							<th>Ciudad</th>
@@ -84,8 +84,26 @@
 							<td>
 								<?= Formulario::checkbox("registro_".$sucursal -> id."") ?>
 							</td>
-							<td><?= $sucursal -> codigo ?></td>
-							<td><?= $sucursal -> nombre ?></td>
+							<td class="center">
+								<?php
+									$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+									$paquete = $cuenta -> paquete();
+									
+									if($paquete -> tipo == "CBB"){
+										$folios = CbbFolio::consultar($sucursal -> cbb_folios_id);
+									}
+									
+									if($paquete -> tipo == "CFD"){
+										
+									}
+									
+									if($paquete -> tipo == "CFDI"){
+										
+									}
+								?>
+								<?= $folios -> serie ?>
+							</td>
+							<td class="center"><?= $sucursal -> nombre ?></td>
 							<td><?= $sucursal -> domicilio ?></td>
 							<td><?= $sucursal -> ciudad ?></td>
 							<td><?= $sucursal -> estado ?></td>

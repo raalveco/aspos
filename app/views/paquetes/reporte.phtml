@@ -50,15 +50,12 @@
 					</div>
 					<div class="right">
 						<!-- LINKS PARA LOS FILTROS -->
-						<?= Html::linkAjax($controller_name."/".$action_name."/AC", 'A - C', "contenido","title: Filtrar A - C") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/DF", 'D - F', "contenido","title: Filtrar D - F") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/GI", 'G - I', "contenido","title: Filtrar G - I") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/JL", 'J - L', "contenido","title: Filtrar J - L") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/MO", 'M - O', "contenido","title: Filtrar M - O") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/PS", 'P - S', "contenido","title: Filtrar P - S") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/TW", 'T - W', "contenido","title: Filtrar T - W") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/XZ", 'X - Z', "contenido","title: Filtrar X - Z") ?>
-						<?= Html::linkAjax($controller_name."/".$action_name."/09", '0 - 9', "contenido","title: Filtrar 0 - 9") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/activos", 'Activos', "contenido","title: Filtrar Activos") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/inactivos", 'Inactivos', "contenido","title: Filtrar Inactivos") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/vigentes", 'Vigentes', "contenido","title: Filtrar Vigentes") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/cbb", 'CBB', "contenido","title: Filtrar CBB") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/cfd", 'CFD', "contenido","title: Filtrar CFD") ?>
+						<?= Html::linkAjax($controller_name."/".$action_name."/cfdi", 'CFDI', "contenido","title: Filtrar CFDI") ?>
 					</div>
 				</div>
 				<table id="tabla" class="dynamic styled with-prev-next" data-table-tools='{"display":false}'>
@@ -70,10 +67,10 @@
 							</td>
 							<th>Nombre</th>
 							<th>Tipo</th>
-							<th>Vigencia</th>
-							<th>Activo</th>
 							<th>Costo Mensual</th>
 							<th>Costo Anual</th>
+							<th>Vigencia</th>
+							<th>Activo</th>
 							<td class="center" style="font-weight: bold;">Acciones</td>
 						</tr>
 					</thead>
@@ -84,12 +81,12 @@
 							<td>
 								<?= Formulario::checkbox("registro_".$paquete -> id."") ?>
 							</td>
-							<td><?= $paquete -> nombre ?></td>
-							<td><?= $paquete -> tipo ?></td>
-							<td><?= $paquete -> vigencia ?></td>
-							<td><?= $paquete -> activo ?></td>
-							<td><?= $paquete -> costo_mensual ?></td>
-							<td><?= $paquete -> costo_anual ?></td>
+							<td align="center"><?= $paquete -> nombre ?></td>
+							<td align="center"><?= $paquete -> tipo ?></td>
+							<td align="center"><?= Formato::dinero($paquete -> costo_mensual) ?></td>
+							<td align="center"><?= Formato::dinero($paquete -> costo_anual) ?></td>
+							<td align="center"><?= Formato::fecha($paquete -> vigencia) ?></td>
+							<td align="center"><?= $paquete -> activo ?></td>
 							<td style="width: 45px;">
 								<?= Html::linkAjax($controller_name."/consulta/".$paquete -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
 								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$paquete -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>

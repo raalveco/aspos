@@ -106,7 +106,7 @@ $.fn.fileInput = function(){
 };
 
 $.fn.fileInput.lang = {
-	change: 'Change',
-	browse: 'Browse',
-	nofile: 'No file selected...'
+	change: 'Cambiar',
+	browse: 'Examinar',
+	nofile: 'Seleccionar Archivo...'
 }

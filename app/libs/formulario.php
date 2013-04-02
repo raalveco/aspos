@@ -55,8 +55,8 @@
             if(isset($params["before"])){
                 $opciones .= ', beforeSubmit: function() { '.$params["before"].' }';
             }
-            
-            $code = '<script type="text/javascript"> $.metadata.setType("attr", "validate"); $(document).ready(function() { $("#'.$params["id"].'").validate({});  $("#'.$params["id"].'").ajaxForm({ '.$opciones.' }); }); </script>';
+			
+			$code = '<script type="text/javascript"> $.metadata.setType("attr", "validate"); $(document).ready(function() { $("#'.$params["id"].'").validate({});  $("#'.$params["id"].'").ajaxForm({ '.$opciones.' }); }); </script>';
             $code .= form_tag($params);
             
             return $code;
@@ -355,7 +355,6 @@
             }
 			
 			$params[1] = $tmp;
-            
             
             return select_tag($params);
         }

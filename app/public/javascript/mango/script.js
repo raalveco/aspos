@@ -1494,51 +1494,6 @@
 	});
 	
 	
-	// ! Scroll to Top button
-	mango.ready(function(){
-		
-		if (mango.config.scollToTop) {
-			
-			var $toTop = $('<a>', {
-				href: '#top',
-				id: 'gotoTop'
-			}).appendTo('body'),
-				$window = $(window);
-			
-			// On scroll: create debounced function (see http://documentcloud.github.com/underscore/#debounce)
-			$window
-				.scroll(_.debounce(function(){
-						if(!jQuery.support.hrefNormalized) {
-							$toTop.css({
-								'position': 'absolute',
-								'top': $window.scrollTop() + $window.height() - settings.ieOffset
-							});
-						}
-						
-						// If we are not at the top: fade out
-						if ($window.scrollTop() >= 1) {
-							$toTop.fadeIn();
-						} else {
-						// Else: fade in						
-							$toTop.fadeOut();
-						}
-						
-					}, 300))
-				// Call scroll handler (if page loads scrolled from cache)
-				.scroll();
-			
-			// Scroll up on click
-			$toTop.click(function(){
-			
-				$("html, body").animate({scrollTop: 0});
-				return false;
-				
-			});
-		}
-	
-	});
-	
-	
 	// ! Notifications
 	mango.ready(function(){
 		$.jGrowl.defaults.life = 8000;

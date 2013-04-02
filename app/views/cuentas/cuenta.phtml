@@ -1,6 +1,7 @@
 <?php
 	$modulo = "Cuentas";
 	$seccion = $cuenta ? "Modificar Cuenta" : "Nueva Cuenta";
+	$contribuyente = $cuenta ? $cuenta -> contribuyente() : false;
 ?>
 
 <?= View::partial("base/edicion") ?>
@@ -26,22 +27,70 @@
 					<?= Formulario::mayusculas("nombre",$cuenta ? $cuenta -> nombre : "","class: required") ?>
 				</p>
 				<p class="_25">
-					<label>Activo</label>
-					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$cuenta ? $cuenta -> activo  : "SI","class: search required","data-placeholder: Selecciona Estado") ?>
+					<label>Paquete</label>
+					<?php $paquetes = Paquete::reporte("activo = 'SI'"); ?>
+					<?= Formulario::selectModelo("paquete",$paquetes,"nombre","id",$cuenta ? $cuenta -> paquete_id  : "","class: search required","data-placeholder: Selecciona Tipo") ?>
 				</p>
 			</div>
 			<div class="row">
 				<p class="_25">
-					<label>Teléfono</label>
+					<label>Teléfono de Contacto</label>
 					<?= Formulario::numerico("telefono",$cuenta ? $cuenta -> telefono_contacto : "","class: maskPhone") ?>
-				</p>
-				<p class="_25">
-					<label>Celular</label>
-					<?= Formulario::numerico("celular",$cuenta ? $cuenta -> celular_contacto : "","class: maskPhone") ?>
 				</p>
 				<p class="_50">
 					<label>Correo Electrónico</label>
-					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email") ?>
+					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email required") ?>
+				</p>
+				<p class="_25">
+					<label>Activo</label>
+					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$cuenta ? $cuenta -> activo  : "SI","class: search required","data-placeholder: Selecciona Estado") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DEL CONTRIBUYENTE
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Calle</label>
+					<?= Formulario::mayusculas("calle",$contribuyente ? $contribuyente -> calle : "") ?>
+				</p>
+				<p class="_25">
+					<label>No. Exterior</label>
+					<?= Formulario::mayusculas("exterior",$contribuyente ? $contribuyente -> exterior : "") ?>
+				</p>
+				<p class="_25">
+					<label>No. Interior</label>
+					<?= Formulario::mayusculas("interior",$contribuyente ? $contribuyente -> interior : "") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Colonia</label>
+					<?= Formulario::mayusculas("colonia",$contribuyente ? $contribuyente -> colonia : "") ?>
+				</p>
+				<p class="_25">
+					<label>Localidad</label>
+					<?= Formulario::mayusculas("localidad",$contribuyente ? $contribuyente -> localidad : "") ?>
+				</p>
+				<p class="_25">
+					<label>Código Postal</label>
+					<?= Formulario::numerico("cpostal",$contribuyente ? $contribuyente -> cpostal : "","class: digits","minlength: 5", "maxlength: 5") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_50">
+					<label>Municipio</label>
+					<?= Formulario::mayusculas("municipio",$contribuyente ? $contribuyente -> municipio : "") ?>
+				</p>
+				<p class="_25">
+					<label>Estado</label>
+					<?= Formulario::selectEstados("estado",$contribuyente ? $contribuyente -> estado  : "","class: search","data-placeholder: Selecciona Estado") ?>
+				</p>
+				<p class="_25">
+					<label>País</label>
+					<?= Formulario::select("pais",array("","MÉXICO" => "MÉXICO"),$contribuyente ? $contribuyente -> pais : "","class: search","data-placeholder: Selecciona País") ?>
 				</p>
 			</div>
 		</fieldset>

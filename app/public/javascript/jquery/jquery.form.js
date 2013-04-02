@@ -268,12 +268,10 @@ $.fn.ajaxSubmit = function(options) {
 			}
 
 			// ie borks in some cases when setting encoding
-			if (! s.skipEncodingOverride) {
-				$form.attr({
-					encoding: 'multipart/form-data',
-					enctype:  'multipart/form-data'
-				});
-			}
+			$form.attr({
+				encoding: 'multipart/form-data',
+				enctype:  'multipart/form-data'
+			});
 
 			// support timout
 			if (s.timeout) {

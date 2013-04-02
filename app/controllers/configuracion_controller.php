@@ -44,8 +44,80 @@
 			$this -> set_response("view");
 		}
 		
+		public function imagenes(){
+			$this -> render("imagenes");
+			
+			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			$this -> contribuyente = $cuenta -> contribuyente();
+			
+			if(!$this -> contribuyente){
+				$this -> render("index");
+				
+				$this -> alerta = Alerta::error("El Contribuyente buscado no fue encontrado en la Base de Datos.");
+			}
+			
+			$this -> set_response("view");
+		}
+		
+		public function cargarImagenes($id){
+			$this -> render(null,null);
+			
+			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			$this -> contribuyente = $cuenta -> contribuyente();
+				
+			if($_FILES["cedula"]["name"]!=""){
+       			$tmp = $_FILES["cedula"]["name"];
+                
+	            $ext = "";
+	        	
+	        	for($i=0;$i<strlen($tmp);$i++){
+	        		if($tmp[$i]=="."){
+	        			$ext = "";
+	        		}
+	        		else{
+	        			$ext .= $tmp[$i];
+	        		}
+	        	}
+                
+				$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
+                
+				$archivo = strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file);
+
+				$this -> contribuyente -> cedula = $file;
+
+				move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo);
+			}
+			
+			if($_FILES["logotipo"]["name"]!=""){
+       			$tmp = $_FILES["logotipo"]["name"];
+                
+	            $ext = "";
+	        	
+	        	for($i=0;$i<strlen($tmp);$i++){
+	        		if($tmp[$i]=="."){
+	        			$ext = "";
+	        		}
+	        		else{
+	        			$ext .= $tmp[$i];
+	        		}
+	        	}
+                
+				$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
+                
+				$archivo = strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file);
+
+				$this -> contribuyente -> logotipo = $file;
+
+				move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);
+			}
+			
+			echo '<script language="javascript" type="text/javascript">
+			   window.top.window.stopUpload(1);
+			</script>';   
+		}
+		
 		public function modificarContribuyente(){
-			$this -> render("consultaContribuyente");
+			$this -> render(null,null);
 			
 			$this -> contribuyente = Contribuyente::consultar($this -> post("contribuyente"));
 			
@@ -66,9 +138,57 @@
 				$this -> contribuyente -> celular = utf8_decode($this -> post("celular"));			
 				$this -> contribuyente -> correo = utf8_decode($this -> post("correo"));
 				
-				$this -> contribuyente -> guardar();
+				if($_FILES["cedula"]["name"]!=""){
+	       			$tmp = $_FILES["cedula"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+	                
+					$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
+	                
+					$archivo = APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file;
+	
+					$this -> contribuyente -> cedula = $file;
+	
+					move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo);
+				}
 				
-				$this -> unidad = $unidad;
+				if($_FILES["logotipo"]["name"]!=""){
+	       			$tmp = $_FILES["logotipo"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+	                
+					$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
+	                
+					$archivo = APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file;
+	
+					$this -> contribuyente -> logotipo = $file;
+	
+					move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);
+				}
+				
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload();  window.top.window.scrollTo(0,0);
+				</script>';   
+				
+				$this -> contribuyente -> guardar();
 				
 				$this -> alerta = Alerta::success("El Contribuyente ha sido ACTUALIZADO correctamente.");
 			}

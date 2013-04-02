@@ -11,7 +11,6 @@
 			<li>
 				<?= Html::linkAjax("configuracion/index", "General","contenido") ?>
 			</li>
-			<li class="line"></li>
 			<!--
 			<li>
 				<?= Html::linkAjax("unidades/reporte", "Unidades","contenido") ?>
@@ -24,9 +23,16 @@
 			</li>			
 			<li class="line"></li>
 			-->
+			<?php
+				$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+				$paquete = $cuenta -> paquete();
+			?>
+			<?php if($paquete -> usuarios > 1){ ?>
+			<li class="line"></li>
 			<li>				
 				<?= Html::linkAjax("usuarios/reporte", "Usuarios","contenido") ?>
 			</li>
+			<?php } ?>
 			<!--
 			<li>
 				<?= Html::linkAjax("roles/index", "Roles","contenido") ?>
