@@ -40,7 +40,7 @@
 							<th>SubTotal</th>
 							<th>Total</th>
 							<th>Estado</th>
-							<td class="center" style="font-weight: bold;"></td>
+							<td class="center" style="font-weight: bold;" colspan="2"></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,6 +55,9 @@
 							<td class="center"><?= $factura -> status ?></td>
 							<td style="width: 15px;">
 								<?= Html::linkAjax($controller_name."/consulta/".$factura -> id, '<i class="icon-file"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Consultar") ?>
+							</td>
+							<td style="width: 15px;">
+								<?= Html::link("pdf/cbb/".$factura -> id, '<i class="icon-print"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Imprimir","target: _blank") ?>
 							</td>
 						</tr>
 						<?php } ?>

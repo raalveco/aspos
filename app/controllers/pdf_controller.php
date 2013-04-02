@@ -33,8 +33,7 @@
 		public function cbbPDF($id){
 			$this -> render("cbbPDF",null);
 			
-			$this -> cliente = Cliente::consultar($id);
-			$this -> saludo = "Ola k ase";
+			$this -> factura = CbbFactura::consultar($id);
 		}
 	}
 	

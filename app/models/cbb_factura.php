@@ -60,7 +60,7 @@
 		}
 		
 		public function folio(){
-			return CbbFolio::consultar("cbb_id = ".$this -> id);
+			return CbbFolio::consultar("id = ".$this -> cbb_folios_id);
 		}
 		
 		public function sucursal(){

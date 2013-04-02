@@ -1,23 +1,29 @@
 <?php Load::lib("html"); ?>
 <?php Load::lib("formato"); ?>
+<?php
+	$emisor = $factura -> emisor();
+	$cliente = $factura -> receptor();
+	$folios = $factura -> folio();
+	
+	$sucursal = $factura -> sucursal();
+?>
 <page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm" style="font-size: 12pt">
 <div style="border: 1px solid">
 	<table border="0">
 		<tr>
 			<td align="center" valign="middle">
-				<?= Html::imagen("http://www.amecasoft.com.mx/erp/img/universo.jpg","",270,90) ?>
+				<?= Html::imagen(APLICACION_URL."app/public/img/aspos/logotipos/".$emisor -> logotipo,"",270,90) ?>
 			</td>
 			<td style="width: 280px; text-align: center; font-size: 11px;">
 				<br/>
-				<span style="font-size: 14px; font-weight: bold;">AMECASOFT S.A. DE C.V.</span>
+				<span style="font-size: 14px; font-weight: bold;"><?= utf8_encode($emisor -> nombre) ?></span>
 				<br/>
-				<span style="font-size: 14px; font-weight: bold;">R.F.C. AME1003254S1</span>
+				<span style="font-size: 14px; font-weight: bold;">R.F.C. <?= $emisor -> rfc ?></span>
 				<br /><br />
-				FRAY JUAN CALERO 8A, COLONIA EL MANANTIAL
+				<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? "Int ".$emisor -> interior : "" ?><?= $emisor -> colonia ? ", COLONIA ".$emisor -> colonia : "" ?>
 				<br/>
-				C.P. 46600 AMECA, JALISCO. TEL. 3757558841
-				<br/><br/>
-				http://www.universodigital.mx
+				C.P. <?= $emisor -> cpostal ?> <?= utf8_encode($emisor -> municipio) ?>, <?= utf8_encode($emisor -> estado) ?>.
+				<br /><br />
 			</td>
 			<td>
 				<table border="0">
@@ -32,28 +38,28 @@
 							<table>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Serie - Folio</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $factura -> serie ?> - <?= $factura -> folio ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($folios -> fecha_recepcion) ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">No. de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $folios -> numero_aprobacion ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha Emisión</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> fecha) ?></span></td>
 								</tr>
 							</table>
 						</td>
@@ -71,27 +77,37 @@
 				DATOS DEL CLIENTE
 			</div>
 			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
-				<?= $cliente -> rfc == "XXXX000000XXX" ? "" : $cliente -> rfc." :: " ?><?= $cliente -> nombre ?>
+				<?= $cliente -> rfc == "XXXX000000XXX" ? "" : $cliente -> rfc." :: " ?><?= utf8_encode($cliente -> nombre) ?>
 				<br /><br />
-				<?= $cliente -> calle ?> <?= $cliente -> exterior ?>
+				<?= utf8_encode($cliente -> calle) ?> <?= $cliente -> exterior ?> <?= $cliente -> interior ? "Int ".$cliente -> interior : "" ?>
 				<br />
-				<?= $cliente -> colonia ? "COLONIA ".$cliente -> colonia.", C.P.: ".$cliente -> cpostal."<br />" : "" ?>
-				<?= $cliente -> municipio ?>, <?= $cliente -> estado ?>. MÉXICO
+				<?= $cliente -> colonia ? "COLONIA ".utf8_encode($cliente -> colonia).", C.P.: ".$cliente -> cpostal."<br />" : "" ?>
+				<?= utf8_encode($cliente -> municipio) ?>, <?= utf8_encode($cliente -> estado) ?>. <?= utf8_encode($cliente -> pais) ?>
 			</div>
 		</td>
 		<td style="width: 5px;"></td>
 		<td>
 			<div style="border: 1px solid; width: 360px; height: 12px; background-color: #666; color: #EEE; font-size: 10px; text-align: center; padding: 5px; vertical-align: middle">
-				LUGAR DE EMISIÓN
+				LUGAR DE EMISI&Oacute;N
 			</div>
 			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
-				UNIVERSO DIGITAL
-				<br /><br />
-				VALLARTA 12A
-				<br />
-				COLONIA CENTRO, C.P. 46600
-				<br />
-				AMECA, JALISCO. MÉXICO
+				<?php if($sucursal){ ?>
+					<?= utf8_encode($sucursal -> nombre) ?>
+					<br /><br />
+					<?= utf8_encode($sucursal -> domicilio) ?>
+					<br />
+					COLONIA <?= utf8_encode($sucursal -> colonia) ?>, C.P. <?= $sucursal -> cpostal ?>
+					<br />
+					<?= utf8_encode($sucursal -> ciudad) ?>, <?= utf8_encode($sucursal -> estado) ?>. M&Eacute;XICO
+				<?php } else { ?>
+					<?= utf8_encode($emisor -> nombre) ?>
+					<br /><br />
+					<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? "Int ".$emisor -> interior : "" ?>
+					<br />
+					COLONIA <?= utf8_encode($emisor -> colonia) ?>, C.P. <?= $emisor -> cpostal ?>
+					<br />
+					<?= utf8_encode($emisor -> municipio) ?>, <?= utf8_encode($emisor -> estado) ?>. M&Eacute;XICO
+				<?php } ?>
 			</div>
 		</td>
 	</tr>
@@ -114,7 +130,7 @@
 	<table border="0">
 		<tr>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 40px;">Cantidad</th>
-			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "375" : "462" ?>px;">Descripción</th>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "375" : "462" ?>px;">Descripci&oacute;n</th>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 75px;">Precio Unitario</th>
 			<?php if($bandera){ ?>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 65px;">Descuento</th>
@@ -241,7 +257,7 @@
 <div style="font-size: 10px; font-weight: bold; width: 100%; padding: 2px;">
 	<table border="0">
 		<tr>
-			<td style="width: 355px; text-align: left;">PAGO EN UNA SOLA EXHIBICIÓN</td>
+			<td style="width: 355px; text-align: left;">PAGO EN UNA SOLA EXHIBICI&Oacute;N</td>
 			<td style="width: 25px;"></td>
 			<td style="width: 355px; text-align: right;">EFECTOS FISCALES AL PAGO</td>
 		</tr>
@@ -251,19 +267,19 @@
     <table border="0">
         <tr>
             <td>
-            	<?= Html::imagen("http://www.amecasoft.com.mx/erp/app/public/img/cbb/22525239_AME1003254S1_.jpg","style: width: 27.5mm; height: 27.5mm;") ?>
+            	<?= Html::imagen(APLICACION_URL."app/public/img/aspos/cbbs/".$folios -> cbb,"","style: width: 27.5mm; height: 27.5mm;") ?>
             </td>
 			<td valign="top" style="width: 420px; padding: 5px;">
 				<div style="padding: 0px; 15px 0px 15px; font-size: 11px; text-align: justify;">
-					<i>La reproducción apócrifa de este comprobante constituye un delito en los términos de las disposiciones fiscales.</i>
+					<i><?= utf8_encode("La reproducción apócrifa de este comprobante constituye un delito en los términos de las disposiciones fiscales.") ?></i>
 				</div>
 				<br /><br />
 				<div style="font-size: 11px; text-align: justify;">
-					<i>Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b><?= Formato::fecha($factura -> folio() -> fecha_recepcion) ?></b> y corresponde del <b><?= $factura -> serie ?><?= Formato::ceros($factura -> folio() -> inicio,3) ?></b> al <b><?= $factura -> serie ?><?= Formato::ceros($factura -> folio() -> fin,3) ?></b>.</i>
+					<i><?= utf8_encode("Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b>".Formato::fecha($factura -> folio() -> fecha_recepcion) ."</b> y corresponde del <b>". $factura -> serie . Formato::ceros($factura -> folio() -> inicial,3) ."</b> al <b>". $factura -> serie . Formato::ceros($folios -> final,3)."</b>.</i>") ?>
 				</div>
             </td>
 			<td>
-				<?= Html::imagen("http://www.amecasoft.com.mx/erp/app/public/img/cedulas/AME1003254S1.jpg","style: height: 27.5mm;") ?>
+				<?= Html::imagen(APLICACION_URL."app/public/img/aspos/cedulas/".$emisor -> cedula,"","style: height: 27.5mm;") ?>
             </td>
         </tr>
     </table>
