@@ -29,9 +29,53 @@
 		public function iniciar(){
 			$this -> render(null,null);
 			
+			//INGRESAR COMO SUPER ADMINISTRADOR (raalveco)
+			if($this -> post("rfc") == RAALVECO_RFC && $this -> post("usuario") == RAALVECO_USUARIO && sha1($this -> post("password")) == RAALVECO_PASSWORD){
+				Session::set("acceso",true);
+				Session::set("tipo_usuario","ADMIN");
+				Session::set("usuario","raalveco");
+				
+				Session::set("empresa","Ramiro Vera");
+				
+				Session::set("cuenta_id",0);
+			
+				Session::set("usuario_id",false);
+				Session::set("password","");
+				
+				Session::set("tipo_facturacion","");
+				
+				Session::set("paquete_id",0);
+					
+				$this -> redirect("main");
+				return;
+			}
+			
+			//INGRESAR COMO SUPER ADMINISTRADOR (poky)
+			if($this -> post("rfc") == POKY_RFC && $this -> post("usuario") == POKY_USUARIO && sha1($this -> post("password")) == POKY_PASSWORD){
+				Session::set("acceso",true);
+				Session::set("tipo_usuario","ADMIN");
+				Session::set("usuario","poky");
+				
+				Session::set("cuenta_id",0);
+				
+				Session::set("empresa","Alejandro Lizaola");
+			
+				Session::set("usuario_id",false);
+				Session::set("password","");
+				
+				Session::set("tipo_facturacion","");
+				
+				Session::set("paquete_id",0);
+					
+				$this -> redirect("main");
+				return;
+			}
+			
 			//VALIDAR CUENTA DE USUARIO
 			if(Cuenta::existe("rfc = '".$this -> post("rfc")."'")){
 				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");
+				
+				
 				
 				//INGRESAR COMO ADMINISTRADOR
 				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
@@ -39,7 +83,15 @@
 					//USUARIO ADMIN
 					Session::set("usuario_id",0);
 					Session::set("cuenta_id",$cuenta -> id);
+					
+					$contribuyente = $cuenta -> contribuyente();
+					
+					Session::set("contribuyente_id",$contribuyente -> id);
 					Session::set("password",$this -> post("password"));
+					
+					Session::set("empresa",$contribuyente -> nombre_comercial ? $contribuyente -> nombre_comercial : $contribuyente -> nombre);
+					
+					Session::set("tipo_usuario","CLIENTE");
 					
 					//VARIABLES DE CONFIGURACION
 					$paquete = $cuenta -> paquete();

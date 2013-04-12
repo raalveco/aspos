@@ -1,6 +1,6 @@
 <?php
 	class Cuenta extends ActiveRecord{
-		public static function registrar($rfc, $nombre){
+		public static function registrar($rfc, $nombre, $paquete){
 			if(Cuenta::existe("rfc = '".$rfc."'")){
 				return false;
 			}
@@ -23,6 +23,7 @@
 			
 			$cuenta -> rfc = $rfc;
 			$cuenta -> nombre = $nombre;
+			$cuenta -> paquete_id = $paquete;
 			
 			$cuenta -> save();
 			

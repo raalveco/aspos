@@ -29,7 +29,7 @@
 			$folio -> fecha_recepcion = Formato::FechaDB($fecha_recepcion);
 			$folio -> tipo_documento = $tipo_documento;
 			$folio -> inicial = $inicial;
-			$folio -> final = $final;
+			$folio -> {"final"} = $final;
 			$folio -> actual = $actual;
 			
 			$folio -> save();

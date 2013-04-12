@@ -35,7 +35,7 @@
 			<div class="row">
 				<p class="_25">
 					<label>Teléfono de Contacto</label>
-					<?= Formulario::numerico("telefono",$cuenta ? $cuenta -> telefono_contacto : "","class: maskPhone") ?>
+					<?= Formulario::numerico("telefono",$cuenta ? $cuenta -> telefono_contacto : "","class: maskPhone required") ?>
 				</p>
 				<p class="_50">
 					<label>Correo Electrónico</label>

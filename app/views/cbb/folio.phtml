@@ -5,12 +5,18 @@
 
 <?= View::partial("base/edicion") ?>
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
-
+<script>
+	function stopUpload(){
+	      document.getElementById('alerta').innerHTML = '<div class="alert success"><span class="icon"></span><span class="close">x</span>La Serie y Folios han sido actualizados correctamente.</div>';
+	      
+	      return true;   
+	}
+</script>
 <!-- Here goes the content. -->
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
 	<h1 class="grid_12"><?= $folios ? "Modificar Folios" : "Nuevos Folios" ?></h1>
-	<?= Formulario::inicioAjax($folios ? $controller_name."/modificarFolios" : $controller_name."/registrarFolios", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::inicio($folios ? $controller_name."/modificarFolios" : $controller_name."/registrarFolios", "contenido", false, "class: grid_12", "target: upload_target") ?>
 	<?php if($folios) echo Formulario::oculto("folios", $folios -> id) ?>
 		<fieldset>
 			<legend>
@@ -42,7 +48,7 @@
 				</p>
 				<p class="_25">
 					<label>Final</label>
-					<?= Formulario::numerico("final",$folios ? $folios -> final : "","class: required") ?>
+					<?= Formulario::numerico("final",$folios ? $folios -> {"final"} : "","class: required") ?>
 				</p> 
 				<p class="_25">
 					<label>Actual</label>
@@ -52,6 +58,12 @@
 					<label>Activo</label>
 					<?php $estados = array("SI" => "SI", "NO" => "NO") ?>
 					<?= Formulario::select("activo",$estados,$folios ? $folios -> activo : "SI","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_100">
+					<label>Código de Barras (CBB)</label>
+					<?= Formulario::archivo("cbb","") ?>
 				</p>
 			</div>
 		</fieldset>
@@ -65,3 +77,4 @@
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
 </section><!-- End of #content -->
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

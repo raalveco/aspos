@@ -36,6 +36,9 @@
 			
 			$tipo_factura = "cbb";
 			
+			$this -> matrix = "";
+			$this -> xerie = "";
+			
 			$campos = array("id","nombre");
 			$this -> sucursales = Sucursal::reporte("cuenta_id = ".$this -> cuenta -> id." AND cbb_folios_id > 0","nombre ASC",0,0,$campos);
 			
@@ -85,12 +88,14 @@
 			$si = date("N") - 1;
 			$sf = 7 - date("N");
 			
+			$sql = "cuenta_id = ".Session::get("cuenta_id")." AND ";
+			
 			switch($filtro){
-				case "DIA": Session::set("filtro","fecha >= '".date("Y-m-d 00:00:00")."' AND fecha <= '".date("Y-m-d 23:59:59")."'"); break;
-				case "SEMANA": Session::set("filtro","fecha >= '".date("Y-m-d 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-d 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
-				case "MES": Session::set("filtro","fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
-				case "ANO": Session::set("filtro","fecha >= '".date("Y-01-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-12-31 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
-				default: Session::set("filtro","fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				case "DIA": Session::set("filtro",$sql."fecha >= '".date("Y-m-d 00:00:00")."' AND fecha <= '".date("Y-m-d 23:59:59")."'"); break;
+				case "SEMANA": Session::set("filtro",$sql."fecha >= '".date("Y-m-d 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-d 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				case "MES": Session::set("filtro",$sql."fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				case "ANO": Session::set("filtro",$sql."fecha >= '".date("Y-01-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-12-31 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
+				default: Session::set("filtro",$sql."fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
 			}
 		}
 		
@@ -347,6 +352,31 @@
 				
 				$folios -> guardar();
 				
+				if($_FILES["cbb"]["name"]!=""){
+	       			$tmp = $_FILES["cbb"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+	                
+					$file = strtolower($folios -> id . "." . $ext);
+	                
+					$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+	
+					$folios -> cbb = $file;
+					
+					$folios -> guardar();
+	
+					move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+				}
+				
 				$this -> alerta = Alerta::success("Los Folios han sido REGISTRADOS correctamente.");
 			}
 			else{
@@ -383,11 +413,36 @@
 				$folios -> fecha_recepcion = Formato::FechaDB(utf8_decode($this -> post("fecha")));
 				$folios -> tipo_documento = utf8_decode($this -> post("tipo_documento"));
 				$folios -> inicial = utf8_decode($this -> post("inicial"));
-				$folios -> final = utf8_decode($this -> post("final"));
+				$folios -> {"final"} = utf8_decode($this -> post("final"));
 				$folios -> actual = utf8_decode($this -> post("actual"));
 				$folios -> activo = utf8_decode($this -> post("activo"));
 				
 				$folios -> guardar();
+				
+				if($_FILES["cbb"]["name"]!=""){
+	       			$tmp = $_FILES["cbb"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+	                
+					$file = strtolower($folios -> id . "." . $ext);
+	                
+					$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+	
+					$folios -> cbb = $file;
+					
+					$folios -> guardar();
+	
+					move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+				}
 				
 				$this -> alerta = Alerta::success("Los Folios han sido MODIFICADOS correctamente.");
 			}

@@ -275,7 +275,7 @@
 				</div>
 				<br /><br />
 				<div style="font-size: 11px; text-align: justify;">
-					<i><?= utf8_encode("Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b>".Formato::fecha($factura -> folio() -> fecha_recepcion) ."</b> y corresponde del <b>". $factura -> serie . Formato::ceros($factura -> folio() -> inicial,3) ."</b> al <b>". $factura -> serie . Formato::ceros($folios -> final,3)."</b>.</i>") ?>
+					<i><?= utf8_encode("Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b>".Formato::fecha($factura -> folio() -> fecha_recepcion) ."</b> y corresponde del <b>". $factura -> serie . Formato::ceros($factura -> folio() -> inicial,3) ."</b> al <b>". $factura -> serie . Formato::ceros($folios -> {"final"},3)."</b>.</i>") ?>
 				</div>
             </td>
 			<td>

@@ -33,7 +33,7 @@
 		public function fiscal(){
 			$this -> render("consultaContribuyente");
 			
-			$this -> contribuyente = Contribuyente::consultar($id);
+			$this -> contribuyente = Contribuyente::consultar(Session::get("contribuyente_id"));
 			
 			if(!$this -> contribuyente){
 				$this -> render("index");

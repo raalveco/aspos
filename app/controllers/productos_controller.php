@@ -10,7 +10,7 @@
 		
 		public function reporte(){
 			$this -> set_response("view");
-			Session::set("filtro","id>0");
+			Session::set("filtro","cuenta_id = ".Session::get("cuenta_id"));
 		}
 		
 		public function registro(){

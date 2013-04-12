@@ -11,18 +11,23 @@
 		public function reporte($filtro = false){
 			$this -> set_response("view");
 			
+			$sql = "cuenta_id = ".Session::get("cuenta_id")." AND ";
+			
 			switch($filtro){
-				case "AC": Session::set("filtro","nombre LIKE 'A%' OR nombre LIKE 'B%' OR nombre LIKE 'C%'"); break;
-				case "DF": Session::set("filtro","nombre LIKE 'D%' OR nombre LIKE 'E%' OR nombre LIKE 'F%'"); break;
-				case "GI": Session::set("filtro","nombre LIKE 'G%' OR nombre LIKE 'H%' OR nombre LIKE 'I%'"); break;
-				case "JL": Session::set("filtro","nombre LIKE 'J%' OR nombre LIKE 'K%' OR nombre LIKE 'L%'"); break;
-				case "MO": Session::set("filtro","nombre LIKE 'M%' OR nombre LIKE 'N%' OR nombre LIKE 'O%'"); break;
-				case "PS": Session::set("filtro","nombre LIKE 'P%' OR nombre LIKE 'Q%' OR nombre LIKE 'R%' OR nombre LIKE 'S%'"); break;
-				case "TW": Session::set("filtro","nombre LIKE 'T%' OR nombre LIKE 'U%' OR nombre LIKE 'V%' OR nombre LIKE 'W%'"); break;
-				case "XZ": Session::set("filtro","nombre LIKE 'X%' OR nombre LIKE 'Y%' OR nombre LIKE 'Z%'"); break;
-				case "09": Session::set("filtro","nombre LIKE '0%' OR nombre LIKE '1%' OR nombre LIKE '2%' OR nombre LIKE '3%' OR nombre LIKE '4%' OR nombre LIKE '5%' OR nombre LIKE '6%' OR nombre LIKE '7%' OR nombre LIKE '8%' OR nombre LIKE '9%'"); break;
-				default: Session::set("filtro","id>0");	
+				case "AC": Session::set("filtro",$sql."nombre LIKE 'A%' OR nombre LIKE 'B%' OR nombre LIKE 'C%'"); break;
+				case "DF": Session::set("filtro",$sql."nombre LIKE 'D%' OR nombre LIKE 'E%' OR nombre LIKE 'F%'"); break;
+				case "GI": Session::set("filtro",$sql."nombre LIKE 'G%' OR nombre LIKE 'H%' OR nombre LIKE 'I%'"); break;
+				case "JL": Session::set("filtro",$sql."nombre LIKE 'J%' OR nombre LIKE 'K%' OR nombre LIKE 'L%'"); break;
+				case "MO": Session::set("filtro",$sql."nombre LIKE 'M%' OR nombre LIKE 'N%' OR nombre LIKE 'O%'"); break;
+				case "PS": Session::set("filtro",$sql."nombre LIKE 'P%' OR nombre LIKE 'Q%' OR nombre LIKE 'R%' OR nombre LIKE 'S%'"); break;
+				case "TW": Session::set("filtro",$sql."nombre LIKE 'T%' OR nombre LIKE 'U%' OR nombre LIKE 'V%' OR nombre LIKE 'W%'"); break;
+				case "XZ": Session::set("filtro",$sql."nombre LIKE 'X%' OR nombre LIKE 'Y%' OR nombre LIKE 'Z%'"); break;
+				case "09": Session::set("filtro",$sql."nombre LIKE '0%' OR nombre LIKE '1%' OR nombre LIKE '2%' OR nombre LIKE '3%' OR nombre LIKE '4%' OR nombre LIKE '5%' OR nombre LIKE '6%' OR nombre LIKE '7%' OR nombre LIKE '8%' OR nombre LIKE '9%'"); break;
+				default: Session::set("filtro",$sql."id>0");	
 			}
+			
+			echo Session::get("filtro");
+			$this -> render(null,null);
 		}
 		
 		public function registro(){
@@ -69,8 +74,6 @@
 			$this -> cliente = $cliente;
 			
 			$this -> set_response("view");
-			
-			$this -> render(null,null);
 		}
 		
 		public function consulta($id){

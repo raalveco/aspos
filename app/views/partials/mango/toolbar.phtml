@@ -8,9 +8,11 @@
 		<span>Configuraci&oacute;n</span>
 		<nav>
 		<ul>
+			<?php if(Session::get("cuenta_id") > 0){ ?>
 			<li>
 				<?= Html::linkAjax("configuracion/index", "General","contenido") ?>
 			</li>
+			<?php } ?>
 			<!--
 			<li>
 				<?= Html::linkAjax("unidades/reporte", "Unidades","contenido") ?>
@@ -23,6 +25,7 @@
 			</li>			
 			<li class="line"></li>
 			-->
+			<?php if(Session::get("cuenta_id") > 0){ ?>
 			<?php
 				$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
 				$paquete = $cuenta -> paquete();
@@ -32,6 +35,7 @@
 			<li>				
 				<?= Html::linkAjax("usuarios/reporte", "Usuarios","contenido") ?>
 			</li>
+			<?php } ?>
 			<?php } ?>
 			<!--
 			<li>

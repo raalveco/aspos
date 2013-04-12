@@ -11,12 +11,12 @@
 			$cliente -> activo = "SI";
 			
 			if(Session::get("usuario_id")){
-				$tipo -> usuario_creacion_id = Session::get("usuario_id");	
-				$tipo -> usuario_edicion_id = Session::get("usuario_id");
+				$cliente -> usuario_creacion_id = Session::get("usuario_id");	
+				$cliente -> usuario_edicion_id = Session::get("usuario_id");
 			}
 			else{
-				$tipo -> usuario_creacion_id = 0;	
-				$tipo -> usuario_edicion_id = 0;
+				$cliente -> usuario_creacion_id = 0;	
+				$cliente -> usuario_edicion_id = 0;
 			}
 			
 			$cliente -> fecha_creacion = date("Y-m-d H:i:s");

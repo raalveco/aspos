@@ -5,7 +5,7 @@
 	$campos = array("id","nombre","descripcion");
 	$orden = "id ASC";
 	$cantidad = 100;
-	$filtro = "id > 0";
+	$filtro = "cuenta_id = ".Session::get("cuenta_id");
 	
 	$tipos = ClienteTipo::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>
