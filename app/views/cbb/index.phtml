@@ -96,7 +96,7 @@
 						<?php $impuestos = Impuesto::reporte("cuenta_id = ".Session::get("cuenta_id")); ?>
 						<?php $imp = count($impuestos) ?>
 						
-						<?php if($impuestos){ $total_impuestos = 0; ?>
+						<?php $total_impuestos = 0; if($impuestos){ ?>
 							<?php foreach($impuestos as $impuesto){ ?>
 								<?php $total_impuestos += $subtotal * $impuesto -> tasa / 100 ?>
 							<?php } ?>

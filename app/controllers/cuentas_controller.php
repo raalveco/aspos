@@ -56,7 +56,7 @@
 				
 				$cuenta -> guardar();
 				
-				$contribuyente = Contribuyente::registrar($rfc, $nombre);
+				$contribuyente = Contribuyente::registrar($rfc, $nombre, $cuenta -> id);
 				$contribuyente -> cuenta_id = $cuenta -> id;
 				
 				$contribuyente -> calle = utf8_decode($this -> post("calle"));

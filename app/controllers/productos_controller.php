@@ -67,7 +67,6 @@
 		
 		public function modificar(){
 			$this -> render("producto");
-			$this -> render(null,null);
 			
 			$producto = Producto::consultar($this -> post("producto"));
 			

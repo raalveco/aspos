@@ -26,8 +26,6 @@
 				default: Session::set("filtro",$sql."id>0");	
 			}
 			
-			echo Session::get("filtro");
-			$this -> render(null,null);
 		}
 		
 		public function registro(){

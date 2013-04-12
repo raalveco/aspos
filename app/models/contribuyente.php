@@ -1,13 +1,9 @@
 <?php
 	class Contribuyente extends ActiveRecord{
-		public static function registrar($rfc, $nombre){
-			if(Contribuyente::existe("cuenta_id = '".Session::get("cuenta_id")."' AND rfc = '".$rfc."'")){
-				return false;
-			}
-			
+		public static function registrar($rfc, $nombre, $cuenta){
 			$contribuyente = new Contribuyente();
 			
-			$contribuyente -> cuenta_id = Session::get("cuenta_id");
+			$contribuyente -> cuenta_id = $cuenta;
 			$contribuyente -> activo = "SI";
 			
 			if(Session::get("usuario_id")){
