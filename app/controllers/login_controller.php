@@ -38,6 +38,7 @@
 				Session::set("empresa","Ramiro Vera");
 				
 				Session::set("cuenta_id",0);
+				Session::set("cuenta",0);
 			
 				Session::set("usuario_id",false);
 				Session::set("password","");
@@ -57,6 +58,7 @@
 				Session::set("usuario","poky");
 				
 				Session::set("cuenta_id",0);
+				Session::set("cuenta",0);
 				
 				Session::set("empresa","Alejandro Lizaola");
 			
@@ -83,6 +85,7 @@
 					//USUARIO ADMIN
 					Session::set("usuario_id",0);
 					Session::set("cuenta_id",$cuenta -> id);
+					Session::set("cuenta",$cuenta -> id);
 					
 					$contribuyente = $cuenta -> contribuyente();
 					
