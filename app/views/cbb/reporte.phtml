@@ -23,7 +23,6 @@
 			<div class="content">
 				<div class="tabletools">
 					<div class="right">
-						<!-- LINKS PARA LOS FILTROS -->
 						<?= Html::linkAjax($controller_name."/".$action_name."/ANO", 'AÑO', "contenido","title: Filtrar AÑO") ?>
 						<?= Html::linkAjax($controller_name."/".$action_name."/MES", 'MES', "contenido","title: Filtrar MES") ?>
 						<?= Html::linkAjax($controller_name."/".$action_name."/SEMANA", 'SEMANA', "contenido","title: Filtrar SEMANA") ?>
@@ -32,7 +31,6 @@
 				</div>
 				<table id="tabla" class="dynamic styled with-prev-next" data-table-tools='{"display":false}'>
 					<thead>
-						<!-- ENCABEZADOS DE LA TABLA -->
 						<tr>
 							<th>Fecha</th>
 							<th>Serie</th>
@@ -40,11 +38,11 @@
 							<th>SubTotal</th>
 							<th>Total</th>
 							<th>Estado</th>
-							<td class="center" style="font-weight: bold;" colspan="2"></td>
+							<td class="center" style="font-weight: bold;"></td>
+							<td class="center" style="font-weight: bold;"></td>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- REGISTROS DE LA TABLA -->
 						<?php if($facturas) foreach($facturas as $factura){ ?>
 						<tr>
 							<td class="center"><?= Formato::fecha($factura -> fecha) ?></td>

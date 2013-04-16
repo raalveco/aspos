@@ -16,7 +16,7 @@
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
 	<h1 class="grid_12"><?= $folios ? "Modificar Folios" : "Nuevos Folios" ?></h1>
-	<?= Formulario::inicio($folios ? $controller_name."/modificarFolios" : $controller_name."/registrarFolios", "contenido", false, "class: grid_12", "target: upload_target") ?>
+	<?= Formulario::inicioAjax($folios ? $controller_name."/modificarFolios" : $controller_name."/registrarFolios", "contenido", false, "class: grid_12", "target: upload_target") ?>
 	<?php if($folios) echo Formulario::oculto("folios", $folios -> id) ?>
 		<fieldset>
 			<legend>
@@ -63,7 +63,7 @@
 			<div class="row">
 				<p class="_100">
 					<label>Código de Barras (CBB)</label>
-					<?= Formulario::archivo("cbb","") ?>
+					<?= Formulario::archivo("cbb","","class: required") ?>
 				</p>
 			</div>
 		</fieldset>

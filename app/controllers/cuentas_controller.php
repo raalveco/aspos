@@ -104,8 +104,6 @@
 			$cuenta = Cuenta::consultar($this -> post("cuenta"));
 			
 			if($cuenta){
-				$contribuyente = $cuenta -> contribuyente();
-				
 				$cuenta -> nombre = utf8_decode($this -> post("nombre"));
 				$cuenta -> rfc = utf8_decode($this -> post("rfc"));
 				$cuenta -> paquete_id = utf8_decode($this -> post("paquete"));
@@ -128,6 +126,8 @@
 				$cuenta -> guardar();
 				
 				$this -> cuenta = $cuenta;
+				
+				$contribuyente = $cuenta -> contribuyente();
 				
 				$contribuyente -> calle = utf8_decode($this -> post("calle"));
 				$contribuyente -> exterior = utf8_decode($this -> post("exterior"));			
@@ -185,6 +185,10 @@
 			}
 			
 			$this -> set_response("view");
+		}
+		
+		public function resetearPassword(){
+			
 		}
 	}
 ?>
