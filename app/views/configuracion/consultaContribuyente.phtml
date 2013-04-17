@@ -7,10 +7,50 @@
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
 <!-- Here goes the content. -->
 <script>
-	function stopUpload(){
-	      document.getElementById('alerta').innerHTML = '<div class="alert success"><span class="icon"></span><span class="close">x</span>El Contribuyente ha sido ACTUALIZADO correctamente.</div>';
-	      
-	      return true;   
+	function stopUpload(x){
+		
+		switch(x){
+			case -11: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">RFC</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -12: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">NOMBRE</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -13: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">CALLE</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -14: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">NO. EXTERIOR</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -15: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">MUNICIPIO</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -16: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">ESTADO</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+			case -17: 	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Campo <b style="font-weight: bold;">PAIS</b> es <b style="font-weight: bold;">OBLIGATORIO</b>.</div>';
+						break;
+		}
+		
+		if(x == -3){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>La Cedula debe ser una imagen con extensión <b style="font-weight: bold;">JPG / PNG / GIF</b>.</div>';
+	    }
+	    
+	    if(x == -2){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Logotipo debe ser una imagen con extensión <b style="font-weight: bold;">JPG / PNG / GIF</b>.</div>';
+	    }
+	    
+	    if(x == -1){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El Contribuyente buscado no fue encontrado en la Base de Datos.</div>';
+	    }
+		
+		if(x == 0){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert success"><span class="icon"></span><span class="close">x</span>El Contribuyente ha sido ACTUALIZADO correctamente.</div>';
+	    }
+	    
+	    if(x == 1){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert warning"><span class="icon"></span><span class="close">x</span>Los campos han sido ACTUALIZADOS, pero recuerda que necesitas cargar tu <b style="font-weight: bold;">Cedula Fiscal</b>, para el Formato de Impresión</div>';
+	    }
+	    
+	    if(x == 2){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert warning"><span class="icon"></span><span class="close">x</span>Los campos han sido ACTUALIZADOS, pero recuerda que necesitas cargar tu <b style="font-weight: bold;">Logotipo</b>, para el Formato de Impresión</div>';
+	    }
+		
+	    return true;   
 	}
 </script>
 <section id="content" class="container_12 clearfix" data-sort=true>
@@ -40,11 +80,11 @@
 			<div class="row">
 				<p class="_50">
 					<label>Cedula Fiscal</label>
-					<?= Formulario::archivo("cedula","") ?>
+					<?= Formulario::archivo("cedula","","class: required") ?>
 				</p>
 				<p class="_50">
 					<label>Logotipo</label>
-					<?= Formulario::archivo("logotipo","") ?>
+					<?= Formulario::archivo("logotipo","","class: required") ?>
 				</p>
 			</div>
 		</fieldset>

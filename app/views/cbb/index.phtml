@@ -22,14 +22,14 @@
 					<?= Formulario::selectModeloClientes("cliente", $clientes,"nombre","id","","class: required search","data-placeholder: Selecciona Cliente") ?>
 				</p>
 				<p class="_25">
-					<label>Nombre o Razón Social</label>
+					<label>Fecha</label>
 					<?= Formulario::fecha("fecha",date("d/m/Y"),"dd/mm/yy",$desde,$hasta,"class: required") ?>
 				</p> 
 				<p class="_25">
 					<label><?= $sucursales ? "Sucursal" : "Serie / Folio" ?></label>
 					<?php
 						if($sucursales){
-							echo Formulario::selectModelo("sucursal",$sucursales,"nombre","id", $factura ? $factura -> sucursal_id : $matrix,"class: search","data-placeholder: Selecciona Sucursal");
+							echo Formulario::selectModelo("sucursal",$sucursales,"nombre","id", $factura ? $factura -> sucursal_id : $matrix,"class: required search","data-placeholder: Selecciona Sucursal");
 						}
 						else{
 							echo Formulario::selectModelo("serie",$series,"serie","id", $factura ? $factura -> cbb_folios_id : $xerie,"class: required search","data-placeholder: Selecciona Serie");
@@ -156,7 +156,7 @@
 		</fieldset>
 		<div class="actions">
 			<div class="right" style="margin: 5px;">
-				<?= $factura ? "" : Formulario::submit("Agregar Concepto") ?>
+				<?= !$permiso_facturar ? "" : Formulario::submit("Agregar Concepto") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
 			</div>

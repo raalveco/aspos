@@ -2,7 +2,7 @@
 	class CbbFolio extends ActiveRecord{
 		public static function registrar($serie, $numero_aprobacion, $fecha_recepcion, $inicial, $final, $actual, $tipo_documento = "FACTURA"){
 			if(CbbFolio::existe("cuenta_id = '".Session::get("cuenta_id")."' AND serie = '".$serie."' AND numero_aprobacion = '".$numero_aprobacion."'")){
-				return false;
+				return CbbFolio::consultar("cuenta_id = '".Session::get("cuenta_id")."' AND serie = '".$serie."' AND numero_aprobacion = '".$numero_aprobacion."'");
 			}
 			
 			$folio = new CbbFolio();

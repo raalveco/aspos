@@ -10,8 +10,6 @@
 			
 			$facturas = Estadistica::facturas($cuenta -> id);
 			
-			echo $paquete -> facturas_incluidas;
-			
 			if($facturas < $paquete -> facturas_incluidas){
 				return true;
 			}

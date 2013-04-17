@@ -6,6 +6,9 @@
 		public function index($mensaje = false){
 			$this -> set_response("view");
 			
+			$this -> permiso_facturar = true;
+			$this -> factura = false;
+			
 			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
 			
 			$paquete = $this -> cuenta -> paquete();
@@ -32,8 +35,6 @@
 			$campos = array("id","codigo","nombre");
 			$this -> productos = Producto::reporte("cuenta_id = ".$this -> cuenta -> id,"nombre ASC",0,0,$campos);
 			
-			$this -> factura = false;
-			
 			$tipo_factura = "cbb";
 			
 			$this -> matrix = "";
@@ -51,11 +52,12 @@
 				$this -> matrix = "";
 			}
 			
-			$campos = array("id","serie");
+			$campos = array("id","serie","cbb");
 			$this -> series = CbbFolio::reporte("cuenta_id = ".$this -> cuenta -> id." AND actual <= final","serie ASC",0,0,$campos);
-			
+
 			if(count($this -> series)==0){
-				$this -> alerta = Alerta::error("Para poder facturar es necesario tener al menos una serie configurada.");
+				$this -> alerta = Alerta::error("Para poder facturar es necesario tener al menos una Serie configurada.");
+				$this -> permiso_facturar = false;
 			}
 			else{
 				if(count($this -> series)==1){
@@ -68,8 +70,45 @@
 				}
 			}
 			
-			$this -> desde = CbbFactura::fechaUltimaFactura();
-			$this -> hasta = date("d/m/Y");
+			//Verificar si se cargo imagen de CBB
+			if($this -> series){
+				$uno = false;
+				$todos = false;
+				
+				foreach($this -> series as $tmp){
+					
+					if($tmp -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$tmp -> cbb))){
+						$uno = true;
+					}
+					else{
+						$todos = true;	
+					}
+				}
+				
+				if(!$todos){
+					$this -> alerta = Alerta::error("No se ha cargado el Código Bidimensional para al menos una Serie / Folios.");
+					$this -> permiso_facturar = false;
+				}
+				else{
+					if($uno){
+						$this -> alerta = Alerta::warning("Alguna de las Series / Folios no tiene cargado el Código Bidimensional");
+					}	
+				}
+			}
+			
+			$contribuyente = $this -> cuenta -> contribuyente();
+			
+			//Verificar si se cargo imagen de Logotipo
+			if($contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$contribuyente -> logotipo))){
+				$this -> alerta = Alerta::error("No se ha cargado el Logotipo del negocio, el cual se utilizará en el formato de impresión de la Factura.");
+				$this -> permiso_facturar = false;
+			}
+			
+			//Verificar si se cargo imagen de Cedula Fiscal
+			if($contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$contribuyente -> cedula))){
+				$this -> alerta = Alerta::error("No se ha cargado la Cedula Fiscal	 del negocio, el cual se utilizará en el formato de impresión de la Factura.");
+				$this -> permiso_facturar = false;
+			}
 			
 			if($mensaje){
 				switch($mensaje){
@@ -78,8 +117,14 @@
 					case "limpiado": $this -> alerta = Alerta::success("Los Conceptos de la Factura han sido eliminados."); break;
 					case "completado": $this -> alerta = Alerta::success("La Factura ha sido generada correctamente."); break;
 					case "no_folios": $this -> alerta = Alerta::error("No se encontraron folios para esta Sucursal/Serie."); break;
+					case "no_cbb": $this -> alerta = Alerta::error("No se encontro la imagen del Código Bidimensional para al menos una SERIE."); break;
+					case "no_logo": $this -> alerta = Alerta::error("No se ha cargado el Logotipo del negocio, el cual se utilizará en el formato de impresión de la Factura."); break;
+					case "no_cedula": $this -> alerta = Alerta::error("No se ha cargado la Cedula Fiscal del negocio, la cual se utilizará en el formato de impresión de la Factura."); break;
 				}
 			}
+			
+			$this -> desde = CbbFactura::fechaUltimaFactura();
+			$this -> hasta = date("d/m/Y");
 		}
 		
 		public function reporte($filtro = false){
@@ -333,7 +378,23 @@
 		}
 		
 		public function registrarFolios(){
-			$this -> render("folio");
+			$this -> render(null,null);
+			
+			if($this -> post("serie")=="" || $this -> post("numero")=="" || $this -> post("fecha")=="" || $this -> post("tipo_documento")=="" || $this -> post("inicial")=="" || $this -> post("final")=="" || $this -> post("actual")=="" || $this -> post("activo")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			if($this -> post("numero")=="0" || $this -> post("inicial")=="0" || $this -> post("final")==0 || $this -> post("actual")==0){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-4);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
 			
 			$serie = utf8_decode($this -> post("serie"));
 			$numero = utf8_decode($this -> post("numero"));
@@ -365,22 +426,48 @@
 		        			$ext .= $tmp[$i];
 		        		}
 		        	}
-	                
-					$file = strtolower($folios -> id . "." . $ext);
-	                
-					$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
-	
-					$folios -> cbb = $file;
 					
-					$folios -> guardar();
-	
-					move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+					if(strtoupper($ext)!="JPG" && strtoupper($ext)!="JPEG" && strtoupper($ext)!="PNG" && strtoupper($ext)!="GIF"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						return;
+					}
+					else{
+						$file = strtolower($folios -> id . "." . $ext);
+	                
+						$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+		
+						$folios -> cbb = $file;
+						
+						$folios -> guardar();
+		
+						move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+					}
+				}
+				else{
+					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$folios -> cbb))){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						return;
+					}
 				}
 				
 				$this -> alerta = Alerta::success("Los Folios han sido REGISTRADOS correctamente.");
+				
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(1);
+				</script>';
 			}
 			else{
 				$this -> alerta = Alerta::error("El Número de Aprobación de los folios fue registrado anteriormente.");
+				
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(0);
+				</script>';  
 			}
 			
 			$this -> folios = $folios;
@@ -403,7 +490,25 @@
 		}
 		
 		public function modificarFolios(){
-			$this -> render("folio");
+			$this -> render(null,null);
+			
+			$bandera = true;
+			
+			if($this -> post("serie")=="" || $this -> post("numero")=="" || $this -> post("fecha")=="" || $this -> post("tipo_documento")=="" || $this -> post("inicial")=="" || $this -> post("final")=="" || $this -> post("actual")=="" || $this -> post("activo")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			if($this -> post("numero")=="0" || $this -> post("inicial")=="0" || $this -> post("final")==0 || $this -> post("actual")==0){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-4);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
 			
 			$folios = CbbFolio::consultar($this -> post("folios"));
 			
@@ -432,22 +537,56 @@
 		        			$ext .= $tmp[$i];
 		        		}
 		        	}
-	                
-					$file = strtolower($folios -> id . "." . $ext);
-	                
-					$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
-	
-					$folios -> cbb = $file;
 					
-					$folios -> guardar();
-	
-					move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+					if(strtoupper($ext)!="JPG" && strtoupper($ext)!="JPEG" && strtoupper($ext)!="PNG" && strtoupper($ext)!="GIF"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+						
+						return;
+					}
+					else{
+						$file = strtolower($folios -> id . "." . $ext);
+	                
+						$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+		
+						$folios -> cbb = $file;
+						
+						$folios -> guardar();
+		
+						move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+					}
+				}
+				else{
+					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$folios -> cbb))){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+						
+						return;
+					}
 				}
 				
-				$this -> alerta = Alerta::success("Los Folios han sido MODIFICADOS correctamente.");
+				if($bandera){
+					$this -> alerta = Alerta::success("Los Folios han sido MODIFICADOS correctamente.");
+				
+					echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(1);
+					</script>'; 
+				}  
+				
+				 
 			}
 			else{
 				$this -> alerta = Alerta::error("Los Folios buscados no fueron encontrados en la Base de Datos.");
+				
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(2);
+				</script>';  
 			}
 			
 			$this -> folios = $folios;

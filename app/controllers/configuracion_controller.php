@@ -120,6 +120,62 @@
 		public function modificarContribuyente(){
 			$this -> render(null,null);
 			
+			if($this -> post("rfc")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-11);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			if($this -> post("nombre")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-12);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			if($this -> post("calle")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-13);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			if($this -> post("exterior")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-14);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+
+			if($this -> post("municipio")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-15);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+
+			if($this -> post("estado")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-16);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+
+			if($this -> post("pais")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-17);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
 			$this -> contribuyente = Contribuyente::consultar($this -> post("contribuyente"));
 			
 			if($this -> contribuyente){
@@ -139,6 +195,8 @@
 				$this -> contribuyente -> celular = utf8_decode($this -> post("celular"));			
 				$this -> contribuyente -> correo = utf8_decode($this -> post("correo"));
 				
+				$bandera = true;
+				
 				if($_FILES["cedula"]["name"]!=""){
 	       			$tmp = $_FILES["cedula"]["name"];
 	                
@@ -152,14 +210,32 @@
 		        			$ext .= $tmp[$i];
 		        		}
 		        	}
+					
+					if(strtoupper($ext)!="JPG" && strtoupper($ext)!="JPEG" && strtoupper($ext)!="PNG" && strtoupper($ext)!="GIF"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+					}
+					else{
+						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
 	                
-					$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
-	                
-					$archivo = APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file;
-	
-					$this -> contribuyente -> cedula = $file;
-	
-					move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo);
+						$archivo = APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file;
+		
+						$this -> contribuyente -> cedula = $file;
+		
+						move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo);	
+					}
+				}
+				else{
+					if($this -> contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$this -> contribuyente -> cedula))){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(1);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+					}
 				}
 				
 				if($_FILES["logotipo"]["name"]!=""){
@@ -175,19 +251,39 @@
 		        			$ext .= $tmp[$i];
 		        		}
 		        	}
+					
+					if(strtoupper($ext)!="JPG" && strtoupper($ext)!="JPEG" && strtoupper($ext)!="PNG" && strtoupper($ext)!="GIF"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+					}
+					else{
+						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
 	                
-					$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
-	                
-					$archivo = APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file;
-	
-					$this -> contribuyente -> logotipo = $file;
-	
-					move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);
+						$archivo = APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file;
+		
+						$this -> contribuyente -> cedula = $file;
+		
+						move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);	
+					}
+				}
+				else{
+					if($this -> contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$this -> contribuyente -> logotipo))){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(2);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;	
+					}
 				}
 				
-				echo '<script language="javascript" type="text/javascript">
-				   window.top.window.stopUpload();  window.top.window.scrollTo(0,0);
-				</script>';   
+				if($bandera){
+					echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(0);  window.top.window.scrollTo(0,0);
+					</script>';  
+				} 
 				
 				$this -> contribuyente -> guardar();
 				
@@ -197,9 +293,13 @@
 				$this -> unidad = false;
 				
 				$this -> alerta = Alerta::error("El Contribuyente buscado no fue encontrado en la Base de Datos.");
+				
+				echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
+					</script>';  
 			}
-			
-			$this -> set_response("view");
+			echo "HOLA";
+			//$this -> set_response("view");
 		}
 	}
 ?>
