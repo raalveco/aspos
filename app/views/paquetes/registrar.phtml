@@ -37,14 +37,14 @@
 				</p>
 				<p class="_25">
 					<label>Costo Factura Adicional</label>
-					<?= Formulario::numerico("costo_factura_adicional", $paquete ? $paquete -> costo_factura_adicional : "") ?>
+					<?= Formulario::dinero("costo_factura_adicional", $paquete ? $paquete -> costo_factura_adicional : "") ?>
 				</p>
 				<p class="_25">
 					<label>Número de Usuarios</label>
 					<?= Formulario::numerico("usuarios", $paquete ? $paquete -> usuarios : "") ?>
 				</p> 
 				<p class="_25">
-					<label>Almacenamiento</label>
+					<label>Almacenamiento (MB)</label>
 					<?= Formulario::numerico("almacenamiento",$paquete ? $paquete -> almacenamiento : "") ?>
 				</p>
 			</div>
@@ -59,11 +59,11 @@
 				</p>
 				<p class="_25">
 					<label>Costo Mensual</label>
-					<?= Formulario::numerico("costo_mensual", $paquete ? $paquete -> costo_mensual : "") ?>
+					<?= Formulario::dinero("costo_mensual", $paquete ? $paquete -> costo_mensual : "") ?>
 				</p>
 				<p class="_25">
 					<label>Costo Anual</label>
-					<?= Formulario::numerico("costo_anual", $paquete ? $paquete -> costo_anual : "") ?>
+					<?= Formulario::dinero("costo_anual", $paquete ? $paquete -> costo_anual : "") ?>
 				</p> 
 			</div>
 			<div class="row">

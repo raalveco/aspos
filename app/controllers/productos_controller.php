@@ -23,7 +23,7 @@
 		}
 		
 		public function registrar(){
-			$this -> render("producto");		
+			$this -> render("reporte");		
 			
 			$nombre = utf8_decode($this -> post("nombre"));			
 			$precio_unitario = Formato::noDinero(utf8_decode($this -> post("precio")));
