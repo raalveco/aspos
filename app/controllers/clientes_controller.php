@@ -37,15 +37,15 @@
 		}
 		
 		public function registrar(){
-			$this -> render("cliente");
-			
+			$this -> render("reporte");
+						
 			$cuenta = utf8_decode($this -> post("cuenta_id"));
 			$rfc = utf8_decode($this -> post("rfc"));
 			$nombre = utf8_decode($this -> post("nombre"));
 			$estado = utf8_decode($this -> post("estado"));
 			$pais = utf8_decode($this -> post("pais"));
 			
-			$cliente = Cliente::registrar($cuenta,$rfc,$nombre,$estado,$pais);
+			$cliente = Cliente::registrar($rfc,$nombre,$estado,$pais);
 			
 			if($cliente){
 				$cliente -> tipo_cliente_id = utf8_decode($this -> post("tipo_cliente"));

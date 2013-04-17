@@ -26,7 +26,7 @@
 				</p> 
 				<p class="_50">
 					<label>Domicilio</label>
-					<?= Formulario::mayusculas("domicilio",$sucursal ? $sucursal -> domicilio : "") ?>
+					<?= Formulario::mayusculas("domicilio",$sucursal ? $sucursal -> domicilio : "","class: required") ?>
 				</p>
 				<p class="_25">
 					<label>Serie / Folios</label>
@@ -56,15 +56,15 @@
 				</p>
 				<p class="_25">
 					<label>Ciudad</label>
-					<?= Formulario::mayusculas("ciudad", $sucursal ? $sucursal -> ciudad : "") ?>
+					<?= Formulario::mayusculas("ciudad", $sucursal ? $sucursal -> ciudad : "","class: required") ?>
 				</p> 
 				<p class="_25">
 					<label>Estado</label>
-					<?= Formulario::mayusculas("estado",$sucursal ? $sucursal -> estado : "") ?>
+					<?= Formulario::selectEstados("estado",$sucursal ? $sucursal -> estado  : "","class: required search","data-placeholder: Selecciona Estado") ?>
 				</p>
 				<p class="_25">
 					<label>Código Postal</label>
-					<?= Formulario::mayusculas("cpostal",$sucursal ? $sucursal -> cpostal : "") ?>
+					<?= Formulario::mayusculas("cpostal",$sucursal ? $sucursal -> cpostal : "","class: required") ?>
 				</p>
 			</div>
 		</fieldset>

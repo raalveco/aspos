@@ -19,7 +19,7 @@
 			<div class="row">
 				<p class="_25">
 					<label>Código</label>
-					<?= Formulario::mayusculas("codigo", $producto ? $producto -> codigo : "") ?>
+					<?= Formulario::mayusculas("codigo", $producto ? $producto -> codigo : "","class: required") ?>
 				</p>
 				<p class="_25">
 					<label>Nombre</label>
@@ -27,19 +27,19 @@
 				</p> 
 				<p class="_50">
 					<label>Descripción</label>
-					<?= Formulario::mayusculas("descripcion",$producto ? $producto -> descripcion : "") ?>
+					<?= Formulario::mayusculas("descripcion",$producto ? $producto -> descripcion : "","class: required") ?>
 				</p>
 			</div>
 			<div class="row">
 				<p class="_25">
 					<?php $categorias = ProductoCategoria::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
 					<label>Categoría</label>
-					<?= Formulario::selectModelo("categoria",$categorias,"nombre","id", $producto ? $producto -> categoria_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+					<?= Formulario::selectModelo("categoria",$categorias,"nombre","id", $producto ? $producto -> categoria_id : "","class: search","data-placeholder: Selecciona Tipo","class: required") ?>
 				</p>
 				<p class="_25">
 					<?php $unidades = Unidad::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
 					<label>Unidad</label>
-					<?= Formulario::selectModelo("unidad",$unidades,"nombre","id", $producto ? $producto -> unidad_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+					<?= Formulario::selectModelo("unidad",$unidades,"nombre","id", $producto ? $producto -> unidad_id : "","class: search","data-placeholder: Selecciona Tipo","class: required") ?>
 				</p>
 				<p class="_25">
 					<label>Precio Unitario</label>
@@ -48,7 +48,7 @@
 				<p class="_25">
 					<?php $monedas = Moneda::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
 					<label>Moneda</label>
-					<?= Formulario::selectModelo("moneda",$monedas,"nombre","id", $producto ? $producto -> moneda_id : "","class: search","data-placeholder: Selecciona Tipo") ?>
+					<?= Formulario::selectModelo("moneda",$monedas,"nombre","id", $producto ? $producto -> moneda_id : "","class: search","data-placeholder: Selecciona Tipo","class: required") ?>
 				</p>
 			</div>
 			<!--
