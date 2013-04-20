@@ -7,8 +7,25 @@
 <?= View::partial("base/edicion") ?>
 <?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
 
-<!-- Here goes the content. -->
+<script>
+	$(document).ready(function(){
+        $("#cliente").change(function(){
+        	alert($("#cliente").val());
+			$("#tmp").load("<?= PROYECTO_BASE.$controller_name."/clienteFactura/" ?>"+$("#cliente option:selected").val());
+        });
+        
+        $("#sucursal").change(function(){
+        	alert($("#sucursal").val());
+			$("#tmp").load("<?= PROYECTO_BASE.$controller_name."/sucursalFactura/" ?>"+$("#sucursal option:selected").val());
+        });
+        
+        $("#serie").change(function(){
+			$("#tmp").load("<?= PROYECTO_BASE.$controller_name."/serieFactura/" ?>"+$("#serie option:selected").val());
+        }); 
+	});
+</script>
 
+<!-- Here goes the content. -->
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<?= isset($alerta) ? $alerta : "" ?>
 	<?= Formulario::inicioAjax($controller_name."/completar", "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
@@ -19,20 +36,20 @@
 			<div class="row">
 				<p class="_50">
 					<label>Cliente (Receptor)</label>
-					<?= Formulario::selectModeloClientes("cliente", $clientes,"nombre","id","","class: required search","data-placeholder: Selecciona Cliente") ?>
+					<?= Formulario::selectModeloClientes("cliente", $clientes,"nombre","id",Session::get("cliente_factura") ? Session::get("cliente_factura") : "","class: required search","data-placeholder: Selecciona Cliente") ?>
 				</p>
 				<p class="_25">
 					<label>Fecha</label>
-					<?= Formulario::fecha("fecha",date("d/m/Y"),"dd/mm/yy",$desde,$hasta,"class: required") ?>
+					<?= Formulario::fechaFactura("fecha",$factura ? Formato::fecha($factura -> fecha) : (Session::get("fecha_factura") ? Session::get("fecha_factura") : date("d/m/Y")),"dd/mm/yy",$desde,$hasta,"class: required") ?>
 				</p> 
 				<p class="_25">
 					<label><?= $sucursales ? "Sucursal" : "Serie / Folio" ?></label>
 					<?php
 						if($sucursales){
-							echo Formulario::selectModelo("sucursal",$sucursales,"nombre","id", $factura ? $factura -> sucursal_id : $matrix,"class: required search","data-placeholder: Selecciona Sucursal");
+							echo Formulario::selectModelo("sucursal",$sucursales,"nombre","id", $factura ? $factura -> sucursal_id : (Session::get("sucursal_factura") ? Session::get("sucursal_factura") : $matrix),"class: required search","data-placeholder: Selecciona Sucursal");
 						}
 						else{
-							echo Formulario::selectModelo("serie",$series,"serie","id", $factura ? $factura -> cbb_folios_id : $xerie,"class: required search","data-placeholder: Selecciona Serie");
+							echo Formulario::selectModelo("serie",$series,"serie","id", $factura ? $factura -> cbb_folios_id : (Session::get("serie_factura") ? Session::get("serie_factura") : $xerie),"class: required search","data-placeholder: Selecciona Serie");
 						}
 					?>
 				</p>
@@ -168,3 +185,4 @@
 	<?= Formulario::fin(); ?>
 	</div>
 </section><!-- End of #content -->
+<div id="tmp"></div>

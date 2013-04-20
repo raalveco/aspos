@@ -659,6 +659,25 @@
 			
 			$this -> set_response("view");
 		}	
+		
+		public function clienteFactura($cliente){
+			Session::set("cliente_factura",$cliente);
+		}
+		
+		public function sucursalFactura($sucursal){
+			Session::set("sucursal_factura",$sucursal);
+		}
+		
+		public function serieFactura($serie){
+			Session::set("serie_factura",$serie);
+		}
+		
+		public function fechaFactura($d,$m,$y){
+			$this -> render(null,null);
+			Session::set("fecha_factura",$d."/".$m."/".$y);
+			
+			echo $d."/".$m."/".$y;
+		}
 
 		public function eliminarFolios($id){
 			$this -> render("folios");

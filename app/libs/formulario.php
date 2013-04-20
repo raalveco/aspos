@@ -234,8 +234,8 @@
             
             return @numeric_field_tag($params);
         }
-        
-        public static function fecha($nombre,$valor="",$formato="dd/mm/yy",$min=false,$max=false){
+		
+		public static function fecha($nombre,$valor="",$formato="dd/mm/yy",$min=false,$max=false){
             $params = is_array($nombre) ? $nombre : Util::getParams(func_get_args());
             
             $params["value"] = utf8_encode($valor);
@@ -275,6 +275,62 @@
                                 yearRange: 'c-20:c-0',
                                 changeMonth: true,
 								changeYear: true,
+								
+                                ".($min!==false ? "minDate: -".$min."," : "")."
+                                ".($max!==false ? "maxDate: ".$max."," : "")."
+                                dateFormat: '".$formato."' 
+                            });
+                       	});
+                      </script>";
+                      
+                      return $code.text_field_tag($params);
+        }
+        
+        public static function fechaFactura($nombre,$valor="",$formato="dd/mm/yy",$min=false,$max=false){
+            $params = is_array($nombre) ? $nombre : Util::getParams(func_get_args());
+            
+            $params["value"] = utf8_encode($valor);
+            $params["data-error-type"] = "inline";
+            
+            $controlador = isset($params["controlador"]) ? $params["controlador"] : "cbb";
+            
+            if(strpos($min,"-")>0 || strpos($min,"/")>0){
+                if(strpos($min,"-")>0){
+                    $fm = mktime(0,0,0,substr($min,5,2),substr($min,8,2),substr($min,0,4));
+                }
+                else{
+                    $fm = mktime(0,0,0,substr($min,3,2),substr($min,0,2),substr($min,6,4));
+                }
+                
+                $min = (mktime(0,0,0,date("m"),date("d"),date("Y")) - $fm) / 60 / 60 / 24 ;
+                 
+            }
+            
+            if(strpos($max,"-")>0 || strpos($max,"/")>0){
+                if(strpos($max,"-")>0){
+                    $fm = mktime(0,0,0,substr($max,5,2),substr($max,8,2),substr($max,0,4));
+                }
+                else{
+                    $fm = mktime(0,0,0,substr($max,3,2),substr($max,0,2),substr($max,6,4));
+                }
+                
+                $max = ($fm - mktime(0,0,0,date("m"),date("d"),date("Y"))) / 60 / 60 / 24 ;
+                 
+            }
+            
+            $code = "<script type='text/javascript'>
+                        $(function() {
+                            $( '#".$nombre."' ).datepicker({
+                                monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            			        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                                dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                                firstDay: 1,
+                                yearRange: 'c-20:c-0',
+                                changeMonth: true,
+								changeYear: true,
+								onSelect: function(dateText, inst) {
+									$('#tmp').load('".PROYECTO_BASE.$controlador."/fechaFactura/'+dateText);
+								},
 								
                                 ".($min!==false ? "minDate: -".$min."," : "")."
                                 ".($max!==false ? "maxDate: ".$max."," : "")."
