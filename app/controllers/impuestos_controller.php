@@ -23,9 +23,7 @@
 		
 			
 		public function registrarImpuesto(){
-			$this -> render("reporte");	
-			
-			$this -> render(null,null);
+			$this -> render("reporte");
 			
 			$nombre = utf8_decode($this -> post("nombre"));			
 			$descripcion = utf8_decode($this -> post("nombre"));	
@@ -33,8 +31,6 @@
 			$tipo = utf8_decode($this -> post("tipo"));	
 			
 			$impuesto = Impuesto::registrar($nombre,$descripcion,$tasa,$tipo);
-			
-			return;
 			
 			if($impuesto){
 								

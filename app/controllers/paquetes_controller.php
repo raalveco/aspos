@@ -40,7 +40,7 @@
 			
 			if($paquete){
 				$paquete -> facturas_incluidas = utf8_decode($this -> post("facturas_incluidas"));
-				$paquete -> costo_factura_adicional = utf8_decode($this -> post("costo_factura_adicional"));
+				$paquete -> costo_factura_adicional = utf8_decode(Formato::noDinero($this -> post("costo_factura_adicional")));
 				$paquete -> usuarios = utf8_decode($this -> post("usuarios"));
 				$paquete -> alamcenamiento = utf8_decode($this -> post("almacenamiento"));
 				$paquete -> soporte_online = utf8_decode($this -> post("soporte_online"));
@@ -48,8 +48,8 @@
 				$paquete -> soporte_telefono = utf8_decode($this -> post("soporte_telefono"));
 				$paquete -> multiple_moneda = utf8_decode($this -> post("multiple_moneda"));
 				$paquete -> multiple_sucursal = utf8_decode($this -> post("multiple_sucursal"));
-				$paquete -> costo_mensual = utf8_decode($this -> post("costo_mensual"));
-				$paquete -> costo_anual = utf8_decode($this -> post("costo_anual"));
+				$paquete -> costo_mensual = utf8_decode(Formato::noDinero($this -> post("costo_mensual")));
+				$paquete -> costo_anual = utf8_decode(Formato::noDinero($this -> post("costo_anual")));
 				$paquete -> vigencia =  Formato::FechaDB(utf8_decode($this -> post("vigencia")));
 				$paquete -> activo = utf8_decode($this -> post("activo"));
 				
