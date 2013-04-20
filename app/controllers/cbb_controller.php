@@ -5,6 +5,7 @@
 	class CbbController extends ApplicationController {
 		public function index($mensaje = false){
 			$this -> set_response("view");
+			//$this -> render(null,null);
 			
 			$this -> permiso_facturar = true;
 			$this -> factura = false;
@@ -77,7 +78,7 @@
 				
 				foreach($this -> series as $tmp){
 					
-					if($tmp -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$tmp -> cbb))){
+					if($tmp -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/").$tmp -> cbb)){
 						$uno = true;
 					}
 					else{
@@ -89,23 +90,18 @@
 					$this -> alerta = Alerta::error("No se ha cargado el Código Bidimensional para al menos una Serie / Folios.");
 					$this -> permiso_facturar = false;
 				}
-				else{
-					if($uno){
-						$this -> alerta = Alerta::warning("Alguna de las Series / Folios no tiene cargado el Código Bidimensional");
-					}	
-				}
 			}
 			
 			$contribuyente = $this -> cuenta -> contribuyente();
 			
 			//Verificar si se cargo imagen de Logotipo
-			if($contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$contribuyente -> logotipo))){
+			if($contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/").$contribuyente -> logotipo)){
 				$this -> alerta = Alerta::error("No se ha cargado el Logotipo del negocio, el cual se utilizará en el formato de impresión de la Factura.");
 				$this -> permiso_facturar = false;
 			}
 			
 			//Verificar si se cargo imagen de Cedula Fiscal
-			if($contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$contribuyente -> cedula))){
+			if($contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/").$contribuyente -> cedula)){
 				$this -> alerta = Alerta::error("No se ha cargado la Cedula Fiscal	 del negocio, el cual se utilizará en el formato de impresión de la Factura.");
 				$this -> permiso_facturar = false;
 			}
@@ -117,7 +113,7 @@
 					case "limpiado": $this -> alerta = Alerta::success("Los Conceptos de la Factura han sido eliminados."); break;
 					case "completado": $this -> alerta = Alerta::success("La Factura ha sido generada correctamente."); break;
 					case "no_folios": $this -> alerta = Alerta::error("No se encontraron folios para esta Sucursal/Serie."); break;
-					case "no_cbb": $this -> alerta = Alerta::error("No se encontro la imagen del Código Bidimensional para al menos una SERIE."); break;
+					case "no_cbb": $this -> alerta = Alerta::error("No se encontro la imagen del Código Bidimensional para la Sucursal / Serie seleccionada."); break;
 					case "no_logo": $this -> alerta = Alerta::error("No se ha cargado el Logotipo del negocio, el cual se utilizará en el formato de impresión de la Factura."); break;
 					case "no_cedula": $this -> alerta = Alerta::error("No se ha cargado la Cedula Fiscal del negocio, la cual se utilizará en el formato de impresión de la Factura."); break;
 				}
@@ -227,6 +223,34 @@
 			
 			$this -> redirect("cbb/index/agregado");
 		}
+
+		public function agregarManual(){
+			$this -> render(null,null);
+			
+			if(Session::get("conceptos")){
+				$conceptos = Session::get("conceptos");
+			}
+			else{
+				$conceptos = array();
+				Session::set("conceptos", $conceptos);
+			}
+			
+			$concepto = array("cantidad" => 0, "id" => 0, "producto" => "", "precio" => 0);
+			
+			$unidad = Unidad::consultar($this -> post("unidad"));
+			
+			$concepto["cantidad"] += $this -> post("cantidad");
+			$concepto["id"] = str_replace(" ", "-", $this -> post("concepto"));
+			$concepto["unidad"] = $unidad -> nombre;
+			$concepto["producto"] = $this -> post("concepto");
+			$concepto["precio"] = $this -> post("precio");
+			
+			$conceptos[$concepto["id"]] = $concepto;
+			
+			Session::set("conceptos", $conceptos);
+			
+			$this -> redirect("cbb/index/agregado");
+		}
 		
 		public function quitar($n = false){
 			$this -> render(null,null);
@@ -249,15 +273,14 @@
 			
 			$tmp = array();
 			$x = 0;
-			$y;
 			
 			if($conceptos) foreach($conceptos as $concepto){
-				if($n - 1 != $y){
-					$tmp[$x] = $concepto;
-					$x++;
-				}
+				if($concepto["id"] == $n){
+					continue;
+				}	
 				
-				$y++;
+				$tmp[$x] = $concepto;
+				$x++;
 			}
 			
 			Session::set("conceptos", $tmp);
@@ -294,7 +317,27 @@
 				$folios = CbbFolio::consultar($folios_id);
 			}
 			
+			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			$contribuyente = $cuenta -> contribuyente();
+			
+			//Verificar si se cargo imagen de Logotipo
+			if($contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/").$contribuyente -> logotipo)){
+				$this -> redirect("cbb/index/no_logo");
+				return;
+			}
+			
+			//Verificar si se cargo imagen de Cedula Fiscal
+			if($contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/").$contribuyente -> cedula)){
+				$this -> redirect("cbb/index/no_cedula");
+				return;
+			}
+			
 			if($folios){
+				if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/").$folios -> cbb)){
+					$this -> redirect("cbb/index/no_cbb");
+					return;
+				}
+				
 				$factura = CbbFactura::registrar($folios -> id, $this -> post("sucursal"), $folios -> serie, $folios -> actual, Formato::FechaDB($this -> post("fecha")));
 				
 				if($factura){
@@ -361,6 +404,9 @@
 				$this -> redirect("cbb/index/no_folios");
 				return;
 			}
+			
+			$conceptos = array();
+			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/consulta/".$factura -> id."/generada");
 		}
@@ -437,7 +483,7 @@
 					else{
 						$file = strtolower($folios -> id . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$file;
 		
 						$folios -> cbb = $file;
 						
@@ -447,7 +493,7 @@
 					}
 				}
 				else{
-					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$folios -> cbb))){
+					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$folios -> cbb))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -550,7 +596,7 @@
 					else{
 						$file = strtolower($folios -> id . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_BASE."cbbs/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$file;
 		
 						$folios -> cbb = $file;
 						
@@ -560,7 +606,7 @@
 					}
 				}
 				else{
-					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cbbs/".$folios -> cbb))){
+					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$folios -> cbb))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -593,6 +639,26 @@
 			
 			$this -> set_response("view");
 		}
+
+		public function conceptos($tipo = "automatico", $permiso){
+			$this -> factura = false;
+			$this -> permiso_facturar = $permiso;
+			
+			if($tipo == "automatico"){
+				$this -> render("conceptosAutomatico");
+				
+				$campos = array("id","codigo","nombre");
+				$this -> productos = Producto::reporte("cuenta_id = ".Session::get("cuenta_id"),"nombre ASC",0,0,$campos);
+			}
+			else{
+				$this -> render("conceptosManual");
+				
+				$campos = array("id","nombre");
+				$this -> unidades = Unidad::reporte("cuenta_id = ".Session::get("cuenta_id"),"nombre ASC",0,0,$campos);
+			}
+			
+			$this -> set_response("view");
+		}	
 
 		public function eliminarFolios($id){
 			$this -> render("folios");

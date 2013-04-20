@@ -82,7 +82,7 @@
                 
 				$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
                 
-				$archivo = strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file);
+				$archivo = strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/".$file);
 
 				$this -> contribuyente -> cedula = $file;
 
@@ -105,7 +105,7 @@
                 
 				$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
                 
-				$archivo = strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file);
+				$archivo = strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$file);
 
 				$this -> contribuyente -> logotipo = $file;
 
@@ -221,7 +221,7 @@
 					else{
 						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_BASE."cedulas/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/".$file;
 		
 						$this -> contribuyente -> cedula = $file;
 		
@@ -229,12 +229,14 @@
 					}
 				}
 				else{
-					if($this -> contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."cedulas/".$this -> contribuyente -> cedula))){
+					if($this -> contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/".$this -> contribuyente -> cedula))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(1);  window.top.window.scrollTo(0,0);
 						</script>';
 						
 						$bandera = false;
+						
+						return;
 					}
 				}
 				
@@ -258,11 +260,13 @@
 						</script>';
 						
 						$bandera = false;
+						
+						return;
 					}
 					else{
 						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_BASE."logotipos/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$file;
 		
 						$this -> contribuyente -> cedula = $file;
 		
@@ -270,7 +274,7 @@
 					}
 				}
 				else{
-					if($this -> contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_BASE."logotipos/".$this -> contribuyente -> logotipo))){
+					if($this -> contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$this -> contribuyente -> logotipo))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(2);  window.top.window.scrollTo(0,0);
 						</script>';

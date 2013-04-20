@@ -34,6 +34,12 @@
 			$this -> render("cbbPDF",null);
 			
 			$this -> factura = CbbFactura::consultar($id);
+			
+			$this -> emisor = $this -> factura -> emisor();
+			$this -> cliente = $this -> factura -> receptor();
+			$this -> folios = $this -> factura -> folio();
+			
+			$this -> sucursal = $this -> factura -> sucursal();
 		}
 	}
 	

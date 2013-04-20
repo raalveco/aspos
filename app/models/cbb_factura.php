@@ -51,6 +51,10 @@
 			return CbbConcepto::reporte("cbb_id = ".$this -> id);
 		}
 		
+		public function impuestos(){
+			return CbbImpuesto::reporte("cbb_id = ".$this -> id);
+		}
+		
 		public function emisor(){
 			return Contribuyente::consultar("cuenta_id = ".$this -> cuenta_id);
 		}

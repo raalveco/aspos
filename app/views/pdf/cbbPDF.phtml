@@ -1,12 +1,5 @@
 <?php Load::lib("html"); ?>
 <?php Load::lib("formato"); ?>
-<?php
-	$emisor = $factura -> emisor();
-	$cliente = $factura -> receptor();
-	$folios = $factura -> folio();
-	
-	$sucursal = $factura -> sucursal();
-?>
 <page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm" style="font-size: 12pt">
 <div style="border: 1px solid">
 	<table border="0">
@@ -38,28 +31,28 @@
 							<table>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Serie - Folio</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $factura -> serie ?> - <?= $factura -> folio ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= $factura -> serie ?> - <?= $factura -> folio ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($folios -> fecha_recepcion) ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= Formato::fecha($folios -> fecha_recepcion) ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
 									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">No. de Aprobacion</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= $folios -> numero_aprobacion ?></span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= $folios -> numero_aprobacion ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
 								</tr>
 								<tr>
-									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha Emisión</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 11px;"><?= Formato::fecha($factura -> fecha) ?></span></td>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Fecha Emisi&oacute;n</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= Formato::fecha($factura -> fecha) ?></span></td>
 								</tr>
 							</table>
 						</td>
@@ -229,17 +222,22 @@
 			</td>
 		</tr>
 		<?php } ?>
-		<tr>
-			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">IVA (16%)</td>
-			<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
-				<table border="0">
-					<tr>
-						<td style="text-align: left; width: 10px;">$</td>
-						<td style="text-align: right; width: 50px;"><?= Formato::numero(($factura -> subtotal - $factura -> descuento) * 0.16) ?></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
+		<?php $impuestos = $factura -> impuestos(); ?>
+		<?php if($impuestos){ ?>
+			<?php foreach($impuestos as $impuesto){ ?>
+				<tr>
+					<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;"><?= $impuesto -> nombre ?> (<?= $impuesto -> tasa ?> %)</td>
+					<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+						<table border="0">
+							<tr>
+								<td style="text-align: left; width: 10px;">$</td>
+								<td style="text-align: right; width: 50px;"><?= Formato::numero($impuesto -> importe) ?></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			<?php } ?>
+		<?php } ?>
 		<tr>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">Total</td>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">

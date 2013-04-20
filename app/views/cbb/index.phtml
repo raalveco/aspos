@@ -131,16 +131,20 @@
 	</div>
 	<?php } ?>
 	<?= Formulario::fin(); ?>
+	<div id="conceptos">
 	<?= $factura ? "" : Formulario::inicioAjax($controller_name."/agregar", "contenido", false, "class: grid_12", "style: margin-bottom: 10px;") ?>
 	<?php if($factura) echo Formulario::oculto("factura", $factura -> id) ?>
 		<fieldset>
 			<legend>
 				AGREGAR CONCEPTO
+				<span style="float: right;">
+					<?= Html::linkAjax($controller_name."/conceptos/manual/".($permiso_facturar ? 1 : 0),"MANUAL","conceptos") ?>
+				</span>
 			</legend>
 			<div class="row">
 				<p class="_25">
 					<label>Cantidad</label>
-					<?= Formulario::numerico("cantidad","1.00","class: required") ?>
+					<?= Formulario::numerico("cantidad","","class: required","placeholder: 1.00") ?>
 				</p> 
 				<p class="_75">
 					<label>Producto o Servicio</label>
@@ -162,4 +166,5 @@
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
+	</div>
 </section><!-- End of #content -->
