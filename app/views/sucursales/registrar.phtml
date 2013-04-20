@@ -64,7 +64,7 @@
 				</p>
 				<p class="_25">
 					<label>Código Postal</label>
-					<?= Formulario::mayusculas("cpostal",$sucursal ? $sucursal -> cpostal : "","class: required") ?>
+					<?= Formulario::mayusculas("cpostal",$sucursal ? $sucursal -> cpostal : "","class: digits","minlength: 5", "maxlength: 5") ?>
 				</p>
 			</div>
 		</fieldset>

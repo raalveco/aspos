@@ -5,7 +5,7 @@
 	$campos = array("id","nombre","tipo","vigencia","activo","costo_mensual","costo_anual");
 	$orden = "id ASC";
 	$cantidad = 100;
-	$filtro = Session::get("filtro");
+	$filtro = Session::get("filtro") ? Session::get("filtro") : "id>0";
 	
 	$paquetes = Paquete::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>

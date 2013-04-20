@@ -34,7 +34,7 @@
 		}
 		
 		public function registrar(){
-			$this -> render("cuenta");
+			$this -> render("reporte");
 			
 			$nombre = utf8_decode($this -> post("nombre"));
 			$rfc = utf8_decode($this -> post("rfc"));
