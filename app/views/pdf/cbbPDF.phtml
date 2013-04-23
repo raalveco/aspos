@@ -123,17 +123,17 @@
 	<table border="0">
 		<tr>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 40px;">Cantidad</th>
-			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "375" : "462" ?>px;">Descripci&oacute;n</th>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "355" : "442" ?>px;">Descripci&oacute;n</th>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 75px;">Precio Unitario</th>
 			<?php if($bandera){ ?>
 			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 65px;">Descuento</th>
 			<?php } ?>
-			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 65px;">Importe</th>
+			<th style="background-color:#666; color: #EEE; padding: 5px 5px; text-align: center; vertical-align:middle; font-size: 10px; width: 85px;">Importe</th>
 		</tr>
 		<?php $i=0; foreach($conceptos as $concepto){ $i++; $color = $i % 2 == 0 ? "#EEE" : "#DDD"; ?>
 		<tr>
-			<td style="height: <?= $tmp<=12 ? 20 : 5 ?>px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= $concepto -> cantidad ?></td>
-			<td style="background-color:<?= $color ?>; padding: 5px; text-align: left; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "396" : "483" ?>px;"><?= Formato::mayusculas($concepto -> descripcion) ?></td>
+			<td style="height: <?= $tmp<=12 ? 25 : 5 ?>px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= number_format($concepto -> cantidad,2) ?></td>
+			<td style="background-color:<?= $color ?>; padding: 5px; text-align: left; vertical-align:middle; font-size: 10px; width: <?= $bandera ? "376" : "463" ?>px;"><?= Formato::mayusculas($concepto -> descripcion) ?></td>
 			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
 				<table border="0">
 					<tr>
@@ -164,7 +164,7 @@
 		<?php } ?>
 		<?php while($i < ($bandera ? 11 : 12)) { $i++; $color = $i % 2 == 0 ? "#EEE" : "#DDD"; ?>
 		<tr>
-			<td style="height: 28px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"></td>
+			<td style="height: 25px; background-color:<?= $color ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"></td>
 			<td style="background-color:<?= $color ?>; padding: 5px; text-align: left; vertical-align:middle; font-size: 10px; width: 396px;"></td>
 			<td style="background-color:<?= $color ?>; padding: 5px; text-align: right; vertical-align:middle; font-size: 10px;">
 				<table border="0">
@@ -198,13 +198,13 @@
 			<td style="background-color: #666;" colspan="<?= $bandera ? "5" : "4" ?>"></td>
 		</tr>
 		<tr>
-			<td height="30" colspan="<?= $bandera ? "3" : "2" ?>" rowspan="4" style="font-weight: bold; background-color:<?= ++$i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 11px;"><?= Formato::numeroLetra($factura -> total) ?> PESOS <?= substr(number_format($factura -> total,2),strlen(number_format($factura -> total,2))-2) ?>/100 M.N.</td>
+			<td height="30" width="100" colspan="<?= $bandera ? "3" : "2" ?>" rowspan="4" style="font-weight: bold; background-color:<?= ++$i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= Formato::numeroLetra($factura -> total) ?> PESOS <?= substr(number_format($factura -> total,2),strlen(number_format($factura -> total,2))-2) ?>/100 M.N.</td>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">SubTotal</td>
 			<td align="right" style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
 				<table border="0">
 					<tr>
 						<td style="text-align: left; width: 10px;">$</td>
-						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> subtotal) ?></td>
+						<td style="text-align: right; width: 75px;"><?= Formato::numero($factura -> subtotal) ?></td>
 					</tr>
 				</table>
 			</td>
@@ -213,12 +213,14 @@
 		<tr>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">Descuentos</td>
 			<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
-				<table border="0">
-					<tr>
-						<td style="text-align: left; width: 10px;">$</td>
-						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> descuento) ?></td>
-					</tr>
-				</table>
+				<span style="float: right;">
+					<table border="0">
+						<tr>
+							<td style="text-align: left; width: 10px;">$</td>
+							<td style="text-align: right width: 75px;;"><?= Formato::numero($factura -> descuento) ?></td>
+						</tr>
+					</table>
+				</span>
 			</td>
 		</tr>
 		<?php } ?>
@@ -227,13 +229,15 @@
 			<?php foreach($impuestos as $impuesto){ ?>
 				<tr>
 					<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;"><?= $impuesto -> nombre ?> (<?= $impuesto -> tasa ?> %)</td>
-					<td style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
-						<table border="0">
-							<tr>
-								<td style="text-align: left; width: 10px;">$</td>
-								<td style="text-align: right; width: 50px;"><?= Formato::numero($impuesto -> importe) ?></td>
-							</tr>
-						</table>
+					<td align="right" style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
+						<span style="float: right;">
+							<table border="0">
+								<tr>
+									<td style="text-align: left; width: 10px;">$</td>
+									<td style="text-align: right; width: 75px;"><?= Formato::numero($impuesto -> importe) ?></td>
+								</tr>
+							</table>
+						</span>
 					</td>
 				</tr>
 			<?php } ?>
@@ -241,12 +245,14 @@
 		<tr>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">Total</td>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
-				<table border="0">
-					<tr>
-						<td style="text-align: left; width: 10px;">$</td>
-						<td style="text-align: right; width: 50px;"><?= Formato::numero($factura -> total) ?></td>
-					</tr>
-				</table>
+				<span style="float: right;">
+					<table border="0">
+						<tr>
+							<td style="text-align: left; width: 10px;">$</td>
+							<td style="text-align: right; width: 75px;"><?= Formato::numero($factura -> total) ?></td>
+						</tr>
+					</table>
+				</span>
 			</td>
 		</tr>
 	</table>
@@ -267,7 +273,7 @@
             <td>
             	<?= Html::imagen(APLICACION_URL."app/public/img/aspos/cbbs/".$folios -> cbb,"","style: width: 27.5mm; height: 27.5mm;") ?>
             </td>
-			<td valign="top" style="width: 420px; padding: 5px;">
+			<td valign="top" style="width: 430px; padding: 5px;">
 				<div style="padding: 0px; 15px 0px 15px; font-size: 11px; text-align: justify;">
 					<i><?= utf8_encode("La reproducción apócrifa de este comprobante constituye un delito en los términos de las disposiciones fiscales.") ?></i>
 				</div>

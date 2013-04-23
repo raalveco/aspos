@@ -10,12 +10,10 @@
 <script>
 	$(document).ready(function(){
         $("#cliente").change(function(){
-        	alert($("#cliente").val());
 			$("#tmp").load("<?= PROYECTO_BASE.$controller_name."/clienteFactura/" ?>"+$("#cliente option:selected").val());
         });
         
         $("#sucursal").change(function(){
-        	alert($("#sucursal").val());
 			$("#tmp").load("<?= PROYECTO_BASE.$controller_name."/sucursalFactura/" ?>"+$("#sucursal option:selected").val());
         });
         

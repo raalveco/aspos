@@ -195,6 +195,8 @@
 				$this -> contribuyente -> celular = utf8_decode($this -> post("celular"));			
 				$this -> contribuyente -> correo = utf8_decode($this -> post("correo"));
 				
+				$this -> contribuyente -> guardar();
+				
 				$bandera = true;
 				
 				if($_FILES["cedula"]["name"]!=""){
