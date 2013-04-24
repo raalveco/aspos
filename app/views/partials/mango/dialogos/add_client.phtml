@@ -1,40 +1,35 @@
 <!-- Add Client Example Dialog -->
-<div style="display: none;" id="dialog_add_client" title="Add Client Example Dialog">
-	<form action="" class="full validate">
+<div style="display: none;" id="dialog_add_client" title="Nuevo Ticket de Soporte">
+	<?= Formulario::inicio("tickets/registrar","ticket","class: full validate") ?>
 		<div class="row">
-			<label for="d2_username"> <strong>Username</strong> </label>
+			<label for="d2_username"> <strong>Asunto</strong> </label>
 			<div>
-				<input class="required" type=text name=d2_username id=d2_username />
+				<?= Formulario::texto("asunto","","class: required") ?>
 			</div>
 		</div>
 		<div class="row">
-			<label for="d2_email"> <strong>Email Address</strong> </label>
+			<label for="d2_email"> <strong>Mensaje</strong> </label>
 			<div>
-				<input class="required" type=text name=d2_email id=d2_email />
+				<?= Formulario::texto("mensaje","","class: required") ?>
 			</div>
 		</div>
 		<div class="row">
-			<label for="d2_role"> <strong>Role</strong> </label>
+			<label for="d2_role"> <strong>Departamento</strong> </label>
 			<div>
-				<select style="padding-bottom: 10px" name=d2_role id=d2_role class="search required" data-placeholder="Choose a Role">
-					<option value=""></option>
-					<option value="Applicant">Applicant</option>
-					<option value="Member">Member</option>
-					<option value="Moderator">Moderator</option>
-					<option value="Administrator">Administrator</option>
-				</select>
+				<?php $departamentos = Departamento::reporte("id > 0"); ?>
+				<?= Formulario::selectModelo("departamento",$departamentos,"nombre","id","","data-placeholder: Elige un Departamento", "style: padding-bottom: 10px") ?>
 			</div>
 		</div>
 	</form>
 	<div class="actions">
 		<div class="left">
 			<button class="grey cancel">
-				Cancel
+				Cancelar
 			</button>
 		</div>
 		<div class="right">
 			<button class="submit">
-				Add User
+				Aceptar
 			</button>
 		</div>
 	</div>

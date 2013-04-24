@@ -197,8 +197,9 @@
 		<tr>
 			<td style="background-color: #666;" colspan="<?= $bandera ? "5" : "4" ?>"></td>
 		</tr>
+		<?php $impuestos = $factura -> impuestos(); ?>
 		<tr>
-			<td height="30" width="100" colspan="<?= $bandera ? "3" : "2" ?>" rowspan="4" style="font-weight: bold; background-color:<?= ++$i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= Formato::numeroLetra($factura -> total) ?> PESOS <?= substr(number_format($factura -> total,2),strlen(number_format($factura -> total,2))-2) ?>/100 M.N.</td>
+			<td height="30" width="100" colspan="<?= $bandera ? "3" : "2" ?>" rowspan="<?= 2+count($impuestos) ?>" style="font-weight: bold; background-color:<?= ++$i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 5px; text-align: center; vertical-align:middle; font-size: 10px;"><?= Formato::numeroLetra($factura -> total) ?> PESOS <?= substr(number_format($factura -> total,2),strlen(number_format($factura -> total,2))-2) ?>/100 M.N.</td>
 			<td style="font-weight: bold; background-color:<?= $i % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: center; vertical-align:middle; font-size: 10px;">SubTotal</td>
 			<td align="right" style="font-weight: bold; background-color:<?= $i++ % 2 == 0 ? "#EEE" : "#DDD"; ?>; padding: 1px; text-align: right; vertical-align:middle; font-size: 10px;">
 				<table border="0">
@@ -224,7 +225,6 @@
 			</td>
 		</tr>
 		<?php } ?>
-		<?php $impuestos = $factura -> impuestos(); ?>
 		<?php if($impuestos){ ?>
 			<?php foreach($impuestos as $impuesto){ ?>
 				<tr>
