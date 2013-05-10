@@ -25,9 +25,9 @@
 					<?= Formulario::texto("nombre",$cuenta ? $cuenta -> nombre : "","class: required","readonly: readonly") ?>
 				</p>
 				<p class="_25">
-					<?php $tipos = ClienteTipo::reporte("cuenta_id = ".Session::get("cuenta_id")) ?>
+					<?php $paquetes = Paquete::reporte() ?>
 					<label>Paquete</label>
-					<?= Formulario::selectModelo("paquete",$tipos,"nombre","id", "","disabled: disabled","class: search","data-placeholder: Selecciona Paquete") ?>
+					<?= Formulario::selectModelo("paquete",$paquetes,"nombre","id", $cuenta ? $cuenta -> paquete_id : "","disabled: disabled","class: search","data-placeholder: Selecciona Paquete") ?>
 				</p>
 			</div>
 			<div class="row">

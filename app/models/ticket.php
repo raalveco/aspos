@@ -14,11 +14,25 @@
 			$ticket -> mensaje = $mensaje;
 			$ticket -> departamento_id = $departamento;
 			
-			$ticket -> visto = "NO";
+			$ticket -> fecha = date("Y-m-d H:i:s");
+			$ticket -> respondido = "NO";
 			
 			$ticket -> save();
 			
 			return $ticket;
+		}
+		
+		public function departamento(){
+			return Departamento::consultar($this -> departamento_id);
+		}
+		
+		public function cuenta(){
+			return Cuenta::consultar($this -> cuenta_id);
+		}
+		
+		public function usuario(){
+			if($this -> usuario_id == 0) return "admin";
+			return Usuario::consultar($this -> usuario_id) -> usuario;
 		}
 	}
 ?>

@@ -96,11 +96,15 @@
 		</fieldset>
 		<div class="actions">
 			<div class="right" style="margin: 5px;">
+				<?php if($cuenta){ ?>
+					<?= Html::linkAjax("cuentas/resetearPassword/".$cuenta -> id,"Cambiar Contraseña","contenido","class: button red"); ?>
+				<?php } ?>
 				<?= Formulario::submit($cuenta ? "Modificar" : "Registrar") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
-				<?= Formulario::reset("Cancelar") ?>
+				<?= Html::linkAjax("cuentas/reporte","Regresar","contenido","class: button red"); ?>
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
-</section><!-- End of #content -->
+</section><!-- E
+	nd of #content -->

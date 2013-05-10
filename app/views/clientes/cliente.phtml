@@ -103,7 +103,7 @@
 				<?= Formulario::submit($cliente ? "Modificar" : "Registrar") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
-				<?= Formulario::reset("Cancelar") ?>
+				<?= Html::linkAjax("clientes/reporte","Regresar","contenido","class: button red"); ?>
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>

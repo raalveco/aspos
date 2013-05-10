@@ -178,22 +178,24 @@
 			
 			$this -> contribuyente = Contribuyente::consultar($this -> post("contribuyente"));
 			
+			//EL FORMULARIO CON IMAGENES SE ENVIA DIFERENTE, POR LO QUE NO NECESITA LOS UTF8_DECODEs
+			
 			if($this -> contribuyente){
-				$this -> contribuyente -> rfc = utf8_decode($this -> post("rfc"));			
-				$this -> contribuyente -> nombre = utf8_decode($this -> post("nombre"));
-				$this -> contribuyente -> nombre_comercial = utf8_decode($this -> post("nombre_comercial"));			
-				$this -> contribuyente -> calle = utf8_decode($this -> post("calle"));
-				$this -> contribuyente -> exterior = utf8_decode($this -> post("exterior"));			
-				$this -> contribuyente -> interior = utf8_decode($this -> post("interior"));				
-				$this -> contribuyente -> colonia = utf8_decode($this -> post("colonia"));
-				$this -> contribuyente -> localidad = utf8_decode($this -> post("localidad"));			
-				$this -> contribuyente -> cpostal = utf8_decode($this -> post("cpostal"));				
-				$this -> contribuyente -> municipio = utf8_decode($this -> post("municipio"));
-				$this -> contribuyente -> estado = utf8_decode($this -> post("estado"));			
-				$this -> contribuyente -> pais = utf8_decode($this -> post("pais"));				
-				$this -> contribuyente -> telefono = utf8_decode($this -> post("telefono"));
-				$this -> contribuyente -> celular = utf8_decode($this -> post("celular"));			
-				$this -> contribuyente -> correo = utf8_decode($this -> post("correo"));
+				$this -> contribuyente -> rfc = ($this -> post("rfc"));			
+				$this -> contribuyente -> nombre = ($this -> post("nombre"));
+				$this -> contribuyente -> nombre_comercial = ($this -> post("nombre_comercial"));			
+				$this -> contribuyente -> calle = ($this -> post("calle"));
+				$this -> contribuyente -> exterior = ($this -> post("exterior"));			
+				$this -> contribuyente -> interior = ($this -> post("interior"));				
+				$this -> contribuyente -> colonia = ($this -> post("colonia"));
+				$this -> contribuyente -> localidad = ($this -> post("localidad"));			
+				$this -> contribuyente -> cpostal = ($this -> post("cpostal"));				
+				$this -> contribuyente -> municipio = ($this -> post("municipio"));
+				$this -> contribuyente -> estado = ($this -> post("estado"));			
+				$this -> contribuyente -> pais = "HOLA".($this -> post("pais"));				
+				$this -> contribuyente -> telefono = ($this -> post("telefono"));
+				$this -> contribuyente -> celular = ($this -> post("celular"));			
+				$this -> contribuyente -> correo = ($this -> post("correo"));
 				
 				$this -> contribuyente -> guardar();
 				
@@ -231,7 +233,7 @@
 					}
 				}
 				else{
-					if($this -> contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/".$this -> contribuyente -> cedula))){
+					if($this -> contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/").$this -> contribuyente -> cedula)){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(1);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -270,13 +272,13 @@
 	                
 						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$file;
 		
-						$this -> contribuyente -> cedula = $file;
+						$this -> contribuyente -> logotipo = $file;
 		
 						move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);	
 					}
 				}
 				else{
-					if($this -> contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$this -> contribuyente -> logotipo))){
+					if($this -> contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/").$this -> contribuyente -> logotipo)){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(2);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -304,7 +306,7 @@
 					   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
 					</script>';  
 			}
-			echo "HOLA";
+			
 			//$this -> set_response("view");
 		}
 	}

@@ -44,6 +44,13 @@ input[type=button] {
 	font-family: 'PT Sans',sans-serif;
 }
 
+input[type=submit] {
+	font-family: 'PT Sans',sans-serif;
+}
+input[type=reset] {
+	font-family: 'PT Sans',sans-serif;
+}
+
 
 /* ********************************************* */
 /* Checkboxes */

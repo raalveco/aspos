@@ -45,6 +45,9 @@
 			<div class="right" style="margin: 5px;">
 				<?= Formulario::submit($usuario ? "Modificar" : "Registrar") ?>
 			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("usuarios/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
 </section><!-- End of #content -->

@@ -1,0 +1,70 @@
+<!-- Add Client Example Dialog -->
+<div style="display: none;" id="dialogo_nuevo_ticket" title="Nuevo Ticket de Soporte">
+	<?= Formulario::inicio("tickets/registrar","ticket","class: full validate","target: nuevo_ticket_target") ?>
+		<div class="row">
+			<label for="d2_username"> <strong>Asunto</strong> </label>
+			<div>
+				<?= Formulario::texto("asunto","","class: required") ?>
+			</div>
+		</div>
+		<div class="row">
+			<label for="d2_email"> <strong>Mensaje</strong> </label>
+			<div>
+				<?= Formulario::textarea("mensaje","","class: required","style: height: 100px;") ?>
+			</div>
+		</div>
+		<div class="row">
+			<label for="d2_role"> <strong>Departamento</strong> </label>
+			<div>
+				<?php $departamentos = Departamento::reporte("id > 0"); ?>
+				<?= Formulario::selectModelo("departamento",$departamentos,"nombre","id","","data-placeholder: Elige un Departamento", "style: padding-bottom: 10px") ?>
+			</div>
+		</div>
+	</form>
+	<div class="actions">
+		<div class="left">
+			<button class="grey cancel">
+				Cancelar
+			</button>
+		</div>
+		<div class="right">
+			<button class="submit">
+				Aceptar
+			</button>
+		</div>
+	</div>
+</div><!-- End if #dialog_add_client -->
+
+<script>
+	$$.ready(function() {
+		$("#dialogo_nuevo_ticket").dialog({
+			autoOpen : false,
+			modal : true,
+			width : 400,
+			open : function() {
+				$(this).parent().css('overflow', 'visible');
+				$$.utils.forms.resize()
+			}
+		}).find('button.submit').click(function() {
+			var $el = $(this).parents('.ui-dialog-content');
+			if ($el.validate().form()) {
+				$el.find('form')[0].submit();	
+				$el.find('form')[0].reset();
+				alert("El ticket ha sido enviado correctamente.");
+				$el.dialog('close');
+			}
+		}).end().find('button.cancel').click(function() {
+			var $el = $(this).parents('.ui-dialog-content');
+			$el.find('form')[0].reset();
+			$el.dialog('close');
+			;
+		});
+
+		$(".open-dialogo_nuevo_ticket").click(function() {
+			$("#dialogo_nuevo_ticket").dialog("open");
+			return false;
+		});
+	}); 
+</script>
+<iframe id="nuevo_ticket_target" name="nuevo_ticket_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+<!--  End of Add Client Example Dialog -->

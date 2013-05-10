@@ -35,6 +35,7 @@
 		
 		public function registrar(){
 			$this -> render("reporte");
+			$this -> set_response("view");
 			
 			$nombre = utf8_decode($this -> post("nombre"));
 			$rfc = utf8_decode($this -> post("rfc"));
@@ -71,6 +72,31 @@
 				
 				$contribuyente -> guardar();
 				
+				//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
+				$asunto = "Tu cuenta en Emisión Fiscal ha sido registrada.";
+				$mensaje = "Bienvenido, tu cuenta en Emisión Fiscal ha sido registrada.\n
+							\n
+							Para acceder al sistema debes ingresar:\n
+							\n
+							".APLICACION_URL."\n
+							\n
+							RFC: ".$cuenta -> rfc."\n
+							Usuario: admin\n
+							Contraseña: ".$password."\n
+							\n
+							Una vez que ingreses al sistema deberías cambiar esta contraseña por la que tu prefieras en el Menú Configuración.\n
+							\n
+							\n
+							Equipo de Emisión Fiscal";
+							
+				$cabeceras = 'MIME-Version: 1.0' . "\r\n" .
+							 'Content-Type: text/html; charset="UTF-8";' . "\r\n" .
+							 'From: soporte@emisionfiscal.mx' . "\r\n" .
+	    					 'Reply-To: soporte@emisionfiscal.mx' . "\r\n" .
+	    					 'X-Mailer: PHP/' . phpversion();
+							 
+				@mail($cuenta -> correo, $asunto, $mensaje, $cabeceras);
+				
 				$this -> alerta = Alerta::success("La Cuenta ha sido REGISTRADA correctamente. [Contraseña: ".$password."][ENVIAR CORREO]");
 			}
 			else{
@@ -78,10 +104,6 @@
 			}
 			
 			$this -> cuenta = $cuenta;
-			
-			//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
-			
-			$this -> set_response("view");
 		}
 		
 		public function consulta($id){
@@ -152,6 +174,50 @@
 			$this -> set_response("view");
 		}
 
+		public function resetearPassword($id){
+			$this -> render("cuenta");
+			$this -> set_response("view");
+			
+			$cuenta = Cuenta::consultar($id);
+			
+			//GENERAR CONTRASEÑA ALEATORIA (NUMERICA)(SHA1)
+			Load::lib("formato");
+			$password = Formato::ceros(rand(0,999999),6);
+			$cuenta -> password = sha1($password);
+			$cuenta -> save();
+			
+			$this -> cuenta = $cuenta;
+			
+			//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
+			$asunto = "Tu contraseña de acceso [admin] ha sido regenerada.";
+			$mensaje = "Hola, tu contraseña de acceso como 'admin' ha sido regenerada a petición del administrador del sistema.\n
+						\n
+						La nueva contraseña es: ".$password."\n
+						\n
+						Ahora para acceder al sistema debes ingresar:\n
+						\n
+						".APLICACION_URL."\n
+						\n
+						RFC: ".$cuenta -> rfc."\n
+						Usuario: admin\n
+						Contraseña: ".$password."\n
+						\n
+						Una vez que ingreses al sistema deberías cambiar esta contraseña por la que tu prefieras en el Menú Configuración.\n
+						\n
+						\n
+						Equipo de Emisión Fiscal";
+						
+			$cabeceras = 'MIME-Version: 1.0' . "\r\n" .
+						 'Content-Type: text/html; charset="UTF-8";' . "\r\n" .
+						 'From: soporte@emisionfiscal.mx' . "\r\n" .
+    					 'Reply-To: soporte@emisionfiscal.mx' . "\r\n" .
+    					 'X-Mailer: PHP/' . phpversion();
+						 
+			@mail($cuenta -> correo, $asunto, $mensaje, $cabeceras);
+			
+			$this -> alerta = Alerta::success("La Contraseña ha sido RESETEADA correctamente. [Nueva Contraseña: ".$password."]");
+		}
+
 		public function eliminar($id){
 			$this -> render("reporte");
 			
@@ -185,10 +251,6 @@
 			}
 			
 			$this -> set_response("view");
-		}
-		
-		public function resetearPassword(){
-			
 		}
 	}
 ?>
