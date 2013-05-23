@@ -1,47 +1,70 @@
+<?= View::partial("ajax") ?>
+
 <?= Load::lib("html") ?>
+<?= Load::lib("formato") ?>
+<?= Load::lib("formulario") ?>
 <section id="content" class="container_12 clearfix" data-sort=true>
 	<div class="grid_12">
-		<form class="box validate">
-		
+		<?= Formulario::inicioAjax("tickets/contestar_admin","contenido",false,"class: box") ?>
+			<?= Formulario::oculto("id", $original -> id) ?>
+			<?= Formulario::oculto("departamento_id", $original -> departamento_id) ?>
 			<div class="header">
 				<h2><?= Html::imagen("miniconos/newspaper.png","Mensajes",0,0,"class: icon") ?>Mensajes</h2>
 			</div>
-			
 			<div class="content">
 				<div class="spacer"></div>
 				<div class="messages full chat">
-	
-					<div class="msg reply">
+					<?php $x=0; do { $adm = ($ticket -> admin == "NO" ? true : false); ?>
+					<div class="msg <?= $ticket -> admin == "SI" ? "reply" : "" ?>" style="width: 825px;">
 						<?= Html::imagen("icons/packs/iconsweets2/25x25/user-2.png") ?>
 						<div class="content">
-							<h3><a href="pages_profile.html">John Doe</a> <span>says:</span><small>3 hours ago</small></h3>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-							et dolore magna aliquyam erat, sed diam voluptua.</p>
+							<h3>
+								<?php if($ticket -> admin == "SI"){ ?>
+									ADMINISTRADOR
+								<?php } else { ?>
+									<?= Html::linkAjax("cuentas/consulta/".$ticket -> cuenta() -> id, $ticket -> cuenta() -> nombre, "contenido") ?>
+								<?php } ?>
+								<span>:</span>
+								<small><?= Formato::fecha($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></small></h3>
+							<?php if($x == 0){ ?><br /><p><b><?= $ticket -> asunto ?></b></p><?php } ?>
+							<br /><p><?= $ticket -> mensaje ?></p>
 						</div>
 					</div>
-					
-					<div class="msg">
-						<?= Html::imagen("icons/packs/iconsweets2/25x25/user-2.png") ?>
-						<div class="content">
-							<h3><a href="pages_profile.html">Peter Doe</a> <span>says:</span><small>5 hours ago</small></h3>
-							<p>At vero eos et accusam et justo duo dolores et ea rebum.
-							Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-						</div>
-					</div>
-					
+					<?php $ticket = $ticket -> hijo(); $x++; } while($ticket); ?>
 				</div>
 			</div><!-- End of .content -->
-			
-			<div class="actions">
+			<?php if($adm){ ?>
+			<div class="actions" style="vertical-align: middle;">
 				<div class="left">
-					<input type="text" class=required name=fb_pin id=fb_pin style="width: 300px;" />
+					<?= Formulario::textarea("mensaje","","style: width: 720px; height: 30px; font-family: 'PT Sans', sans-serif;") ?>
 				</div>
 				<div class="right">
-					<input type="reset" value="Cancel" class="grey" />
-					<input type="submit" value="Send" name=send />
+					<?= Formulario::submit("Responder","class: submiter") ?>
 				</div>
 			</div><!-- End of .actions -->
-			
-		</form><!-- End of .box -->
+			<?php } ?>
+		<?= Formulario::fin() ?>
 	</div>
 </section>
+
+<script language="JavaScript">
+	$( document ).ready(function() {
+	 	$( ".submiter" ).click(function( e ) {
+	 		
+	 		e.preventDefault();
+	 		
+	 		var serialize = $('.box').serialize();
+	 		
+	 		$.ajax({  
+			  type: "POST",  
+			  url: $('.box').attr("action"),  
+			  data: serialize,
+			  success: function(data) {
+			  	$('#'+$('.box').attr("rel")).html(data);  
+			  }  
+			});  
+	 
+	    });
+	 
+	});
+</script>

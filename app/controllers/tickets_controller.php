@@ -14,10 +14,46 @@
 			$this -> set_response("view");
 		}
 		
-		public function consulta(){
+		public function consulta($id){
 			$this -> render("ticket");
 			
-			$this -> ticket = Ticket::consultar($id);
+			$this -> original = Ticket::consultar($id);
+			if($this -> original -> padre > 0){
+				$this -> ticket = $this -> original -> raiz();
+			}
+			else{
+				$this -> ticket = $this -> original;
+			}
+			
+			$this -> set_response("view");
+		}
+		
+		public function contestar_admin(){
+			$this -> render("ticket");
+			
+			$ticket = Ticket::registrar("Respuesta de ADMIN",utf8_decode(nl2br($this -> post("mensaje"))), $this -> post("departamento_id"));
+			
+			if($ticket){
+				$original = Ticket::consultar($this -> post("id"));
+				
+				$original -> respondido = "SI";
+				$original -> save();
+				
+				$ticket -> padre = $this -> post("id");
+				$ticket -> admin = "SI";
+				$ticket -> admin_id = 2; //COLOCAR ID DEL ADMINISTRADOR QUE RESPONDA
+				$ticket -> cuenta_id = 0;
+				$ticket -> usuario_id = 0;
+				
+				$ticket -> save();
+				
+				$this -> original = Ticket::consultar($ticket -> id);
+			}
+			else{
+				$this -> original = Ticket::consultar($this -> post("id"));
+			}
+			
+			$this -> ticket = $this -> original -> raiz();
 			
 			$this -> set_response("view");
 		}

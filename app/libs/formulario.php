@@ -45,6 +45,7 @@
             
             $params["name"] = "f".$referencia;
             $params["id"] = "f".$referencia;
+			$params["rel"] = $contenedor;
             
             $opciones = 'target: "#'.$contenedor.'"';
             
@@ -143,7 +144,7 @@
             $params = is_array($nombre) ? $nombre : Util::getParams(func_get_args());
             
 			$params["value"] = utf8_encode($valor);
-            $params["data-error-type"] = "inline";
+            //$params["data-error-type"] = "inline";
             
             if(!isset($params['onblur'])) {
         		$params['onblur'] = "texto(this)";
