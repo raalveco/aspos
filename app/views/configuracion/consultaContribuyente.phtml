@@ -131,7 +131,7 @@
 				</p>
 				<p class="_25">
 					<label>País</label>
-					<?= Formulario::select("pais",array("","MÉXICO" => "MÉXICO"),$contribuyente ? $contribuyente -> pais : "","class: required search","data-placeholder: Selecciona País") ?>
+					<?= Formulario::select("pais",array("MÉXICO" => "MÉXICO"),"MÉXICO","class: required","data-placeholder: Selecciona País") ?>
 				</p>
 			</div>
 		</fieldset>

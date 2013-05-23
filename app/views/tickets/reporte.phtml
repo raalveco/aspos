@@ -1,13 +1,12 @@
 <?php
-	$modulo = "Cuentas";
-	$seccion = "Todas las Cuentas"; 
+	$modulo = "Tickets";
+	$seccion = "Todos los Tickets"; 
 
-	$campos = array("id","rfc","nombre","activo");
-	$orden = "id ASC";
+	$orden = "fecha ASC";
 	$cantidad = 100;
 	$filtro = Session::get("filtro");
 	
-	$cuentas = Cuenta::reporte($filtro,$orden,0,$cantidad,$campos);
+	$tickets = Ticket::reporte("admin = 'NO' AND respondido = 'NO'",$orden,0,$cantidad);
 ?>
 
 <?= View::partial("base/reporte") ?>
@@ -28,7 +27,7 @@
 			event.preventDefault();
 			
 			if(confirm('¿Estas seguro que deseas eliminar los registros seleccionados?')){
-				$('#contenido').load('<?= PROYECTO_BASE."xpanel/".$controller_name ?>/eliminarSeleccionados/'+parametros);		
+				$('#contenido').load('<?= PROYECTO_BASE.$controller_name ?>/eliminarSeleccionados/'+parametros);		
 			}
 			else{
 				return false;
@@ -41,7 +40,7 @@
 	<div class="grid_12">
 		<div class="box">
 			<div class="header">
-				<h2><?= "CUENTAS" ?></h2>
+				<h2><?= "TICKETS" ?></h2>
 			</div>
 			<div class="content">
 				<div class="tabletools">
@@ -64,30 +63,32 @@
 					<thead>
 						<!-- ENCABEZADOS DE LA TABLA -->
 						<tr>
-							<td style="width: 20px;">
+							<td>
 								<input type="checkbox" name="muestra" onchange="$(this).parents('table').find(':checkbox').attr('checked', $(this).attr('checked') || false)">
 							</td>
-							<th>ID</th>
-							<th>RFC</th>
-							<th>Nombre</th>
-							<th>Activo</th>
+							<th>Departamento</th>
+							<th>Cuenta</th>
+							<th>Asunto</th>
+							<th>Fecha</th>
 							<td class="center" style="font-weight: bold;">Acciones</td>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- REGISTROS DE LA TABLA -->
-						<?php if($cuentas) foreach($cuentas as $cuenta){ ?>
+						<?php if($tickets) foreach($tickets as $ticket){ ?>
 						<tr>
-							<td style="width: 20px;">
-								<?= Formulario::checkbox("registro_".$cuenta -> id."") ?>
+							<td>
+								<?= Formulario::checkbox("registro_".$ticket -> id."") ?>
 							</td>
-							<td align="center"><?= Formato::ceros($cuenta -> id,4) ?></td>
-							<td align="center"><?= $cuenta -> rfc ?></td>
-							<td><?= $cuenta -> nombre ?></td>
-							<td align="center"><?= $cuenta -> activo ?></td>
+							<td style="width: 100px;" class="center">
+								<?= $ticket -> departamento() -> nombre ?>
+							</td>
+							<td style="width: 100px;" class="center"><?= $ticket -> cuenta() -> rfc ?></td>
+							<td><?= $ticket -> asunto ?></td>
+							<td style="width: 120px;" class="center"><?= $ticket -> fecha ?></td>
 							<td style="width: 45px;">
-								<?= Html::linkAjax($controller_name."/consulta/".$cuenta -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
-								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$cuenta -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
+								<?= Html::linkAjax($controller_name."/consulta/".$ticket -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Responder") ?>
+								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$ticket -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
 							</td>
 						</tr>
 						<?php } ?>

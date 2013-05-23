@@ -59,14 +59,14 @@
 			<?php Load::lib("estadistica"); ?>
 			<?php $paquete = Paquete::consultar(Session::get("paquete_id")) ?>
 			<div class="bar" data-title="Facturas" data-value="<?= Estadistica::facturas(Session::get("cuenta_id"),date("mY")) ?>" data-max="<?= $paquete -> facturas_incluidas ?>"></div>
-			<div class="bar" data-title="Almacenamiento" data-value="<?= Estadistica::almacenamiento(Session::get("cuenta_id")) ?>" data-max="<?= $paquete -> almacenamiento ?>"></div>
+			<div class="bar" data-title="Almacenamiento (MB)" data-value="<?= Estadistica::almacenamiento(Session::get("cuenta_id")) ?>" data-max="<?= $paquete -> almacenamiento ?>"></div>
 			<div class="bar" data-title="Usuarios" data-value="<?= Estadistica::usuarios(Session::get("cuenta_id")) ?>" data-max="<?= $paquete -> usuarios ?>"></div>
 		</div>
 		<div class="divider"></div>
 		
 		<div class="buttons">
-			<a href="javascript:void(0);" class="button grey open-add-client-dialog">Ticket de Soporte</a>
-			<a href="javascript:void(0);" class="button grey open-add-client-dialog">Actualizar Plan</a>
+			<a href="javascript:void(0);" class="button blue open-dialogo_nuevo_ticket">Ticket de Soporte</a>
+			<!--<a href="javascript:void(0);" class="button grey open-add-client-dialog">Actualizar Plan</a>-->
 		</div>
 	</div>
 	<?php } ?>

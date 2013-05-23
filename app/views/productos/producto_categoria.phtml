@@ -32,7 +32,7 @@
 				<?= Formulario::submit($producto_categoria ? "Modificar" : "Registrar") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
-				<?= Formulario::reset("Cancelar") ?>
+				<?= Html::linkAjax("productos/reporteProductoCategoria","Regresar","contenido","class: button red"); ?>
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>

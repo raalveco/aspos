@@ -37,7 +37,7 @@
 				<?= Formulario::submit($impuesto ? "Modificar" : "Registrar") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
-				<?= Formulario::reset("Cancelar") ?>
+				<?= Html::linkAjax("impuestos/reporte","Regresar","contenido","class: button red"); ?>
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>

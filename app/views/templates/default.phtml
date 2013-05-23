@@ -24,6 +24,8 @@
 		<?= View::partial("mango/toolbar_top") ?>
 		<?= View::partial("mango/header") ?>
 		
+		<?= View::partial("mango/dialogos/nuevo_ticket") ?>
+		
 		<?= View::partial("mango/dialogos/settings") ?>
 		<?= View::partial("mango/dialogos/add_client") ?>
 		<?= View::partial("mango/dialogos/mensajes") ?>
@@ -34,7 +36,7 @@
 			<?= View::partial("mango/sidebar") ?>
 		
 			<!-- Here goes the content. -->
-			<div id="contenido"><?= View::content(); ?></div>
+			<div id="contenido" style="min-height: 400px;"><?= View::content(); ?></div>
 			<!-- End of #content -->
 		
 		</div><!-- End of #main -->

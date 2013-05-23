@@ -28,15 +28,34 @@
 				return 0;
 			}
 			
-			return 67;
+			$total = 0;
+			
+			$total += Contribuyente::total("cuenta_id = ".$cuenta_id) * 10000; //1000 bytes por contribuyente incluye promedio por logo y cedula
+			$total += Cliente::total("cuenta_id = ".$cuenta_id) * 1000; //1000 bytes por cliente
+			$total += ClienteTipo::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por tipo cliente
+			$total += Impuesto::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por impuesto
+			$total += Moneda::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por moneda
+			$total += Unidad::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por unidad
+			$total += Producto::total("cuenta_id = ".$cuenta_id) * 1000; //1000 bytes por producto
+			$total += ProductoCategoria::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por categoria
+			$total += Sucursal::total("cuenta_id = ".$cuenta_id) * 1000; //1000 bytes por sucursal
+			$total += Usuario::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por usuario
+			
+			$total += CbbFolio::total("cuenta_id = ".$cuenta_id) * 2000; //500 bytes por folio e imagen
+			$total += CbbReceptor::total("cuenta_id = ".$cuenta_id) * 1000; //1000 bytes por receptor
+			$total += CbbFactura::total("cuenta_id = ".$cuenta_id) * 2000; //2000 bytes por factura
+			$total += CbbConcepto::total("cuenta_id = ".$cuenta_id) * 750; //750 bytes por concepto
+			$total += CbbImpuesto::total("cuenta_id = ".$cuenta_id) * 500; //500 bytes por impuesto
+			
+			return $total / 1000 / 1000;
 		}
 		
 		public static function usuarios($cuenta_id){
 			if(!$cuenta_id){
-				return 0;
+				return 1;
 			}
 			
-			return Usuario::total("cuenta_id = ".$cuenta_id);
+			return Usuario::total("cuenta_id = ".$cuenta_id) + 1;
 		}
 	}
 ?>
