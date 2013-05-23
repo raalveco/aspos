@@ -16,6 +16,9 @@
 		
 		public function consulta(){
 			$this -> render("ticket");
+			
+			$this -> ticket = Ticket::consultar($id);
+			
 			$this -> set_response("view");
 		}
 		

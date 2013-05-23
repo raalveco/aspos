@@ -6,7 +6,7 @@
 	$cantidad = 100;
 	$filtro = Session::get("filtro");
 	
-	$tickets = Ticket::reporte("admin = 'NO' AND respondido = 'NO'",$orden,0,$cantidad);
+	$tickets = Ticket::reporte("admin = 'NO' AND respondido = 'NO' AND estado = 'OK'",$orden,0,$cantidad);
 ?>
 
 <?= View::partial("base/reporte") ?>
@@ -85,7 +85,7 @@
 							</td>
 							<td style="width: 100px;" class="center"><?= $ticket -> cuenta() -> rfc ?></td>
 							<td><?= $ticket -> asunto ?></td>
-							<td style="width: 120px;" class="center"><?= $ticket -> fecha ?></td>
+							<td style="width: 120px;" class="center"><?= Formato::fecha($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></td>
 							<td style="width: 45px;">
 								<?= Html::linkAjax($controller_name."/consulta/".$ticket -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Responder") ?>
 								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$ticket -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>

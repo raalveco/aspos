@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-05-2013 a las 14:42:45
+-- Tiempo de generación: 23-05-2013 a las 02:47:27
 -- Versión del servidor: 5.5.28
 -- Versión de PHP: 5.3.18
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cbb_concepto`
 --
 
+DROP TABLE IF EXISTS `cbb_concepto`;
 CREATE TABLE IF NOT EXISTS `cbb_concepto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `cbb_concepto` (
 -- Estructura de tabla para la tabla `cbb_factura`
 --
 
+DROP TABLE IF EXISTS `cbb_factura`;
 CREATE TABLE IF NOT EXISTS `cbb_factura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -76,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `cbb_factura` (
 -- Estructura de tabla para la tabla `cbb_folio`
 --
 
+DROP TABLE IF EXISTS `cbb_folio`;
 CREATE TABLE IF NOT EXISTS `cbb_folio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -101,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `cbb_folio` (
 -- Estructura de tabla para la tabla `cbb_impuesto`
 --
 
+DROP TABLE IF EXISTS `cbb_impuesto`;
 CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -123,6 +127,7 @@ CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
 -- Estructura de tabla para la tabla `cbb_receptor`
 --
 
+DROP TABLE IF EXISTS `cbb_receptor`;
 CREATE TABLE IF NOT EXISTS `cbb_receptor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -152,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `cbb_receptor` (
 -- Estructura de tabla para la tabla `cliente`
 --
 
+DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -187,6 +193,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- Estructura de tabla para la tabla `cliente_tipo`
 --
 
+DROP TABLE IF EXISTS `cliente_tipo`;
 CREATE TABLE IF NOT EXISTS `cliente_tipo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -206,6 +213,7 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
 -- Estructura de tabla para la tabla `contribuyente`
 --
 
+DROP TABLE IF EXISTS `contribuyente`;
 CREATE TABLE IF NOT EXISTS `contribuyente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -248,6 +256,7 @@ INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`,
 -- Estructura de tabla para la tabla `cuenta`
 --
 
+DROP TABLE IF EXISTS `cuenta`;
 CREATE TABLE IF NOT EXISTS `cuenta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activo` varchar(2) DEFAULT 'SI',
@@ -279,6 +288,7 @@ INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `
 -- Estructura de tabla para la tabla `departamento`
 --
 
+DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE IF NOT EXISTS `departamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(25) NOT NULL,
@@ -300,6 +310,7 @@ INSERT INTO `departamento` (`id`, `nombre`, `correo`) VALUES
 -- Estructura de tabla para la tabla `impuesto`
 --
 
+DROP TABLE IF EXISTS `impuesto`;
 CREATE TABLE IF NOT EXISTS `impuesto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -321,6 +332,7 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
 -- Estructura de tabla para la tabla `menu`
 --
 
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(10) NOT NULL DEFAULT 'CLIENTE',
@@ -357,6 +369,7 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 -- Estructura de tabla para la tabla `moneda`
 --
 
+DROP TABLE IF EXISTS `moneda`;
 CREATE TABLE IF NOT EXISTS `moneda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -377,6 +390,7 @@ CREATE TABLE IF NOT EXISTS `moneda` (
 -- Estructura de tabla para la tabla `paquete`
 --
 
+DROP TABLE IF EXISTS `paquete`;
 CREATE TABLE IF NOT EXISTS `paquete` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -410,6 +424,7 @@ INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_fact
 -- Estructura de tabla para la tabla `producto`
 --
 
+DROP TABLE IF EXISTS `producto`;
 CREATE TABLE IF NOT EXISTS `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activo` varchar(2) DEFAULT 'SI',
@@ -435,6 +450,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 -- Estructura de tabla para la tabla `producto_categoria`
 --
 
+DROP TABLE IF EXISTS `producto_categoria`;
 CREATE TABLE IF NOT EXISTS `producto_categoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -454,6 +470,7 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
 -- Estructura de tabla para la tabla `seccion`
 --
 
+DROP TABLE IF EXISTS `seccion`;
 CREATE TABLE IF NOT EXISTS `seccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_id` int(11) NOT NULL,
@@ -514,6 +531,7 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 -- Estructura de tabla para la tabla `sucursal`
 --
 
+DROP TABLE IF EXISTS `sucursal`;
 CREATE TABLE IF NOT EXISTS `sucursal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -541,6 +559,7 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
 -- Estructura de tabla para la tabla `ticket`
 --
 
+DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE IF NOT EXISTS `ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) DEFAULT '0',
@@ -553,16 +572,18 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `departamento_id` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `respondido` varchar(2) NOT NULL DEFAULT 'NO',
+  `estado` varchar(2) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `ticket`
 --
 
-INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `admin`, `asunto`, `mensaje`, `departamento_id`, `fecha`, `respondido`) VALUES
-(1, 1, 0, '0', 0, 'NO', 'asdsadsadsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 'adsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 2, '0000-00-00 00:00:00', 'NO'),
-(6, 1, 0, '0', 0, 'NO', 'dsffds', 'dsfdsfds', 2, '0000-00-00 00:00:00', 'NO');
+INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `admin`, `asunto`, `mensaje`, `departamento_id`, `fecha`, `respondido`, `estado`) VALUES
+(1, 1, 0, '0', 0, 'NO', 'asdsadsadsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 'adsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 2, '0000-00-00 00:00:00', 'NO', 'OK'),
+(6, 1, 0, '0', 0, 'NO', 'dsffds', 'dsfdsfds', 2, '0000-00-00 00:00:00', 'NO', 'OK'),
+(7, 1, 0, '0', 0, 'NO', 'Ticket de Prueba', 'Ola k ace!!', 1, '2013-05-21 22:28:46', 'NO', 'OK');
 
 -- --------------------------------------------------------
 
@@ -570,6 +591,7 @@ INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `adm
 -- Estructura de tabla para la tabla `unidad`
 --
 
+DROP TABLE IF EXISTS `unidad`;
 CREATE TABLE IF NOT EXISTS `unidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
@@ -589,6 +611,7 @@ CREATE TABLE IF NOT EXISTS `unidad` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
