@@ -1,0 +1,39 @@
+<?php
+	$modulo = "Departamentos";
+	$seccion = $departamento ? "Modificar Departamento" : "Nuevo Departamento";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $departamento ? "Modificar Departamento" : "Nuevo Departamento" ?></h1>
+	<?= Formulario::inicioAjax($departamento ? $controller_name."/modificar" : $controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?php if($departamento) echo Formulario::oculto("departamento", $departamento -> id) ?>
+		<fieldset>
+			<legend>
+				Informacion de Departamento
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$departamento ? $departamento -> nombre : "","class: required") ?>
+				</p>
+				<p class="_50">
+					<label>Correo</label>
+					<?= Formulario::mayusculas("correo",$departamento ? $departamento -> correo : "","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($departamento ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("departamentos/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
