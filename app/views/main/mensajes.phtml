@@ -1,0 +1,36 @@
+<?= View::partial("ajax") ?>
+
+<?= Load::lib("html") ?>
+<?= Load::lib("formato") ?>
+
+<div class="spacer"></div>
+<div class="messages full chat">
+	<?php $x=0; do { $adm = ($ticket -> admin == "NO" ? true : false); ?>
+	<div class="msg <?= $ticket -> admin == "SI" ? "reply" : "" ?>" style="width: 450px;">
+		<?= Html::imagen("icons/packs/iconsweets2/25x25/user-2.png") ?>
+		<div class="content">
+			<h3>
+				<?php if($ticket -> admin == "SI"){ ?>
+					ADMINISTRADOR
+				<?php } else { ?>
+					<?= $ticket -> cuenta() -> nombre ?>
+				<?php } ?>
+				<small><?= Formato::fechaAbreviada($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></small>
+			</h3>
+			<?php if($x == 0){ ?><br /><p><b><?= $ticket -> asunto ?></b></p><?php } ?>
+			<br /><p><?= $ticket -> mensaje ?></p>
+		</div>
+	</div>
+	<?php $ticket = $ticket -> hijo(); $x++; } while($ticket); ?>
+</div>
+
+<div class="actions">
+	<div class="left">
+		<input style="width: 370px;" type="text" name=d3_message id=d3_message placeholder="Escribe tu respuesta..."/>
+	</div>
+	<div class="right">
+		<button>
+			Enviar
+		</button>
+	</div>
+</div>

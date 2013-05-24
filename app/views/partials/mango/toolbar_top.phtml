@@ -63,13 +63,14 @@
 		<!-- Right side -->
 		<div class="right">
 			<ul>
-			
+				<!--
+					<li>
+						<?= Html::link("mango/index", '<span class="icon i14_admin-user"></span>Perfil'); ?>
+					</li>
+				-->
 				<li>
-					<?= Html::link("mango/index", '<span class="icon i14_admin-user"></span>Perfil'); ?>
-				</li>
-
-				<li>
-					<?= Html::link("#", '<span>3</span>Mensajes'); ?>
+					<?php $n = Ticket::total("id > 0") ?>
+					<?= Html::link("main/mensajes", '<span class="no_mensajes" rel="main/numero_mensajes">'.$n.'</span>Mensajes',"class: mensajes"); ?>
 
 					<div class="popup">
 						<h3>Mensajes Nuevos</h3>
@@ -78,81 +79,29 @@
 						<?= Html::link("mango/index", "Inbox", "class: button flat right") ?>
 
 						<div class="content mail">
+							<?php $mensajes = Ticket::reporte("id > 0") ?>
 							<ul>
-
-								<li>
-									<div class="avatar">
-										<?= Html::imagen("elements/mail/avatar.png","",40,40) ?>
-									</div>
-									<div class="info">
-										<strong>Ramiro Vera</strong>
-										<span>Gracias por este Proyecto!</span>
-										<small>09:32 am</small>
-									</div>
-									<div class="text">
-										<p>
-											Hola Alonso!
-										</p>
-										<p>
-											Este proyecto es verdaderamente interesante, esperemos que pronto esta en produccion
-										</p>
-										<p>
-											Felicidades!
-										</p>
-										<div class="actions">
-											<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog") ?>
-											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+								<?php if($mensajes) foreach($mensajes as $mensaje){ ?>
+									<li>
+										<div class="avatar">
+											<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
 										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="avatar">
-										<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
-									</div>
-									<div class="info">
-										<strong>Paola Teran</strong>
-										<span>Hola, Como estas?</span>
-										<small>08:47 am</small>
-									</div>
-									<div class="text">
-										<p>
-											Hola,
-										</p>
-										<p>
-											Este es solo un mensaje para saludarte y desearte un excelente dia.
-										</p>
-										<p>
-											Espero que nos podamos encontrar pronto.
-										</p>
-										<div class="actions">
-											<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog") ?>
-											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+										<div class="info">
+											<strong><?= $mensaje -> admin() ?></strong>
+											<span><?= $mensaje -> asunto ?></span>
+											<small><?= Formato::fecha($mensaje -> fecha)." ".substr($mensaje -> fecha,11,5) ?></small>
 										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="avatar">
-										<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
-									</div>
-									<div class="info">
-										<strong>Carlos Lizaola</strong>
-										<span>Facturas de Noviembre</span>
-										<small>Ayer</small>
-									</div>
-									<div class="text">
-										<p>
-											[ ... ]
-										</p>
-										<div class="actions">
-											<?= Html::link("javascript:void(0);", "Leer", "class: left open-message-dialog") ?>
-											<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)") ?>
+										<div class="text">
+											<br><div><?= substr($mensaje -> mensaje,0,200)." ..." ?></div><br>
+											<div class="actions">
+												<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog","data-id: ".$mensaje -> id) ?>
+												<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+											</div>
 										</div>
-									</div>
-								</li>
+									</li>
+								<?php } ?>
 							</ul>
-						</div>
+			</div>
 					</div>
 				</li>
 				<li class="space"></li>
@@ -184,3 +133,17 @@
 
 	</div><!-- End of .container_12 -->
 </section><!-- End of #toolbar -->
+
+<script language="JavaScript">
+	$( document ).ready(function() {
+		$('.open-message-dialog').click(function( e ) {
+	 		e.preventDefault();
+	 		
+	 		$("#dialog_message").html('<div align="center" style="padding: 50px;"><img src="http://localhost/aspos/app/public/img/loader.gif" /></div>');
+	 		
+	 		$("#dialog_message").load($('.mensajes').attr("href")+"/"+$(this).attr("data-id"));
+	 		
+	    });
+	 
+	});
+</script>

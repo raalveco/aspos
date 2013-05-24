@@ -16,16 +16,24 @@
 			}
 		}
 		
-		public function x(){
+		public function mensajes($id){
+			$this -> original = Ticket::consultar($id);
+			if($this -> original -> padre > 0){
+				$this -> ticket = $this -> original -> raiz();
+			}
+			else{
+				$this -> ticket = $this -> original;
+			}
+			
+			$this -> set_response("view");
+		}
+		
+		public function numero_mensajes(){
 			$this -> render(null,null);
-		}
-		
-		public function formularios(){
-			$this -> set_response("view");
-		}
-		
-		public function tablas(){
-			$this -> set_response("view");
+			
+			$x = Ticket::total("id > 0");
+			
+			echo $x ? $x : 0;
 		}
 	}
 ?>

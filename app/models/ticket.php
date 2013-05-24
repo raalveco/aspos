@@ -36,6 +36,19 @@
 			return Usuario::consultar($this -> usuario_id) -> usuario;
 		}
 		
+		public function admin(){
+			if($this -> admin_id == 0){
+				return Usuario::consultar($this -> usuario_id) -> usuario;
+			}
+			else{
+				switch($this -> admin_id){
+					case 1: return "Ramiro Vera";
+					case 2: return "Alejandro Lizaola";
+					case 3: return "Iván Martínez";
+				}	
+			}
+		}
+		
 		public function padre(){
 			
 			if($this -> padre > 0){
