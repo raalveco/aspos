@@ -29,38 +29,18 @@
 		public function iniciar(){
 			$this -> render(null,null);
 			
-			//INGRESAR COMO SUPER ADMINISTRADOR (raalveco)
-			if($this -> post("rfc") == RAALVECO_RFC && $this -> post("usuario") == RAALVECO_USUARIO && sha1($this -> post("password")) == RAALVECO_PASSWORD){
+			if(Administrador::existe("rfc = '".$this -> post("rfc")."' AND usuario = '".$this -> post("usuario")."' AND password = '".sha1($this -> post("password"))."'")){
+				$administrador = Administrador::buscar("rfc = '".$this -> post("rfc")."' AND usuario = '".$this -> post("usuario")."' AND password = '".sha1($this -> post("password"))."'");
+			
 				Session::set("acceso",true);
-				Session::set("tipo_usuario","ADMIN");
-				Session::set("usuario","raalveco");
 				
-				Session::set("empresa","Ramiro Vera");
+				Session::set("tipo_usuario","ADMIN");
+				Session::set("usuario",$administrador -> usuario);
+				
+				Session::set("empresa",$administrador -> nombre);
 				
 				Session::set("cuenta_id",0);
 				Session::set("cuenta",0);
-			
-				Session::set("usuario_id",false);
-				Session::set("password","");
-				
-				Session::set("tipo_facturacion","");
-				
-				Session::set("paquete_id",0);
-					
-				$this -> redirect("main");
-				return;
-			}
-			
-			//INGRESAR COMO SUPER ADMINISTRADOR (poky)
-			if($this -> post("rfc") == POKY_RFC && $this -> post("usuario") == POKY_USUARIO && sha1($this -> post("password")) == POKY_PASSWORD){
-				Session::set("acceso",true);
-				Session::set("tipo_usuario","ADMIN");
-				Session::set("usuario","poky");
-				
-				Session::set("cuenta_id",0);
-				Session::set("cuenta",0);
-				
-				Session::set("empresa","Alejandro Lizaola");
 			
 				Session::set("usuario_id",false);
 				Session::set("password","");

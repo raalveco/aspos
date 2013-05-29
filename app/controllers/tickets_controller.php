@@ -41,9 +41,9 @@
 				
 				$ticket -> padre = $this -> post("id");
 				$ticket -> admin = "SI";
-				$ticket -> admin_id = 2; //COLOCAR ID DEL ADMINISTRADOR QUE RESPONDA
-				$ticket -> cuenta_id = 0;
-				$ticket -> usuario_id = 0;
+				$ticket -> admin_id = Session::get("usuario");; //COLOCAR ID DEL ADMINISTRADOR QUE RESPONDA
+				$ticket -> cuenta_id = $original -> cuenta_id;
+				$ticket -> usuario_id = $original -> usuario_id;
 				
 				$ticket -> save();
 				

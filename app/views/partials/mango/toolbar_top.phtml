@@ -68,8 +68,9 @@
 						<?= Html::link("mango/index", '<span class="icon i14_admin-user"></span>Perfil'); ?>
 					</li>
 				-->
+				<?php $n = Ticket::total("cuenta_id = ".Session::get("cuenta_id")." AND admin = 'SI' AND respondido = 'NO' AND estado = 'OK'") ?>
+				<?php if($n > 0 && Session::get("cuenta_id") > 0){ ?>
 				<li>
-					<?php $n = Ticket::total("id > 0") ?>
 					<?= Html::link("main/mensajes", '<span class="no_mensajes" rel="main/numero_mensajes">'.$n.'</span>Mensajes',"class: mensajes"); ?>
 
 					<div class="popup">
@@ -79,8 +80,8 @@
 						<?= Html::link("mango/index", "Inbox", "class: button flat right") ?>
 
 						<div class="content mail">
-							<?php $mensajes = Ticket::reporte("id > 0") ?>
 							<ul>
+								<?php $mensajes = Ticket::reporte("cuenta_id = ".Session::get("cuenta_id")." AND admin = 'SI' AND respondido = 'NO' AND estado = 'OK'"); ?>
 								<?php if($mensajes) foreach($mensajes as $mensaje){ ?>
 									<li>
 										<div class="avatar">
@@ -101,10 +102,11 @@
 									</li>
 								<?php } ?>
 							</ul>
-			</div>
+						</div>
 					</div>
 				</li>
 				<li class="space"></li>
+				<?php } ?>
 			<!--
 				<li>
 				    <?= Html::link("javascript:void(0);","<span>--:--</span>Bloquear","id: btn-lock"); ?>

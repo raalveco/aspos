@@ -1,23 +1,24 @@
 <?php
 	class MainController extends ApplicationController {
 		public function index($opcion = false){
+			if(!Session::get("acceso")){
+				$this -> render(null,null);
+				$this -> redirect("login/index/no_sesion"); return;
+			}
+			
 			if($opcion == 1){
 				if(Session::get("acceso")){
 					$this -> redirect("main/index"); return;
 				}
 				else{
-					$this -> redirect("login");  return;
+					$this -> redirect("login/index");  return;
 				}
-			}
-			
-			if(!Session::get("acceso")){
-				$this -> render(null,null);
-				$this -> redirect("login/index/no_sesion"); return;
 			}
 		}
 		
 		public function mensajes($id){
 			$this -> original = Ticket::consultar($id);
+			
 			if($this -> original -> padre > 0){
 				$this -> ticket = $this -> original -> raiz();
 			}
