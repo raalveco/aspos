@@ -2,22 +2,22 @@
 -- version 3.5.3
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 29-05-2013 a las 01:56:11
--- Versión del servidor: 5.5.28
--- Versión de PHP: 5.3.18
+-- Host: localhost
+-- Generation Time: May 29, 2013 at 04:28 AM
+-- Server version: 5.5.28
+-- PHP Version: 5.3.18
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `aspos`
+-- Database: `aspos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `administrador`
+-- Table structure for table `administrador`
 --
 
 DROP TABLE IF EXISTS `administrador`;
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `administrador`
+-- Dumping data for table `administrador`
 --
 
 INSERT INTO `administrador` (`id`, `nombre`, `rfc`, `usuario`, `password`) VALUES
@@ -41,7 +41,7 @@ INSERT INTO `administrador` (`id`, `nombre`, `rfc`, `usuario`, `password`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_concepto`
+-- Table structure for table `cbb_concepto`
 --
 
 DROP TABLE IF EXISTS `cbb_concepto`;
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `cbb_concepto` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_factura`
+-- Table structure for table `cbb_factura`
 --
 
 DROP TABLE IF EXISTS `cbb_factura`;
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `cbb_factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_folio`
+-- Table structure for table `cbb_folio`
 --
 
 DROP TABLE IF EXISTS `cbb_folio`;
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `cbb_folio` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_impuesto`
+-- Table structure for table `cbb_impuesto`
 --
 
 DROP TABLE IF EXISTS `cbb_impuesto`;
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cbb_receptor`
+-- Table structure for table `cbb_receptor`
 --
 
 DROP TABLE IF EXISTS `cbb_receptor`;
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `cbb_receptor` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente`
+-- Table structure for table `cliente`
 --
 
 DROP TABLE IF EXISTS `cliente`;
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente_tipo`
+-- Table structure for table `cliente_tipo`
 --
 
 DROP TABLE IF EXISTS `cliente_tipo`;
@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contribuyente`
+-- Table structure for table `contribuyente`
 --
 
 DROP TABLE IF EXISTS `contribuyente`;
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `contribuyente`
+-- Dumping data for table `contribuyente`
 --
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
@@ -277,7 +277,7 @@ INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuenta`
+-- Table structure for table `cuenta`
 --
 
 DROP TABLE IF EXISTS `cuenta`;
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `cuenta`
+-- Dumping data for table `cuenta`
 --
 
 INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `paquete_id`, `rfc`, `nombre`, `password`, `telefono_contacto`, `celular_contacto`, `correo_contacto`) VALUES
@@ -309,7 +309,7 @@ INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `departamento`
+-- Table structure for table `departamento`
 --
 
 DROP TABLE IF EXISTS `departamento`;
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Volcado de datos para la tabla `departamento`
+-- Dumping data for table `departamento`
 --
 
 INSERT INTO `departamento` (`id`, `nombre`, `correo`) VALUES
@@ -332,7 +332,7 @@ INSERT INTO `departamento` (`id`, `nombre`, `correo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `impuesto`
+-- Table structure for table `impuesto`
 --
 
 DROP TABLE IF EXISTS `impuesto`;
@@ -354,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `menu`
+-- Table structure for table `menu`
 --
 
 DROP TABLE IF EXISTS `menu`;
@@ -366,10 +366,10 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   `orden` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
--- Volcado de datos para la tabla `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
@@ -387,12 +387,13 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11),
 (13, 'ADMIN', 'miniconos/package.png', 'Paquetes', 'SI', 1),
 (14, 'ADMIN', 'miniconos/newspaper.png', 'Tickets', 'SI', 3),
-(15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4);
+(15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4),
+(16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `moneda`
+-- Table structure for table `moneda`
 --
 
 DROP TABLE IF EXISTS `moneda`;
@@ -408,12 +409,19 @@ CREATE TABLE IF NOT EXISTS `moneda` (
   `descripcion` varchar(255) DEFAULT NULL,
   `tipo_cambio` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `moneda`
+--
+
+INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tipo_cambio`) VALUES
+(1, 1, 'SI', 0, '2013-05-28 21:18:36', NULL, '2013-05-28 21:18:36', 'PESO', 'MXN', '1.00');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `paquete`
+-- Table structure for table `paquete`
 --
 
 DROP TABLE IF EXISTS `paquete`;
@@ -438,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `paquete` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Volcado de datos para la tabla `paquete`
+-- Dumping data for table `paquete`
 --
 
 INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_factura_adicional`, `usuarios`, `almacenamiento`, `soporte_online`, `soporte_chat`, `soporte_telefono`, `multiple_moneda`, `multiple_sucursal`, `costo_mensual`, `costo_anual`, `vigencia`, `activo`) VALUES
@@ -447,7 +455,7 @@ INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_fact
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto`
+-- Table structure for table `producto`
 --
 
 DROP TABLE IF EXISTS `producto`;
@@ -473,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto_categoria`
+-- Table structure for table `producto_categoria`
 --
 
 DROP TABLE IF EXISTS `producto_categoria`;
@@ -493,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `seccion`
+-- Table structure for table `seccion`
 --
 
 DROP TABLE IF EXISTS `seccion`;
@@ -508,10 +516,10 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
--- Volcado de datos para la tabla `seccion`
+-- Dumping data for table `seccion`
 --
 
 INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`, `activo`, `orden`, `fecha_registro`) VALUES
@@ -551,12 +559,14 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (34, 13, 'Reporte', 'miniconos/text_list_numbers.png', 'paquetes/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
 (35, 14, 'Todos los Tickets', 'miniconos/newspaper.png', 'tickets/reporte', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (36, 15, 'Nuevo Departamento', 'miniconos/book_add.png', 'departamentos/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
-(37, 15, 'Catalogo', 'miniconos/book_open.png', 'departamentos/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00');
+(37, 15, 'Catalogo', 'miniconos/book_open.png', 'departamentos/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
+(38, 16, 'Nuevo Usuario', 'miniconos/user_add.png', 'usuarios/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(39, 16, 'Catalogo de Usuarios', 'miniconos/text_list_numbers.png', 'usuarios/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sucursal`
+-- Table structure for table `sucursal`
 --
 
 DROP TABLE IF EXISTS `sucursal`;
@@ -584,7 +594,7 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ticket`
+-- Table structure for table `ticket`
 --
 
 DROP TABLE IF EXISTS `ticket`;
@@ -605,7 +615,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Volcado de datos para la tabla `ticket`
+-- Dumping data for table `ticket`
 --
 
 INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `admin`, `asunto`, `mensaje`, `departamento_id`, `fecha`, `respondido`, `estado`) VALUES
@@ -619,7 +629,7 @@ INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `adm
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `unidad`
+-- Table structure for table `unidad`
 --
 
 DROP TABLE IF EXISTS `unidad`;
@@ -639,7 +649,7 @@ CREATE TABLE IF NOT EXISTS `unidad` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 DROP TABLE IF EXISTS `usuario`;
@@ -658,4 +668,12 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `apellidos` varchar(100) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `avatar`, `usuario`, `password`, `nombres`, `apellidos`, `correo`) VALUES
+(1, 1, 'SI', 0, '2013-05-28 22:07:58', NULL, '2013-05-28 22:09:28', 'avatar_50b1a24b659fa.png', 'lizaolaa', 'c02505701c33eb1da48c1efad63971a741cbccf0', 'ALEJANDRO', 'LIZAOLA', 'lizaolaa@gmail.com'),
+(2, 1, 'SI', 1, '2013-05-28 22:23:51', 1, '2013-05-28 22:23:51', 'avatar_50b1a24b659fa.png', 'galeno', '60a1e6fcdbf5c16dee6e61994ea40a266a6a47a1', 'RAMIRO', 'VERA', 'a@h.com');

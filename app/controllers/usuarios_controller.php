@@ -63,7 +63,7 @@
 		}
 		
 		public function modificar(){
-			$this -> render("usuario");
+			$this -> render("reporte");
 			
 			$usuario = Usuario::consultar($this -> post("usuario_id"));
 			

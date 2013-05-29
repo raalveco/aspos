@@ -56,9 +56,15 @@
 			
 			//VALIDAR CUENTA DE USUARIO
 			if(Cuenta::existe("rfc = '".$this -> post("rfc")."'")){
+<<<<<<< HEAD
 				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");
 				
 				//INGRESAR COMO ADMINISTRADOR
+=======
+				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");		
+				
+				//INGRESAR COMO ADMINISTRADOR DE CUENTA
+>>>>>>> branch 'master' of ssh://git@github.com/raalveco/aspos.git
 				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
 					Session::set("acceso",true);
 					//USUARIO ADMIN
@@ -87,6 +93,33 @@
 				
 				//INGRESAR CON OTRO USUARIO
 				
+				if(Usuario::existe("cuenta_id = ".$cuenta -> id." AND usuario = '".$this -> post("usuario")."' AND password = '".sha1($this -> post("password"))."'")){
+					$usuario = Usuario::buscar("cuenta_id = ".$cuenta -> id." AND usuario = '".$this -> post("usuario")."' AND password = '".sha1($this -> post("password"))."'");
+					
+					Session::set("acceso",true);
+					//USUARIO ADMIN
+					Session::set("usuario_id",$usuario -> id);
+					Session::set("cuenta_id",$cuenta -> id);
+					Session::set("cuenta",$cuenta -> id);
+					
+					$contribuyente = $cuenta -> contribuyente();
+					
+					Session::set("contribuyente_id",$contribuyente -> id);
+					Session::set("password",$this -> post("password"));
+					
+					Session::set("empresa",$contribuyente -> nombre_comercial ? $contribuyente -> nombre_comercial : $contribuyente -> nombre);
+					
+					Session::set("tipo_usuario","CLIENTE");
+					
+					//VARIABLES DE CONFIGURACION
+					$paquete = $cuenta -> paquete();
+					
+					Session::set("paquete_id",$paquete -> id);
+					Session::set("tipo_facturacion",strtoupper($paquete -> tipo));
+					
+					$this -> redirect("main");
+					return;
+				}
 				$this -> redirect("login/index/usuario_incorrecto");
 				return;
 			}
@@ -94,7 +127,50 @@
 				$this -> redirect("login/index/rfc_incorrecto");
 				return;
 			}
+		}		
+		
+		public function iniciar_admin($rfc){
+			$this -> render(null,null);
+			if(Session::get("acceso") && (Session::get("tipo_usuario") == "ADMIN"))
+			{
+
+				$cuenta = Cuenta::buscar("rfc = '".$rfc."'");
+				
+				//INGRESAR COMO ADMINISTRADOR DE CUENTA
+
+				Session::set("acceso",true);
+				//USUARIO ADMIN
+				Session::set("usuario_id",0);
+				Session::set("cuenta_id",$cuenta -> id);
+				Session::set("cuenta",$cuenta -> id);
+				
+				$contribuyente = $cuenta -> contribuyente();
+				
+				Session::set("contribuyente_id",$contribuyente -> id);
+				Session::set("password",$this -> post("password"));
+				
+				Session::set("empresa",$contribuyente -> nombre_comercial ? $contribuyente -> nombre_comercial : $contribuyente -> nombre);
+				
+				Session::set("tipo_usuario","CLIENTE");
+				
+				//VARIABLES DE CONFIGURACION
+				$paquete = $cuenta -> paquete();
+				
+				Session::set("paquete_id",$paquete -> id);
+				Session::set("tipo_facturacion",strtoupper($paquete -> tipo));
+				
+				$this -> redirect("main");
+				return;
+					
+
+				
+			}
+			else{
+				$this -> redirect("logout");
+			}			
+			
 		}
+		
 		
 		public function cerrar(){
 			$this -> render(null,null);

@@ -5,7 +5,7 @@
 	$campos = array("id","nombres","apellidos","correo","usuario");
 	$orden = "id ASC";
 	$cantidad = 100;
-	$filtro = Session::get("filtro");
+	$filtro = Session::get("filtro")." AND cuenta_id = ".Session::get("cuenta_id");
 	
 	$usuarios = usuario::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>
