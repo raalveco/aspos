@@ -56,15 +56,9 @@
 			
 			//VALIDAR CUENTA DE USUARIO
 			if(Cuenta::existe("rfc = '".$this -> post("rfc")."'")){
-<<<<<<< HEAD
-				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");
-				
-				//INGRESAR COMO ADMINISTRADOR
-=======
 				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");		
 				
 				//INGRESAR COMO ADMINISTRADOR DE CUENTA
->>>>>>> branch 'master' of ssh://git@github.com/raalveco/aspos.git
 				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
 					Session::set("acceso",true);
 					//USUARIO ADMIN
