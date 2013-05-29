@@ -20,7 +20,7 @@
 						<div class="content">
 							<h3>
 								<?php if($ticket -> admin == "SI"){ ?>
-									ADMINISTRADOR
+									<?= $ticket -> admin_nombre ?> (ADMINISTRADOR)
 								<?php } else { ?>
 									<?= Html::linkAjax("cuentas/consulta/".$ticket -> cuenta() -> id, $ticket -> cuenta() -> nombre, "contenido") ?>
 								<?php } ?>

@@ -38,6 +38,7 @@
 				Session::set("usuario",$administrador -> usuario);
 				
 				Session::set("empresa",$administrador -> nombre);
+				Session::set("nombre",$administrador -> nombre);
 				
 				Session::set("cuenta_id",0);
 				Session::set("cuenta",0);
@@ -56,8 +57,6 @@
 			//VALIDAR CUENTA DE USUARIO
 			if(Cuenta::existe("rfc = '".$this -> post("rfc")."'")){
 				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");
-				
-				
 				
 				//INGRESAR COMO ADMINISTRADOR
 				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){

@@ -88,14 +88,14 @@
 											<?= Html::imagen("elements/mail/mail.png","",40,40) ?>
 										</div>
 										<div class="info">
-											<strong><?= $mensaje -> admin() ?></strong>
+											<strong><?= $mensaje -> admin_nombre ?></strong>
 											<span><?= $mensaje -> asunto ?></span>
 											<small><?= Formato::fecha($mensaje -> fecha)." ".substr($mensaje -> fecha,11,5) ?></small>
 										</div>
 										<div class="text">
 											<br><div><?= substr($mensaje -> mensaje,0,200)." ..." ?></div><br>
 											<div class="actions">
-												<?= Html::link("javascript:void(0);", "Responder", "class: left open-message-dialog","data-id: ".$mensaje -> id) ?>
+												<?= Html::link("main/mensajes/".$mensaje -> id, "Responder", "class: left mensajero") ?>
 												<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
 											</div>
 										</div>
@@ -138,12 +138,14 @@
 
 <script language="JavaScript">
 	$( document ).ready(function() {
-		$('.open-message-dialog').click(function( e ) {
+		$('.mensajero').click(function( e ) {
 	 		e.preventDefault();
 	 		
-	 		$("#dialog_message").html('<div align="center" style="padding: 50px;"><img src="http://localhost/aspos/app/public/img/loader.gif" /></div>');
+	 		$('.popup').hide();
 	 		
-	 		$("#dialog_message").load($('.mensajes').attr("href")+"/"+$(this).attr("data-id"));
+	 		$("#contenido").html('<div align="center" style="padding: 50px;"><img src="http://localhost/aspos/app/public/img/loader.gif" /><br><b>Cargando...</b></div>');
+	 		
+	 		$("#contenido").load($(this).attr("href"));
 	 		
 	    });
 	 

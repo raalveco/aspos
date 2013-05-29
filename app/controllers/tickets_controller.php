@@ -7,7 +7,7 @@
 		}
 		
 		public function registrar(){
-			Ticket::registrar($this -> post("asunto"), $this -> post("mensaje"), $this -> post("departamento"));
+			Ticket::registrar($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("departamento"));
 		}
 		
 		public function reporte(){
@@ -31,17 +31,17 @@
 		public function contestar_admin(){
 			$this -> render("ticket");
 			
-			$ticket = Ticket::registrar("Respuesta de ADMIN",utf8_decode(nl2br($this -> post("mensaje"))), $this -> post("departamento_id"));
+			$original = Ticket::consultar($this -> post("id"));
+			
+			$ticket = Ticket::registrar("RE: ".$original -> asunto,utf8_decode(nl2br($this -> post("mensaje"))), $this -> post("departamento_id"));
 			
 			if($ticket){
-				$original = Ticket::consultar($this -> post("id"));
-				
 				$original -> respondido = "SI";
 				$original -> save();
 				
 				$ticket -> padre = $this -> post("id");
 				$ticket -> admin = "SI";
-				$ticket -> admin_id = Session::get("usuario");; //COLOCAR ID DEL ADMINISTRADOR QUE RESPONDA
+				$ticket -> admin_nombre = Session::get("empresa");
 				$ticket -> cuenta_id = $original -> cuenta_id;
 				$ticket -> usuario_id = $original -> usuario_id;
 				

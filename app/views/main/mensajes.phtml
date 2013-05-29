@@ -2,35 +2,69 @@
 
 <?= Load::lib("html") ?>
 <?= Load::lib("formato") ?>
+<?= Load::lib("formulario") ?>
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<div class="grid_12">
+		<?= Formulario::inicioAjax("main/contestar_usuario","contenido",false,"class: box") ?>
+			<?= Formulario::oculto("id", $original -> id) ?>
+			<?= Formulario::oculto("departamento_id", $original -> departamento_id) ?>
+			<div class="header">
+				<h2><?= Html::imagen("miniconos/newspaper.png","Mensajes",0,0,"class: icon") ?>Mensajes</h2>
+			</div>
+			<div class="content">
+				<div class="spacer"></div>
+				<div class="messages full chat">
+					<?php $x=0; do { $adm = ($ticket -> admin == "SI" ? true : false); ?>
+					<div class="msg <?= $ticket -> admin == "NO" ? "reply" : "" ?>" style="width: 825px;">
+						<?= Html::imagen("icons/packs/iconsweets2/25x25/user-2.png") ?>
+						<div class="content">
+							<h3>
+								<?php if($ticket -> admin == "SI"){ ?>
+									<?= $ticket -> admin_nombre ?> (ADMINISTRADOR)
+								<?php } else { ?>
+									<?= Html::linkAjax("cuentas/consulta/".$ticket -> cuenta() -> id, $ticket -> cuenta() -> nombre, "contenido") ?>
+								<?php } ?>
+								<span>:</span>
+								<small><?= Formato::fecha($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></small></h3>
+							<?php if($x == 0){ ?><br /><p><b><?= $ticket -> asunto ?></b></p><?php } ?>
+							<br /><p><?= $ticket -> mensaje ?></p>
+						</div>
+					</div>
+					<?php $ticket = $ticket -> hijo(); $x++; } while($ticket); ?>
+				</div>
+			</div><!-- End of .content -->
+			<?php if($adm){ ?>
+			<div class="actions" style="vertical-align: middle;">
+				<div class="left">
+					<?= Formulario::textarea("mensaje","","style: width: 720px; height: 30px; font-family: 'PT Sans', sans-serif;") ?>
+				</div>
+				<div class="right">
+					<?= Formulario::submit("Responder","class: submiter") ?>
+				</div>
+			</div><!-- End of .actions -->
+			<?php } ?>
+		<?= Formulario::fin() ?>
+	</div>
+</section>
 
-<div class="spacer"></div>
-<div class="messages full chat">
-	<?php $x=0; do { $adm = ($ticket -> admin == "NO" ? true : false); ?>
-	<div class="msg <?= $ticket -> admin == "SI" ? "reply" : "" ?>" style="width: 450px;">
-		<?= Html::imagen("icons/packs/iconsweets2/25x25/user-2.png") ?>
-		<div class="content">
-			<h3>
-				<?php if($ticket -> admin == "SI"){ ?>
-					ADMINISTRADOR
-				<?php } else { ?>
-					<?= $ticket -> cuenta() -> nombre ?>
-				<?php } ?>
-				<small><?= Formato::fechaAbreviada($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></small>
-			</h3>
-			<?php if($x == 0){ ?><br /><p><b><?= $ticket -> asunto ?></b></p><?php } ?>
-			<br /><p><?= $ticket -> mensaje ?></p>
-		</div>
-	</div>
-	<?php $ticket = $ticket -> hijo(); $x++; } while($ticket); ?>
-</div>
-
-<div class="actions">
-	<div class="left">
-		<input style="width: 370px;" type="text" name=d3_message id=d3_message placeholder="Escribe tu respuesta..."/>
-	</div>
-	<div class="right">
-		<button>
-			Enviar
-		</button>
-	</div>
-</div>
+<script language="JavaScript">
+	$( document ).ready(function() {
+	 	$( ".submiter" ).click(function( e ) {
+	 		
+	 		e.preventDefault();
+	 		
+	 		var serialize = $('.box').serialize();
+	 		
+	 		$.ajax({  
+			  type: "POST",  
+			  url: $('.box').attr("action"),  
+			  data: serialize,
+			  success: function(data) {
+			  	$('#'+$('.box').attr("rel")).html(data);  
+			  }  
+			});  
+	 
+	    });
+	 
+	});
+</script>
