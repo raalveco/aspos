@@ -70,4 +70,13 @@
 		</div>
 	</div>
 	<?php } ?>
+		<?php if(Session::get("tipo_usuario")=="ADMIN"){ ?>
+	<div class="bottom">
+		<div class="divider"></div>		
+		<div class="buttons">
+			<a href="javascript:void(0);" class="button blue open-dialogo_nuevo_mensaje">Enviar Mensaje</a>
+			<!--<a href="javascript:void(0);" class="button grey open-add-client-dialog">Actualizar Plan</a>-->
+		</div>
+	</div>
+	<?php } ?>
 </aside><!-- End of sidebar -->
