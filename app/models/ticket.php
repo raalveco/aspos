@@ -85,5 +85,33 @@
 		public function hijo(){
 			return Ticket::consultar("padre = ".$this -> id);
 		}
+		
+		public function cerrar(){
+			$this -> estado = "KO";
+			$this -> guardar();
+			
+			$padre = $this -> padre();
+			$hijo = $this -> hijo();
+			
+			do{
+				if($padre){
+					$padre -> estado = "KO";
+					$padre -> guardar();
+					
+					$padre = $padre -> padre();
+				}
+			}
+			while($padre);
+			
+			do{
+				if($hijo){
+					$hijo -> estado = "KO";
+					$hijo -> guardar();
+					
+					$hijo = $hijo -> hijo();
+				}
+			}
+			while($hijo);
+		}
 	}
 ?>

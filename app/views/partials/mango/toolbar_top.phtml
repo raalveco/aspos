@@ -96,7 +96,7 @@
 											<br><div><?= substr($mensaje -> mensaje,0,200)." ..." ?></div><br>
 											<div class="actions">
 												<?= Html::link("main/mensajes/".$mensaje -> id, "Responder", "class: left mensajero") ?>
-												<?= Html::link("javascript:void(0);", "Borrar", "class: red right", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
+												<?= Html::link("main/cerrar_mensaje/".$mensaje -> id, "Borrar", "class: red right borrar_mensaje", "onclick: $(this).parent().parent().parent().slideToggle($$.config.fxSpeed)")?>
 											</div>
 										</div>
 									</li>
@@ -135,7 +135,7 @@
 
 	</div><!-- End of .container_12 -->
 </section><!-- End of #toolbar -->
-
+<div id="clear"></div>
 <script language="JavaScript">
 	$( document ).ready(function() {
 		$('.mensajero').click(function( e ) {
@@ -149,5 +149,12 @@
 	 		
 	    });
 	 
+	 	$('.borrar_mensaje').click(function( e ) {
+	 		e.preventDefault();
+	 		
+	 		$("#clear").html('<div align="center" style="padding: 50px;"><img src="http://localhost/aspos/app/public/img/loader.gif" /><br><b>Cargando...</b></div>');
+	 		
+	 		$("#clear").load($(this).attr("href"));
+	 	});
 	});
 </script>
