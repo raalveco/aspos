@@ -37,6 +37,16 @@
 			echo $x ? $x : 0;
 		}
 		
+		public function cerrar_mensaje($id){
+			$this -> render(null,null);
+			
+			$original = Ticket::consultar($id);
+			
+			$original -> estado = "KO";
+			$original -> save();
+			
+		}
+		
 		public function contestar_usuario(){
 			$this -> render("mensajes");
 			

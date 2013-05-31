@@ -77,7 +77,7 @@
 						<!-- REGISTROS DE LA TABLA -->
 						<?php if($tickets) foreach($tickets as $ticket){ ?>
 						<tr>
-							<td>
+							<td style="width: 20px;">
 								<?= Formulario::checkbox("registro_".$ticket -> id."") ?>
 							</td>
 							<td style="width: 100px;" class="center">
@@ -88,7 +88,7 @@
 							<td style="width: 120px;" class="center"><?= Formato::fecha($ticket -> fecha)." ".substr($ticket -> fecha,11,5) ?></td>
 							<td style="width: 45px;">
 								<?= Html::linkAjax($controller_name."/consulta/".$ticket -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Responder") ?>
-								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$ticket -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
+								<?= Html::linkAjaxConfirmado($controller_name."/cerrar/".$ticket -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
 							</td>
 						</tr>
 						<?php } ?>

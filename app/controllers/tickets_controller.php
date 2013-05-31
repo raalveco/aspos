@@ -58,14 +58,16 @@
 			$this -> set_response("view");
 		}
 		
-		public function eliminar($id){
+		public function cerrar($id){
 			$this -> render("reporte");
 			
 			$ticket = Ticket::consultar($id);
 			
-			$ticket -> eliminar();
+			$ticket -> cerrar();
 			
-			$this -> alerta = Alerta::success("El Ticket ha sido eliminado correctamente.");
+			//$ticket -> eliminar();
+			
+			$this -> alerta = Alerta::success("El Ticket ha sido cerrado correctamente.");
 			
 			$this -> set_response("view");
 		}
@@ -80,14 +82,14 @@
 			foreach($ids as $id){
 				$ticket = Ticket::consultar($id);
 				
-				$ticket -> delete();
+				$ticket -> cerrar();
 			}
 			
 			if(count($ids) > 1){
-				$this -> alerta = Alerta::success("Los Tickets seleccionados han sido eliminados correctamente.");
+				$this -> alerta = Alerta::success("Los Tickets seleccionados han sido cerrados correctamente.");
 			}
 			else{
-				$this -> alerta = Alerta::success("El Ticket seleccionado ha sido eliminado correctamente.");
+				$this -> alerta = Alerta::success("El Ticket seleccionado ha sido cerrado correctamente.");
 			}
 			
 			$this -> set_response("view");
