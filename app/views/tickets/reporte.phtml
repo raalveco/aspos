@@ -81,7 +81,7 @@
 								<?= Formulario::checkbox("registro_".$ticket -> id."") ?>
 							</td>
 							<td style="width: 100px;" class="center">
-								<?= $ticket -> departamento() -> nombre ?>
+								<?= $ticket -> departamento() ? $ticket -> departamento() -> nombre : "N/A" ?>
 							</td>
 							<td style="width: 100px;" class="center"><?= $ticket -> cuenta() -> rfc ?></td>
 							<td><?= $ticket -> asunto ?></td>

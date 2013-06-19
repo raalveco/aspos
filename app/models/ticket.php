@@ -29,7 +29,7 @@
 			$ticket -> cuenta_id = $cuenta;
 			$ticket -> usuario_id = 0;
 			
-			$ticket -> admin_nombre = Session::get("nombre");
+			$ticket -> admin_id = Session::get("cuenta_id");
 			$ticket -> padre = 0;
 			$ticket -> admin = "SI";
 			

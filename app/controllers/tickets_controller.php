@@ -7,10 +7,12 @@
 		}
 		
 		public function registrar(){
+			$this -> render(null,null);
 			Ticket::registrar($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("departamento"));
 		}
 		
 		public function registrar_mensaje(){
+			$this -> render(null,null);
 			Ticket::registrar_mensaje($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("cuenta"));
 		}
 		
