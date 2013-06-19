@@ -69,7 +69,7 @@
 					</li>
 				-->
 				<?php $n = Ticket::total("cuenta_id = ".Session::get("cuenta_id")." AND admin = 'SI' AND respondido = 'NO' AND estado = 'OK'") ?>
-				<?php if($n > 0 && Session::get("cuenta_id") > 0){ ?>
+				<?php if($n > 0 && Session::get("tipo_usuario") == "CLIENTE"){ ?>
 				<li>
 					<?= Html::link("main/mensajes", '<span class="no_mensajes" rel="main/numero_mensajes">'.$n.'</span>Mensajes',"class: mensajes"); ?>
 

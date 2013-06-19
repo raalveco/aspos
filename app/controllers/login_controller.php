@@ -40,7 +40,7 @@
 				Session::set("empresa",$administrador -> nombre);
 				Session::set("nombre",$administrador -> nombre);
 				
-				Session::set("cuenta_id",0);
+				Session::set("cuenta_id",$administrador -> id);
 				Session::set("cuenta",0);
 			
 				Session::set("usuario_id",false);
