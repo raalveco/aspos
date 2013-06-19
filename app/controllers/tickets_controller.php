@@ -10,6 +10,10 @@
 			Ticket::registrar($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("departamento"));
 		}
 		
+		public function registrar_mensaje(){
+			Ticket::registrar_mensaje($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("cuenta"));
+		}
+		
 		public function reporte(){
 			$this -> set_response("view");
 		}

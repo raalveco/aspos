@@ -23,6 +23,28 @@
 			return $ticket;
 		}
 		
+		public static function registrar_mensaje($asunto, $mensaje, $cuenta){
+			$ticket = new Ticket();
+			
+			$ticket -> cuenta_id = $cuenta;
+			$ticket -> usuario_id = 0;
+			
+			$ticket -> admin_nombre = Session::get("nombre");
+			$ticket -> padre = 0;
+			$ticket -> admin = "SI";
+			
+			$ticket -> asunto = $asunto;
+			$ticket -> mensaje = $mensaje;
+			$ticket -> departamento_id = 0;
+			
+			$ticket -> fecha = date("Y-m-d H:i:s");
+			$ticket -> respondido = "NO";
+			$ticket -> estado = "OK";
+			
+			$ticket -> save();
+			
+			return $ticket;
+		}
 		public function departamento(){
 			return Departamento::consultar($this -> departamento_id);
 		}
