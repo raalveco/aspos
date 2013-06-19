@@ -23,5 +23,13 @@
 			
 			return $contrato;
 		}
+		
+		public static function vigente($cuenta_id){
+			if(Contrato::existe("cuenta_id = '".$cuenta_id."' AND activo = 'SI' AND inicio <= '".date("Y-m-d")."' AND fin >= '".date("Y-m-d")."'")){
+				return Contrato::consultar("cuenta_id = '".$cuenta_id."' AND activo = 'SI' AND inicio <= '".date("Y-m-d")."' AND fin >= '".date("Y-m-d")."'");
+			}
+			
+			return false;
+		}
 	}
 ?>
