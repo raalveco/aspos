@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-05-2013 a las 03:11:42
+-- Tiempo de generación: 19-06-2013 a las 03:13:02
 -- Versión del servidor: 5.5.28
 -- Versión de PHP: 5.3.18
 
@@ -185,18 +185,27 @@ DROP TABLE IF EXISTS `certificado`;
 CREATE TABLE IF NOT EXISTS `certificado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
-  `activo` varchar(2) NOT NULL DEFAULT 'SI',
-  `usuario_creacion_id` int(11) NOT NULL,
-  `fecha_creacion` datetime NOT NULL,
-  `usuario_edicion_id` int(11) NOT NULL,
-  `fecha_edicion` datetime NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT '0',
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT '0',
+  `fecha_edicion` datetime DEFAULT NULL,
   `fecha_emision` date NOT NULL,
   `fecha_vencimiento` date NOT NULL,
   `numero_serie` varchar(25) NOT NULL,
-  `key` varchar(100) NOT NULL,
-  `cer` varchar(100) NOT NULL,
+  `clave_privada` varchar(25) DEFAULT NULL,
+  `archivo_key` varchar(100) DEFAULT NULL,
+  `archivo_cer` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `certificado`
+--
+
+INSERT INTO `certificado` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `fecha_emision`, `fecha_vencimiento`, `numero_serie`, `clave_privada`, `archivo_key`, `archivo_cer`) VALUES
+(1, 3, 'SI', 0, '2013-06-01 00:00:00', NULL, '2013-06-01 16:02:15', '2013-05-15', '2015-05-15', '2309000003202', '53453453', '2309000003202.key', '2309000003202.cer'),
+(5, 3, 'SI', 0, '2013-06-01 15:48:29', NULL, '2013-06-01 15:57:16', '2013-06-01', '2015-06-01', '12300020002130120020', '12300020002130120020', '12300020002130120020.key', '12300020002130120020.cer');
 
 -- --------------------------------------------------------
 
@@ -208,13 +217,13 @@ DROP TABLE IF EXISTS `cfd_folio`;
 CREATE TABLE IF NOT EXISTS `cfd_folio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta_id` int(11) NOT NULL,
-  `activo` varchar(2) NOT NULL DEFAULT 'SI',
-  `usuario_creacion_id` int(11) NOT NULL,
-  `fecha_creacion` datetime NOT NULL,
-  `usuario_edicion_id` int(11) NOT NULL,
-  `fecha_edicion` datetime NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT '0',
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT '0',
+  `fecha_edicion` datetime DEFAULT NULL,
   `certificado_id` int(11) NOT NULL,
-  `fecha_recepcion` date NOT NULL,
+  `fecha_recepcion` date DEFAULT NULL,
   `ano_aprobacion` varchar(4) NOT NULL,
   `numero_aprobacion` varchar(12) NOT NULL,
   `serie` varchar(10) NOT NULL,
@@ -223,7 +232,17 @@ CREATE TABLE IF NOT EXISTS `cfd_folio` (
   `actual` int(11) NOT NULL,
   `tipo_documento` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `cfd_folio`
+--
+
+INSERT INTO `cfd_folio` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `certificado_id`, `fecha_recepcion`, `ano_aprobacion`, `numero_aprobacion`, `serie`, `inicial`, `final`, `actual`, `tipo_documento`) VALUES
+(1, 3, 'SI', 0, '2013-06-01 00:00:00', 0, '2013-06-01 00:00:00', 1, '2013-06-01', '2013', '827063', 'AX', 1, 1000, 23, 'FACTURA'),
+(2, 3, 'SI', 0, '2013-06-06 22:28:54', NULL, '2013-06-06 22:31:26', 1, '0000-00-00', '2348', '23484393', 'XD', 1, 1000, 372, 'FACTURA'),
+(3, 3, 'SI', 0, '2013-06-06 22:31:55', NULL, '2013-06-06 22:32:07', 5, NULL, '2373', '23738748', 'SAX', 1, 2000, 674, 'RECIBO DE HONORARIOS'),
+(4, 3, 'SI', 0, '2013-06-06 22:32:39', NULL, '2013-06-06 22:36:55', 1, NULL, '2012', '2372838', 'XZ', 1, 1000, 893, 'FACTURA');
 
 -- --------------------------------------------------------
 
@@ -259,7 +278,14 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `comentarios` text,
   `fecha_registro_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `tipo_cliente_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `comentarios`, `fecha_registro_at`) VALUES
+(1, 3, 'SI', 0, '2013-06-06 23:02:26', NULL, '2013-06-06 23:02:27', NULL, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEÑA', '57', NULL, 'LA REINA', NULL, NULL, 'AMECA', 'JALISCO', 'MÉXICO', '46600', NULL, NULL, NULL, NULL, '2013-06-06 23:02:26');
 
 -- --------------------------------------------------------
 
@@ -278,6 +304,25 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
   `fecha_edicion` datetime DEFAULT NULL,
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contrato`
+--
+
+DROP TABLE IF EXISTS `contrato`;
+CREATE TABLE IF NOT EXISTS `contrato` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `paquete_id` int(11) NOT NULL,
+  `inicio` date NOT NULL,
+  `fin` date NOT NULL,
+  `dia_corte` tinyint(4) NOT NULL,
+  `tipo` varchar(10) NOT NULL DEFAULT 'MENSUAL',
+  `activo` varchar(2) NOT NULL DEFAULT 'SI',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -314,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
   `cedula` varchar(25) DEFAULT NULL,
   `logotipo` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `contribuyente`
@@ -322,7 +367,8 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
 (1, 1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-30 11:47:39', 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEÑA', '57', NULL, 'LA REINÁ', 'AMECÁ', 'AMECA', 'JALISCO', 'HOLAMÉXICO', '46600', NULL, NULL, NULL, '6KSOFT', 'VECR8307073J1.PNG', NULL),
-(2, 2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(2, 2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 13:19:46', 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', 'H. COLEGIO MILITAR', '3435', '51', 'EL FORTIN', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAMÉXICO', '45066', NULL, NULL, NULL, NULL, 'AAAA000000AAA.JPG', 'AAAA000000AAA.PNG');
 
 -- --------------------------------------------------------
 
@@ -346,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
   `celular_contacto` varchar(25) DEFAULT NULL,
   `correo_contacto` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `cuenta`
@@ -354,7 +400,8 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
 
 INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `paquete_id`, `rfc`, `nombre`, `password`, `telefono_contacto`, `celular_contacto`, `correo_contacto`) VALUES
 (1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-29 15:30:24', 1, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', '886fed01789257424228dc95fe3b5b319335ab6d', '(375) 105 0079', NULL, 'raalveco@gmail.com'),
-(2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 1, 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', '2f7ea749e13b1595cc6eb763da3e30ec7d3c6a7d', '(222) 222 2222', NULL, 'aasd@asdas.com');
+(2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 1, 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', '2f7ea749e13b1595cc6eb763da3e30ec7d3c6a7d', '(222) 222 2222', NULL, 'aasd@asdas.com'),
+(3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 10:28:59', 2, 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', '886fed01789257424228dc95fe3b5b319335ab6d', '(333) 333 3333', NULL, 'raalveco@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -399,7 +446,14 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
   `tasa` smallint(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `impuesto`
+--
+
+INSERT INTO `impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tasa`, `tipo`) VALUES
+(1, 3, 'SI', 0, '2013-06-06 23:03:41', NULL, '2013-06-06 23:03:41', 'IVA', 'IVA', 16, 'TRASLADADO');
 
 -- --------------------------------------------------------
 
@@ -416,7 +470,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   `orden` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -432,13 +486,15 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (7, 'CLIENTE', 'miniconos/coins.png', 'Caja', 'NO', 7),
 (8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturación', 'NO', 8),
 (9, 'ADMIN', 'miniconos/group.png', 'Cuentas', 'SI', 2),
-(10, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturación', 'SI', 9),
+(10, 'CBB', 'miniconos/page_white_key.png', 'Facturación CBB', 'SI', 9),
 (11, 'CLIENTE', 'miniconos/building_add.png', 'Sucursales', 'SI', 10),
 (12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11),
 (13, 'ADMIN', 'miniconos/package.png', 'Paquetes', 'SI', 1),
 (14, 'ADMIN', 'miniconos/newspaper.png', 'Tickets', 'SI', 3),
 (15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4),
-(16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5);
+(16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5),
+(17, 'CFD', 'miniconos/page_white_key.png', 'Facturación CFD', 'SI', 8),
+(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturación CFDI', 'SI', 9);
 
 -- --------------------------------------------------------
 
@@ -459,14 +515,15 @@ CREATE TABLE IF NOT EXISTS `moneda` (
   `descripcion` varchar(255) DEFAULT NULL,
   `tipo_cambio` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `moneda`
 --
 
 INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tipo_cambio`) VALUES
-(1, 1, 'SI', 0, '2013-05-28 21:18:36', NULL, '2013-05-28 21:18:36', 'PESO', 'MXN', '1.00');
+(1, 1, 'SI', 0, '2013-05-28 21:18:36', NULL, '2013-05-28 21:18:36', 'PESO', 'MXN', '1.00'),
+(2, 3, 'SI', 0, '2013-06-06 23:03:25', NULL, '2013-06-06 23:03:25', 'MXN', 'PESO MEXICANO', '1.00');
 
 -- --------------------------------------------------------
 
@@ -493,14 +550,15 @@ CREATE TABLE IF NOT EXISTS `paquete` (
   `vigencia` date DEFAULT NULL,
   `activo` varchar(2) DEFAULT 'SI',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `paquete`
 --
 
 INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_factura_adicional`, `usuarios`, `almacenamiento`, `soporte_online`, `soporte_chat`, `soporte_telefono`, `multiple_moneda`, `multiple_sucursal`, `costo_mensual`, `costo_anual`, `vigencia`, `activo`) VALUES
-(1, 'CBB - GRATUITO', 'CBB', 5, '10.00', 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', '0.00', '0.00', '2013-12-31', 'SI');
+(1, 'CBB - GRATUITO', 'CBB', 5, '10.00', 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', '0.00', '0.00', '2013-12-31', 'SI'),
+(2, 'CFD - BASICO', 'CFD', 100, '5.00', 5, 100, 'SI', 'SI', 'SI', 'SI', 'SI', '100.00', '100.00', '2013-12-31', 'SI');
 
 -- --------------------------------------------------------
 
@@ -526,7 +584,14 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `moneda_id` int(11) DEFAULT NULL,
   `cuenta_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `codigo`, `nombre`, `descripcion`, `categoria_id`, `impuesto_id`, `unidad_id`, `precio_unitario`, `moneda_id`, `cuenta_id`) VALUES
+(1, 'SI', NULL, '2013-06-06 23:04:36', NULL, '2013-06-06 23:04:36', 'P2839', 'CUADERNO PROFESIONAL', 'CUADERNO PROFESIONAL', 1, NULL, 1, '38.0000', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -546,7 +611,14 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `producto_categoria`
+--
+
+INSERT INTO `producto_categoria` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
+(1, 3, 'SI', 0, '2013-06-06 23:04:10', NULL, '2013-06-06 23:04:10', 'PAPELERIA', 'PAPELERIA');
 
 -- --------------------------------------------------------
 
@@ -566,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -611,7 +683,12 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (36, 15, 'Nuevo Departamento', 'miniconos/book_add.png', 'departamentos/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (37, 15, 'Catalogo', 'miniconos/book_open.png', 'departamentos/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
 (38, 16, 'Nuevo Usuario', 'miniconos/user_add.png', 'usuarios/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
-(39, 16, 'Catalogo de Usuarios', 'miniconos/text_list_numbers.png', 'usuarios/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00');
+(39, 16, 'Catalogo de Usuarios', 'miniconos/text_list_numbers.png', 'usuarios/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
+(40, 17, 'Nueva Factura', 'miniconos/newspaper.png', 'cfd/index', 'contenido', 'SI', 4, '2012-11-01 00:00:00'),
+(41, 17, 'Todas las Facturas', 'miniconos/newspaper.png', 'cfd/reporte', 'contenido', 'SI', 5, '2012-11-01 00:00:00'),
+(42, 17, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfd/folios', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
+(43, 17, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -695,7 +772,14 @@ CREATE TABLE IF NOT EXISTS `unidad` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `unidad`
+--
+
+INSERT INTO `unidad` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
+(1, 3, 'SI', 0, '2013-06-06 23:03:02', NULL, '2013-06-06 23:03:02', 'PIEZA', 'PIEZA');
 
 -- --------------------------------------------------------
 

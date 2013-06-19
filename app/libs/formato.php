@@ -212,6 +212,18 @@
 	        }
 	        return $fecha;
 	    }
+		
+		public static function FechaTime($fecha){
+	        if(strpos($fecha,"/")>0){
+	        	return mktime(0,0,0,substr($fecha,3,2),substr($fecha,0,2),substr($fecha,6,4));
+	        }
+			
+			if(strpos($fecha,"-")>0){
+				return mktime(0,0,0,substr($fecha,5,2),substr($fecha,8,2),substr($fecha,0,4));
+	        }
+			
+	        return $fecha;
+	    }
 	    
 	    public static function hora($mins){
 	        $m = floor($mins % 60);

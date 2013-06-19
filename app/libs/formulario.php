@@ -144,7 +144,7 @@
             $params = is_array($nombre) ? $nombre : Util::getParams(func_get_args());
             
 			$params["value"] = utf8_encode($valor);
-            //$params["data-error-type"] = "inline";
+            $params["data-error-type"] = "inline";
             
             if(!isset($params['onblur'])) {
         		$params['onblur'] = "texto(this)";
@@ -273,7 +273,6 @@
             			        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
                                 dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
                                 firstDay: 1,
-                                yearRange: 'c-20:c-0',
                                 changeMonth: true,
 								changeYear: true,
 								
