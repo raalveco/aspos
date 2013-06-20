@@ -1,0 +1,66 @@
+<?php
+	$modulo = "Contratos";
+	$seccion = $contrato ? "Modificar Contrato" : "Nuevo Contrato";
+
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $contrato ? "Modificar Contrato" : "Nueva Contrato" ?></h1>
+	<?= Formulario::inicioAjax($contrato ? $controller_name."/modificarContrato" : $controller_name."/registrarContrato", "contenido", false, "class: grid_12") ?>
+	<?php if($contrato) echo Formulario::oculto("contrato", $contrato -> id) ?>
+	<?php if($cuenta) echo Formulario::oculto("cuenta_id", $cuenta -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE CONTRATO
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Cuenta</label>
+					<?= Formulario::mayusculas("nombre",$cuenta -> nombre,"class: required", "readonly: readonly") ?>
+				</p>
+				<p class="_25">
+					<label>Paquete</label>
+					<?php $paquetes = Paquete::reporte("activo = 'SI'"); ?>
+					<?= Formulario::selectModelo("paquete",$paquetes,"nombre","id",$contrato ? $contrato -> paquete_id  : "","class: search required","data-placeholder: Selecciona Paquete") ?>
+				</p>
+				<p class="_25">
+					<label>Tipo</label>
+					<?= Formulario::select("tipo",array("MENSUAL" => "MENSUAL","SEMESTRAL" => "SEMESTRAL","ANUAL" => "ANUAL"),$contrato ? $contrato -> tipo  : "MENSUAL","data-placeholder: Selecciona Tipo") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Inicio</label>
+					<?= Formulario::fecha("inicio",$contrato ? $contrato -> inicio : date("d/m/Y", time())) ?>
+				</p>
+				<p class="_25">
+					<label>Fin</label>
+					<?= Formulario::fecha("fin",$contrato ? $contrato -> fin : date("d/m/Y", time() + 60*60*24*30)) ?>
+				</p>
+				<p class="_25">
+					<label>Corte</label>
+					<?= Formulario::numerico("corte", $contrato ? $contrato -> dia_corte : "", "disabled: disabled") ?>
+				</p>
+				<p class="_25">
+					<label>Activo</label>
+					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$contrato ? $contrato -> activo  : "SI","data-placeholder: Selecciona SI o NO") ?>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($contrato ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("cuentas/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- E
+	nd of #content -->

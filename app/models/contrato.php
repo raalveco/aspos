@@ -17,7 +17,7 @@
 			$contrato -> tipo = $tipo;
 			$contrato -> activo = "SI";
 			
-			$contrato -> dia_corte = date("d",Formato::FechaDB($inicio)-60*60*24);
+			$contrato -> dia_corte = date("d",Formato::FechaTime($inicio)-60*60*24);
 			
 			$contrato -> save();
 			
