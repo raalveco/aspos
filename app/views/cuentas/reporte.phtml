@@ -85,8 +85,9 @@
 							<td align="center"><?= $cuenta -> rfc ?></td>
 							<td><?= $cuenta -> nombre ?></td>
 							<td align="center"><?= $cuenta -> activo ?></td>
-							<td style="width: 70px;">
+							<td style="width: 90px;">
 								<?= Html::link("login/iniciar_admin/".$cuenta -> rfc, '<i class="icon-user"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Acceder") ?>
+								<?= Html::linkAjax($controller_name."/contrato/".$cuenta -> id, '<i class="icon-contract"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Contrato") ?>
 								<?= Html::linkAjax($controller_name."/consulta/".$cuenta -> id, '<i class="icon-pencil"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Editar") ?>
 								<?= Html::linkAjaxConfirmado($controller_name."/eliminar/".$cuenta -> id, '<i class="icon-remove"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Eliminar") ?>
 							</td>

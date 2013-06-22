@@ -252,5 +252,60 @@
 			
 			$this -> set_response("view");
 		}
+		
+		public function contrato($cuenta_id, $mensaje = false)
+		{
+			$this -> render("contrato");
+			$this -> set_response("view");
+			
+			$this -> cuenta = Cuenta::consultar($cuenta_id);
+			$contrato = Contrato::vigente($cuenta_id);
+			$this -> contrato = $contrato;
+			
+			switch ($mensaje) {
+				case 'registrado': $this -> alerta = Alerta::success("El Contrato ha sido registrado correctamente.");
+					break;
+				case 'modificado': $this -> alerta = Alerta::success("El Contrato ha sido actualizado correctamente.");
+					break;
+				case 'no_existe': $this -> alerta = Alerta::error("El Contrato no existe en la base de datos.");
+					break;
+			}
+		}
+		
+		public function registrarContrato()
+		{
+			$this -> render(null, null);
+			
+			$contrato = Contrato::registrar($this -> post("cuenta_id"), $this -> post("paquete"), $this -> post("inicio"), $this -> post("fin"));
+			$contrato -> tipo = $this -> post("tipo");
+			$contrato -> activo = $this -> post("activo");	
+			$contrato -> guardar();	
+			
+			$this -> redirect("cuentas/contrato/".$contrato -> id."/registrado");
+		}	
+		
+		public function modificarContrato()
+		{
+			$this -> render(null, null);
+			
+			$contrato = Contrato::consultar($this -> post("contrato"));
+			
+			if($contrato){
+				$contrato -> paquete_id = $this -> post("paquete");
+				$contrato -> inicio = $this -> post("inicio");
+				$contrato -> fin = $this -> post("fin");
+				$contrato -> tipo = $this -> post("tipo");
+				$contrato -> activo = $this -> post("activo");	
+				$contrato -> guardar();		
+				
+				$this -> redirect("cuentas/contrato/".$contrato -> id."/modificado");
+			}	
+			else 
+			{
+				$this -> redirect("cuentas/contrato/".$contrato -> id."/no_existe");
+			}
+			
+		}	
+
 	}
 ?>
