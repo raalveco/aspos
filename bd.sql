@@ -3,15 +3,15 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-06-2013 a las 03:13:02
--- Versión del servidor: 5.5.28
--- Versión de PHP: 5.3.18
+-- Tiempo de generaciï¿½n: 19-06-2013 a las 03:13:02
+-- Versiï¿½n del servidor: 5.5.28
+-- Versiï¿½n de PHP: 5.3.18
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `aspos`
+-- Base de datos: `aspos` 
 --
 
 -- --------------------------------------------------------
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `referencia` varchar(100) DEFAULT NULL,
   `municipio` varchar(50) DEFAULT NULL,
   `estado` varchar(25) NOT NULL DEFAULT 'JALISCO',
-  `pais` varchar(25) NOT NULL DEFAULT 'MÉXICO',
+  `pais` varchar(25) NOT NULL DEFAULT 'Mï¿½XICO',
   `cpostal` varchar(5) DEFAULT NULL,
   `telefono` varchar(25) DEFAULT NULL,
   `celular` varchar(25) DEFAULT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `tipo_cliente_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `comentarios`, `fecha_registro_at`) VALUES
-(1, 3, 'SI', 0, '2013-06-06 23:02:26', NULL, '2013-06-06 23:02:27', NULL, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEÑA', '57', NULL, 'LA REINA', NULL, NULL, 'AMECA', 'JALISCO', 'MÉXICO', '46600', NULL, NULL, NULL, NULL, '2013-06-06 23:02:26');
+(1, 3, 'SI', 0, '2013-06-06 23:02:26', NULL, '2013-06-06 23:02:27', NULL, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEï¿½A', '57', NULL, 'LA REINA', NULL, NULL, 'AMECA', 'JALISCO', 'Mï¿½XICO', '46600', NULL, NULL, NULL, NULL, '2013-06-06 23:02:26');
 
 -- --------------------------------------------------------
 
@@ -366,9 +366,9 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 --
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
-(1, 1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-30 11:47:39', 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEÑA', '57', NULL, 'LA REINÁ', 'AMECÁ', 'AMECA', 'JALISCO', 'HOLAMÉXICO', '46600', NULL, NULL, NULL, '6KSOFT', 'VECR8307073J1.PNG', NULL),
+(1, 1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-30 11:47:39', 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEï¿½A', '57', NULL, 'LA REINï¿½', 'AMECï¿½', 'AMECA', 'JALISCO', 'HOLAMï¿½XICO', '46600', NULL, NULL, NULL, '6KSOFT', 'VECR8307073J1.PNG', NULL),
 (2, 2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 13:19:46', 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', 'H. COLEGIO MILITAR', '3435', '51', 'EL FORTIN', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAMÉXICO', '45066', NULL, NULL, NULL, NULL, 'AAAA000000AAA.JPG', 'AAAA000000AAA.PNG');
+(3, 3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 13:19:46', 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', 'H. COLEGIO MILITAR', '3435', '51', 'EL FORTIN', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAMï¿½XICO', '45066', NULL, NULL, NULL, NULL, 'AAAA000000AAA.JPG', 'AAAA000000AAA.PNG');
 
 -- --------------------------------------------------------
 
@@ -484,17 +484,17 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (5, 'CLIENTE', 'miniconos/lorry.png', 'Compras', 'NO', 5),
 (6, 'CLIENTE', 'miniconos/cart.png', 'Ventas', 'NO', 6),
 (7, 'CLIENTE', 'miniconos/coins.png', 'Caja', 'NO', 7),
-(8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturación', 'NO', 8),
+(8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturaciï¿½n', 'NO', 8),
 (9, 'ADMIN', 'miniconos/group.png', 'Cuentas', 'SI', 2),
-(10, 'CBB', 'miniconos/page_white_key.png', 'Facturación CBB', 'SI', 9),
+(10, 'CBB', 'miniconos/page_white_key.png', 'Facturaciï¿½n CBB', 'SI', 9),
 (11, 'CLIENTE', 'miniconos/building_add.png', 'Sucursales', 'SI', 10),
 (12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11),
 (13, 'ADMIN', 'miniconos/package.png', 'Paquetes', 'SI', 1),
 (14, 'ADMIN', 'miniconos/newspaper.png', 'Tickets', 'SI', 3),
 (15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4),
 (16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5),
-(17, 'CFD', 'miniconos/page_white_key.png', 'Facturación CFD', 'SI', 8),
-(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturación CFDI', 'SI', 9);
+(17, 'CFD', 'miniconos/page_white_key.png', 'Facturaciï¿½n CFD', 'SI', 8),
+(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturaciï¿½n CFDI', 'SI', 9);
 
 -- --------------------------------------------------------
 
@@ -667,8 +667,8 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (20, 1, 'Nuevo Tipo Cliente', 'miniconos/user_add.png', 'clientes/registroTipoCliente', 'contenido', 'NO', 4, '2012-11-01 00:00:00'),
 (21, 9, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (22, 9, 'Todas las Cuentas', 'miniconos/folder_user.png', 'cuentas/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
-(23, 3, 'Categorías de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
-(24, 10, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(23, 3, 'Categorï¿½as de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
+(24, 10, 'Informaciï¿½n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (25, 11, 'Nueva Sucursal', 'miniconos/house.png', 'sucursales/registro', 'contenido', 'SI', 1, '2013-02-19 00:00:00'),
 (26, 11, 'Sucursales', 'miniconos/house_link.png', 'sucursales/reporte', 'contenido', 'SI', 2, '2013-02-19 00:00:00'),
 (27, 12, 'Unidades', 'miniconos/style_edit.png', 'unidades/reporte', 'contenido', 'SI', 1, '2013-02-19 00:00:00'),
@@ -687,7 +687,7 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (40, 17, 'Nueva Factura', 'miniconos/newspaper.png', 'cfd/index', 'contenido', 'SI', 4, '2012-11-01 00:00:00'),
 (41, 17, 'Todas las Facturas', 'miniconos/newspaper.png', 'cfd/reporte', 'contenido', 'SI', 5, '2012-11-01 00:00:00'),
 (42, 17, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfd/folios', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
-(43, 17, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(43, 17, 'Informaciï¿½n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00');
 
 -- --------------------------------------------------------
@@ -749,8 +749,8 @@ INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `adm
 (1, 1, 0, '1', 0, 'NO', 'asdsadsadsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 'adsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 2, '0000-00-00 00:00:00', 'NO', 'KO'),
 (6, 1, 0, '2', 0, 'NO', 'dsffds', 'dsfdsfds', 2, '0000-00-00 00:00:00', 'NO', 'KO'),
 (7, 1, 0, '3', 0, 'NO', 'Ticket de Prueba', 'Ola k ace!!', 1, '2013-05-21 22:28:46', 'NO', 'KO'),
-(8, 1, 0, '2', 7, 'SI', 'Respuesta de ADMIN', 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.', 1, '2013-05-24 00:02:53', 'NO', 'KO'),
-(9, 1, 0, '2', 6, 'SI', 'Respuesta de ADMIN', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo).', 2, '2013-05-24 00:13:26', 'NO', 'KO'),
+(8, 1, 0, '2', 7, 'SI', 'Respuesta de ADMIN', 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estï¿½ndar de las industrias desde el aï¿½o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usï¿½ una galerï¿½a de textos y los mezclï¿½ de tal manera que logrï¿½ hacer un libro de textos especimen. No sï¿½lo sobreviviï¿½ 500 aï¿½os, sino que tambien ingresï¿½ como texto de relleno en documentos electrï¿½nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaciï¿½n de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y mï¿½s recientemente con software de autoediciï¿½n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.', 1, '2013-05-24 00:02:53', 'NO', 'KO'),
+(9, 1, 0, '2', 6, 'SI', 'Respuesta de ADMIN', 'Es un hecho establecido hace demasiado tiempo que un lector se distraerï¿½ con el contenido del texto de un sitio mientras que mira su diseï¿½o. El punto de usar Lorem Ipsum es que tiene una distribuciï¿½n mï¿½s o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquï¿½, contenido aquï¿½". Estos textos hacen parecerlo un espaï¿½ol que se puede leer. Muchos paquetes de autoediciï¿½n y editores de pï¿½ginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una bï¿½squeda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a travï¿½s de los aï¿½os, algunas veces por accidente, otras veces a propï¿½sito (por ejemplo insertï¿½ndole humor y cosas por el estilo).', 2, '2013-05-24 00:13:26', 'NO', 'KO'),
 (10, 1, 0, '2', 1, 'SI', 'Respuesta de ADMIN', 'Respuesta de Prueba... OK!!', 2, '2013-05-25 14:41:39', 'NO', 'KO'),
 (11, 1, 0, NULL, 0, 'NO', 'Ticket de Prueba', 'Hola', 2, '2013-05-29 20:24:09', 'NO', 'KO');
 
