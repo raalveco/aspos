@@ -1,17 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.3
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generaci�n: 19-06-2013 a las 03:13:02
--- Versi�n del servidor: 5.5.28
--- Versi�n de PHP: 5.3.18
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-06-2013 a las 23:03:27
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
--- Ramiro
--- Base de datos: `aspos` 
+--
+-- Base de datos: `aspos`
 --
 
 -- --------------------------------------------------------
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `referencia` varchar(100) DEFAULT NULL,
   `municipio` varchar(50) DEFAULT NULL,
   `estado` varchar(25) NOT NULL DEFAULT 'JALISCO',
-  `pais` varchar(25) NOT NULL DEFAULT 'M�XICO',
+  `pais` varchar(25) NOT NULL DEFAULT 'MÉXICO',
   `cpostal` varchar(5) DEFAULT NULL,
   `telefono` varchar(25) DEFAULT NULL,
   `celular` varchar(25) DEFAULT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `tipo_cliente_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `comentarios`, `fecha_registro_at`) VALUES
-(1, 3, 'SI', 0, '2013-06-06 23:02:26', NULL, '2013-06-06 23:02:27', NULL, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PE�A', '57', NULL, 'LA REINA', NULL, NULL, 'AMECA', 'JALISCO', 'M�XICO', '46600', NULL, NULL, NULL, NULL, '2013-06-06 23:02:26');
+(1, 3, 'SI', 0, '2013-06-06 23:02:26', NULL, '2013-06-06 23:02:27', NULL, 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PEÑA', '57', NULL, 'LA REINA', NULL, NULL, 'AMECA', 'JALISCO', 'MÉXICO', '46600', NULL, NULL, NULL, NULL, '2013-06-06 23:02:26');
 
 -- --------------------------------------------------------
 
@@ -366,9 +366,9 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 --
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
-(1, 1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-30 11:47:39', 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PE�A', '57', NULL, 'LA REIN�', 'AMEC�', 'AMECA', 'JALISCO', 'HOLAM�XICO', '46600', NULL, NULL, NULL, '6KSOFT', 'VECR8307073J1.PNG', NULL),
+(1, 1, 'SI', 0, '2013-04-27 09:20:06', NULL, '2013-04-30 11:47:39', 'VECR8307073J1', 'RAMIRO ALONSO VERA CONTRERAS', 'ALEJANDRO PE?A', '57', NULL, 'LA REIN?', 'AMEC?', 'AMECA', 'JALISCO', 'HOLAM?XICO', '46600', NULL, NULL, NULL, '6KSOFT', 'VECR8307073J1.PNG', NULL),
 (2, 2, 'SI', 0, '2013-04-27 09:22:27', NULL, '2013-04-27 09:22:27', 'XXXX000000XXX', 'PRUEBA DE EMPRESA X', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 13:19:46', 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', 'H. COLEGIO MILITAR', '3435', '51', 'EL FORTIN', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAM�XICO', '45066', NULL, NULL, NULL, NULL, 'AAAA000000AAA.JPG', 'AAAA000000AAA.PNG');
+(3, 3, 'SI', 0, '2013-06-01 10:28:59', NULL, '2013-06-01 13:19:46', 'AAAA000000AAA', 'CUENTA DE PRUEBA PARA CFD', 'H. COLEGIO MILITAR', '3435', '51', 'EL FORTIN', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAM?XICO', '45066', NULL, NULL, NULL, NULL, 'AAAA000000AAA.JPG', 'AAAA000000AAA.PNG');
 
 -- --------------------------------------------------------
 
@@ -484,17 +484,17 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (5, 'CLIENTE', 'miniconos/lorry.png', 'Compras', 'NO', 5),
 (6, 'CLIENTE', 'miniconos/cart.png', 'Ventas', 'NO', 6),
 (7, 'CLIENTE', 'miniconos/coins.png', 'Caja', 'NO', 7),
-(8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturaci�n', 'NO', 8),
+(8, 'CLIENTE', 'miniconos/page_white_key.png', 'Facturaci?n', 'NO', 8),
 (9, 'ADMIN', 'miniconos/group.png', 'Cuentas', 'SI', 2),
-(10, 'CBB', 'miniconos/page_white_key.png', 'Facturaci�n CBB', 'SI', 9),
+(10, 'CBB', 'miniconos/page_white_key.png', 'Facturaci?n CBB', 'SI', 9),
 (11, 'CLIENTE', 'miniconos/building_add.png', 'Sucursales', 'SI', 10),
 (12, 'CLIENTE', 'miniconos/style_edit.png', 'Catalogos', 'SI', 11),
 (13, 'ADMIN', 'miniconos/package.png', 'Paquetes', 'SI', 1),
 (14, 'ADMIN', 'miniconos/newspaper.png', 'Tickets', 'SI', 3),
 (15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4),
 (16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5),
-(17, 'CFD', 'miniconos/page_white_key.png', 'Facturaci�n CFD', 'SI', 8),
-(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturaci�n CFDI', 'SI', 9);
+(17, 'CFD', 'miniconos/page_white_key.png', 'Facturaci?n CFD', 'SI', 8),
+(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturaci?n CFDI', 'SI', 9);
 
 -- --------------------------------------------------------
 
@@ -522,8 +522,8 @@ CREATE TABLE IF NOT EXISTS `moneda` (
 --
 
 INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tipo_cambio`) VALUES
-(1, 1, 'SI', 0, '2013-05-28 21:18:36', NULL, '2013-05-28 21:18:36', 'PESO', 'MXN', '1.00'),
-(2, 3, 'SI', 0, '2013-06-06 23:03:25', NULL, '2013-06-06 23:03:25', 'MXN', 'PESO MEXICANO', '1.00');
+(1, 1, 'SI', 0, '2013-05-28 21:18:36', NULL, '2013-05-28 21:18:36', 'PESO', 'MXN', 1.00),
+(2, 3, 'SI', 0, '2013-06-06 23:03:25', NULL, '2013-06-06 23:03:25', 'MXN', 'PESO MEXICANO', 1.00);
 
 -- --------------------------------------------------------
 
@@ -557,8 +557,8 @@ CREATE TABLE IF NOT EXISTS `paquete` (
 --
 
 INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_factura_adicional`, `usuarios`, `almacenamiento`, `soporte_online`, `soporte_chat`, `soporte_telefono`, `multiple_moneda`, `multiple_sucursal`, `costo_mensual`, `costo_anual`, `vigencia`, `activo`) VALUES
-(1, 'CBB - GRATUITO', 'CBB', 5, '10.00', 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', '0.00', '0.00', '2013-12-31', 'SI'),
-(2, 'CFD - BASICO', 'CFD', 100, '5.00', 5, 100, 'SI', 'SI', 'SI', 'SI', 'SI', '100.00', '100.00', '2013-12-31', 'SI');
+(1, 'CBB - GRATUITO', 'CBB', 5, 10.00, 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', 0.00, 0.00, '2013-12-31', 'SI'),
+(2, 'CFD - BASICO', 'CFD', 100, 5.00, 5, 100, 'SI', 'SI', 'SI', 'SI', 'SI', 100.00, 100.00, '2013-12-31', 'SI');
 
 -- --------------------------------------------------------
 
@@ -591,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
 --
 
 INSERT INTO `producto` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `codigo`, `nombre`, `descripcion`, `categoria_id`, `impuesto_id`, `unidad_id`, `precio_unitario`, `moneda_id`, `cuenta_id`) VALUES
-(1, 'SI', NULL, '2013-06-06 23:04:36', NULL, '2013-06-06 23:04:36', 'P2839', 'CUADERNO PROFESIONAL', 'CUADERNO PROFESIONAL', 1, NULL, 1, '38.0000', 2, 3);
+(1, 'SI', NULL, '2013-06-06 23:04:36', NULL, '2013-06-06 23:04:36', 'P2839', 'CUADERNO PROFESIONAL', 'CUADERNO PROFESIONAL', 1, NULL, 1, 38.0000, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -667,8 +667,8 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (20, 1, 'Nuevo Tipo Cliente', 'miniconos/user_add.png', 'clientes/registroTipoCliente', 'contenido', 'NO', 4, '2012-11-01 00:00:00'),
 (21, 9, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (22, 9, 'Todas las Cuentas', 'miniconos/folder_user.png', 'cuentas/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
-(23, 3, 'Categor�as de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
-(24, 10, 'Informaci�n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(23, 3, 'Categor?as de Producto', 'miniconos/newspaper.png', 'productos/reporteProductoCategoria', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
+(24, 10, 'Informaci?n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (25, 11, 'Nueva Sucursal', 'miniconos/house.png', 'sucursales/registro', 'contenido', 'SI', 1, '2013-02-19 00:00:00'),
 (26, 11, 'Sucursales', 'miniconos/house_link.png', 'sucursales/reporte', 'contenido', 'SI', 2, '2013-02-19 00:00:00'),
 (27, 12, 'Unidades', 'miniconos/style_edit.png', 'unidades/reporte', 'contenido', 'SI', 1, '2013-02-19 00:00:00'),
@@ -687,7 +687,7 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (40, 17, 'Nueva Factura', 'miniconos/newspaper.png', 'cfd/index', 'contenido', 'SI', 4, '2012-11-01 00:00:00'),
 (41, 17, 'Todas las Facturas', 'miniconos/newspaper.png', 'cfd/reporte', 'contenido', 'SI', 5, '2012-11-01 00:00:00'),
 (42, 17, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfd/folios', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
-(43, 17, 'Informaci�n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(43, 17, 'Informaci?n Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00');
 
 -- --------------------------------------------------------
@@ -749,8 +749,8 @@ INSERT INTO `ticket` (`id`, `cuenta_id`, `usuario_id`, `admin_id`, `padre`, `adm
 (1, 1, 0, '1', 0, 'NO', 'asdsadsadsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 'adsdasdasf sf fds fsd dfs dfs dfs dffsd fsd fds f dsdfsdfds f dsf dsf ds fds f sd f sd f dsfds', 2, '0000-00-00 00:00:00', 'NO', 'KO'),
 (6, 1, 0, '2', 0, 'NO', 'dsffds', 'dsfdsfds', 2, '0000-00-00 00:00:00', 'NO', 'KO'),
 (7, 1, 0, '3', 0, 'NO', 'Ticket de Prueba', 'Ola k ace!!', 1, '2013-05-21 22:28:46', 'NO', 'KO'),
-(8, 1, 0, '2', 7, 'SI', 'Respuesta de ADMIN', 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est�ndar de las industrias desde el a�o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us� una galer�a de textos y los mezcl� de tal manera que logr� hacer un libro de textos especimen. No s�lo sobrevivi� 500 a�os, sino que tambien ingres� como texto de relleno en documentos electr�nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci�n de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y m�s recientemente con software de autoedici�n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.', 1, '2013-05-24 00:02:53', 'NO', 'KO'),
-(9, 1, 0, '2', 6, 'SI', 'Respuesta de ADMIN', 'Es un hecho establecido hace demasiado tiempo que un lector se distraer� con el contenido del texto de un sitio mientras que mira su dise�o. El punto de usar Lorem Ipsum es que tiene una distribuci�n m�s o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aqu�, contenido aqu�". Estos textos hacen parecerlo un espa�ol que se puede leer. Muchos paquetes de autoedici�n y editores de p�ginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una b�squeda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a trav�s de los a�os, algunas veces por accidente, otras veces a prop�sito (por ejemplo insert�ndole humor y cosas por el estilo).', 2, '2013-05-24 00:13:26', 'NO', 'KO'),
+(8, 1, 0, '2', 7, 'SI', 'Respuesta de ADMIN', 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno est?ndar de las industrias desde el a?o 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido us? una galer?a de textos y los mezcl? de tal manera que logr? hacer un libro de textos especimen. No s?lo sobrevivi? 500 a?os, sino que tambien ingres? como texto de relleno en documentos electr?nicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creaci?n de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y m?s recientemente con software de autoedici?n, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.', 1, '2013-05-24 00:02:53', 'NO', 'KO'),
+(9, 1, 0, '2', 6, 'SI', 'Respuesta de ADMIN', 'Es un hecho establecido hace demasiado tiempo que un lector se distraer? con el contenido del texto de un sitio mientras que mira su dise?o. El punto de usar Lorem Ipsum es que tiene una distribuci?n m?s o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aqu?, contenido aqu?". Estos textos hacen parecerlo un espa?ol que se puede leer. Muchos paquetes de autoedici?n y editores de p?ginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una b?squeda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a trav?s de los a?os, algunas veces por accidente, otras veces a prop?sito (por ejemplo insert?ndole humor y cosas por el estilo).', 2, '2013-05-24 00:13:26', 'NO', 'KO'),
 (10, 1, 0, '2', 1, 'SI', 'Respuesta de ADMIN', 'Respuesta de Prueba... OK!!', 2, '2013-05-25 14:41:39', 'NO', 'KO'),
 (11, 1, 0, NULL, 0, 'NO', 'Ticket de Prueba', 'Hola', 2, '2013-05-29 20:24:09', 'NO', 'KO');
 
