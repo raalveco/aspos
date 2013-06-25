@@ -16,6 +16,16 @@
 			}
 		}
 		
+		public function inicio($opcion = false){
+			if(!Session::get("acceso")){
+				$this -> render(null,null);
+				$this -> redirect("login/index/no_sesion"); return;
+			}
+			
+			$this -> render("index");
+			$this -> set_response("view");
+		}
+		
 		public function mensajes($id){
 			$this -> original = Ticket::consultar($id);
 			

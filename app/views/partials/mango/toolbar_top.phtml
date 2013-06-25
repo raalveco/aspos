@@ -23,8 +23,8 @@
 		var secciones = acciones.split("/",2);
 		var textos = titulos.split("/",2);
 		
-		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'">'+textos[0]+'</a>';
-		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'/'+secciones[1]+'">'+textos[1]+'</a>';
+		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="<?= PROYECTO_BASE ?>'+secciones[0]+'">'+textos[0]+'</a>';
+		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="<?= PROYECTO_BASE ?>'+secciones[0]+'/'+secciones[1]+'">'+textos[1]+'</a>';
 		
 		$("li#breadcrumb_controlador").html(tmp1);
 		$("li#breadcrumb_accion").html(tmp2);
@@ -34,8 +34,8 @@
 		var secciones = acciones.split("/",2);
 		var textos = titulos.split("/",2);
 		
-		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'">'+textos[0]+'</a>';
-		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="/aspos/'+secciones[0]+'/'+secciones[1]+'/'+parametros+'">'+textos[1]+'</a>';
+		var tmp1 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="<?= PROYECTO_BASE ?>'+secciones[0]+'">'+textos[0]+'</a>';
+		var tmp2 = '<a id="jsRemote" rel="#contenido" class="jsRemote" href="<?= PROYECTO_BASE ?>'+secciones[0]+'/'+secciones[1]+'/'+parametros+'">'+textos[1]+'</a>';
 		
 		$("li#breadcrumb_controlador").html(tmp1);
 		$("li#breadcrumb_accion").html(tmp2);
@@ -48,13 +48,13 @@
 		<!-- Left side -->
 		<div class="left">
 			<ul class="breadcrumb">
-				<li><?= Html::link("mango/index", "Emisión Fiscal") ?></li>
-				<li><?= Html::link("mango/index", Session::get("empresa")) ?></li>
+				<li><?= Html::link(APLICACION_URL, "Emisión Fiscal") ?></li>
+				<li><?= Html::linkAjax("configuracion/fiscal", Session::get("empresa"),"contenido") ?></li>
 				<li id="breadcrumb_controlador">
-					<?= Html::link("mango/index", "Cliente") ?>
+					<?= Html::linkAjax("configuracion/index", "Página Principal","contenido") ?>
 				</li>
 				<li id="breadcrumb_accion">
-					<?= Html::link("mango/index", "Nuevo Cliente") ?>
+					<?= Html::linkAjax("configuracion/index", "Inicio","contenido") ?>
 				</li>
 			</ul>
 		</div>

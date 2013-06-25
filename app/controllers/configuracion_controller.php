@@ -201,7 +201,7 @@
 				
 				$bandera = true;
 				
-				if($_FILES["cedula"]["name"]!=""){
+				if(isset($_FILES["cedula"]["name"])){
 	       			$tmp = $_FILES["cedula"]["name"];
 	                
 		            $ext = "";
@@ -244,7 +244,7 @@
 					}
 				}
 				
-				if($_FILES["logotipo"]["name"]!=""){
+				if(isset($_FILES["logotipo"]["name"])){
 	       			$tmp = $_FILES["logotipo"]["name"];
 	                
 		            $ext = "";

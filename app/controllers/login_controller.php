@@ -26,6 +26,37 @@
 			}
 		}
 		
+		public function google($token){
+            $this -> render(null,null);
+            
+            if(Administrador::existe("token = '".$token."'")){
+                $administrador = Administrador::consultar("token = '".$token."'");
+                
+                Session::set("acceso",true);
+                
+                Session::set("tipo_usuario","ADMIN");
+                Session::set("usuario",$administrador -> usuario);
+                
+                Session::set("empresa",$administrador -> nombre);
+                Session::set("nombre",$administrador -> nombre);
+                
+                Session::set("cuenta_id",$administrador -> id);
+                Session::set("cuenta",0);
+            
+                Session::set("usuario_id",false);
+                Session::set("password","");
+                
+                Session::set("tipo_facturacion","");
+                
+                Session::set("paquete_id",0);
+                    
+                $this -> redirect("main");
+            }
+            else{
+                $this -> redirect("login/admin");
+            }
+        }
+		
 		public function iniciar(){
 			$this -> render(null,null);
 			

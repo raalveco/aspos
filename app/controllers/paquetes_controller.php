@@ -18,7 +18,7 @@
 				case "cbb": Session::set("filtro","tipo = 'CBB'"); break;
 				case "cfd": Session::set("filtro","tipo = 'CFD'"); break;
 				case "cfdi": Session::set("filtro","tipo = 'CFDI'"); break;
-				case "default": Session::set("filtro","id>0"); break;
+				default: Session::set("filtro","id>0"); break;
 			}
 		}
 		
