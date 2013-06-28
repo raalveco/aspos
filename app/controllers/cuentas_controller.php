@@ -48,6 +48,8 @@
 				$cuenta -> celular_contacto = utf8_decode($this -> post("celular"));
 				$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
 				
+				$cuenta -> tipo_contraro = utf8_decode($this -> post("tipo_contrato"));
+				
 				$cuenta -> save();
 				
 				//GENERAR CONTRASEÑA ALEATORIA (NUMERICA)(SHA1)
@@ -56,6 +58,12 @@
 				$cuenta -> password = sha1($password);
 				
 				$cuenta -> guardar();
+				
+				$contrato = Contrato::registrar($cuenta -> id, $this -> post("paquete"), date("Y-m-d"), date("Y-m-d",time()+60*60*24*365));
+				
+				$contrato -> tipo = $this -> post("tipo_contrato");
+				
+				$contrato -> guardar();
 				
 				$contribuyente = Contribuyente::registrar($rfc, $nombre, $cuenta -> id);
 				$contribuyente -> cuenta_id = $cuenta -> id;
@@ -71,6 +79,8 @@
 				$contribuyente -> pais = utf8_decode($this -> post("pais"));
 				
 				$contribuyente -> guardar();
+				
+				Cliente::registrar("XAXX000000XXX", "CLIENTE GENERICO", $cuenta -> contribuyente() -> estado, "MÉXICO");
 				
 				//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
 				$asunto = "Tu cuenta en Emisión Fiscal ha sido registrada.";

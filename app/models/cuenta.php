@@ -27,6 +27,12 @@
 			
 			$cuenta -> save();
 			
+			$moneda = Moneda::registrar("MXN", "PESO MEXICANO",1,$cuenta -> id);
+			$impuesto = Impuesto::registrar("IVA", "16", "TRASLADADO", $cuenta -> id);
+			$unidad = Unidad::registrar("PIEZA", "PIEZA", $cuenta -> id);
+			$tipo = ClienteTipo::registrar("NORMAL","CLIENTE NORMAL", $cuenta -> id);
+			$categoria = ProductoCategoria::registrar("GENERAL","CATEGORIA GENERAL", $cuenta -> id);
+			
 			return $cuenta;
 		}
 		

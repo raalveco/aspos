@@ -23,11 +23,19 @@
 		
 		public function cbb($id){
 			$this -> render(null,null);
-			$this -> set_response("view");
 			
-			$pdf = new Pdf();			
-			$pdf -> controlador("pdf/cbbPDF/".$id);			
-			$pdf -> renderizar("hola.pdf");
+			$factura = CbbFactura::consultar($id);
+			
+			if($factura){
+				$this -> set_response("view");
+				
+				$pdf = new Pdf();			
+				$pdf -> controlador("pdf/cbbPDF/".$id);			
+				$pdf -> renderizar("hola.pdf");	
+			}
+			else{
+				$this -> redirect("main");
+			}
 		}
 		
 		public function cbbPDF($id){

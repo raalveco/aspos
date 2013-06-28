@@ -16,6 +16,7 @@
 				<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? "Int ".$emisor -> interior : "" ?><?= $emisor -> colonia ? ", COLONIA ".$emisor -> colonia : "" ?>
 				<br/>
 				C.P. <?= $emisor -> cpostal ?> <?= utf8_encode($emisor -> municipio) ?>, <?= utf8_encode($emisor -> estado) ?>.
+				<?= $emisor -> telefono ? "<br/>".$emisor -> telefono : "" ?>
 				<br /><br />
 			</td>
 			<td>

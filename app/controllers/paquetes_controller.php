@@ -122,9 +122,13 @@
 			
 			$paquete = Paquete::consultar($id);
 			
-			$paquete -> eliminar();
-			
-			$this -> alerta = Alerta::success("El Paquete ha sido eliminado correctamente.");
+			if(!$paquete -> tieneRelaciones()){
+				$paquete -> eliminar();
+				$this -> alerta = Alerta::success("El Paquete ha sido eliminado correctamente.");	
+			}
+			else{
+				$this -> alerta = Alerta::warning("El Paquete no puede ser eliminado por que tiene cuentas o contratos asignados.");
+			}
 			
 			$this -> set_response("view");
 		}

@@ -32,5 +32,16 @@
 			
 			return $paquete;
 		}
+		
+		public function tieneRelaciones(){
+			$x = Cuenta::total("paquete_id = ".$this -> id);
+			$y = Contrato::total("paquete_id = ".$this -> id);
+			
+			if($x > 0 || $y > 0){
+				return true;
+			}
+			
+			return false;
+		}
 	}
 ?>

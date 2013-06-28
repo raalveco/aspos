@@ -42,8 +42,8 @@
 					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email required") ?>
 				</p>
 				<p class="_25">
-					<label>Activo</label>
-					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$cuenta ? $cuenta -> activo  : "SI","class: search required","data-placeholder: Selecciona Estado") ?>
+					<label>Contrato</label>
+					<?= Formulario::select("tipo_contrato",array("ANUAL" => "ANUAL","SEMESTRAL" => "SEMESTRAL","MENSUAL" => "MENSUAL"),$cuenta ? $cuenta -> tipo_contrato  : "ANUAL","class: search required","data-placeholder: Selecciona Estado") ?>
 				</p>
 			</div>
 		</fieldset>

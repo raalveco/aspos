@@ -1,13 +1,23 @@
 <?php
 	class Impuesto extends ActiveRecord{
-		public static function registrar($nombre, $descripcion, $tasa, $tipo = "TRASLADADO"){
-			if(Impuesto::existe("cuenta_id = '".Session::get("cuenta_id")."' AND nombre = '".$nombre."' AND tasa = '".$tasa."' AND tipo = '".$tipo."'")){
+		public static function registrar($nombre, $tasa, $tipo = "TRASLADADO", $cuenta_id = false){
+			if($cuenta_id === false){
+				if(Session::get("cuenta_id")){
+					$cuenta_id = Session::get("cuenta_id");
+				}		
+				else{
+					$cuenta_id = 0;
+				}
+			}
+			
+			if(Impuesto::existe("cuenta_id = '".$cuenta_id."' AND nombre = '".$nombre."' AND tasa = '".$tasa."' AND tipo = '".$tipo."'")){
 				return false;
 			}
 			
 			$impuesto = new Impuesto();
 			
-			$impuesto -> cuenta_id = Session::get("cuenta_id");
+			$impuesto -> cuenta_id = $cuenta_id;
+			
 			$impuesto -> activo = "SI";
 			
 			if(Session::get("usuario_id")){
@@ -23,7 +33,7 @@
 			$impuesto -> fecha_edicion = date("Y-m-d H:i:s");
 			
 			$impuesto -> nombre = $nombre;
-			$impuesto -> descripcion = $descripcion;
+			$impuesto -> descripcion = $nombre;
 			$impuesto -> tasa = $tasa;
 			$impuesto -> tipo = $tipo;
 			

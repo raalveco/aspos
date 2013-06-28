@@ -1,13 +1,23 @@
 <?php
 	class ClienteTipo extends ActiveRecord{ 
-		public static function registrar($nombre, $descripcion){
-			if(ClienteTipo::existe("cuenta_id = '".Session::get("cuenta_id")."' AND nombre = '".$nombre."'")){
+		public static function registrar($nombre, $descripcion, $cuenta_id = false){
+			if($cuenta_id === false){
+				if(Session::get("cuenta_id")){
+					$cuenta_id = Session::get("cuenta_id");
+				}		
+				else{
+					$cuenta_id = 0;
+				}
+			}
+			
+			if(ClienteTipo::existe("cuenta_id = '".$cuenta_id."' AND nombre = '".$nombre."'")){
 				return false;
 			}
 			
 			$tipo = new ClienteTipo();
 			
-			$tipo -> cuenta_id = Session::get("cuenta_id");
+			$tipo -> cuenta_id = $cuenta_id;
+			
 			$tipo -> activo = "SI";
 			
 			if(Session::get("usuario_id")){

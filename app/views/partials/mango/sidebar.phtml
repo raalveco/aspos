@@ -30,7 +30,9 @@
 								continue;
 							}
 							
-							if($paquete -> multiple_moneda == "NO" && strtoupper($menu -> nombre) == "MONEDAS"){
+							
+							//QUITADA VALIDACION QUE OCULTA MENUS DE MONEDA MIENTRAS NO SE DESARROLLE ADECUADAMENTE
+							if(/*$paquete -> multiple_moneda == "NO" && */strtoupper($menu -> nombre) == "MONEDAS"){
 								continue;
 							}
 						}
@@ -41,6 +43,11 @@
 					<?php if($secciones){ ?>
 						<ul>
 						<?php foreach($secciones as $seccion){ ?>
+							<?php
+								if(/*$paquete -> multiple_moneda == "NO" && */strtoupper($seccion -> nombre) == "MONEDAS"){
+									continue;
+								}
+							?>
 							<li>
 								<?= Html::linkAjax($seccion -> link, Html::imagen($seccion -> imagen,($seccion -> nombre),16,16).($seccion -> nombre).'<span class="icon"></span>', $seccion -> contenedor, "id: menu".$menu -> id) ?>
 							</li>
