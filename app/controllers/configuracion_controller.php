@@ -13,8 +13,6 @@
 			
 			$this -> render("index");
 			
-			$this -> render(null,null);
-			
 			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
 			
 			$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
@@ -120,6 +118,8 @@
 		public function modificarContribuyente(){
 			$this -> render(null,null);
 			
+			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			
 			if($this -> post("rfc")==""){
 				echo '<script language="javascript" type="text/javascript">
 				   window.top.window.stopUpload(-11);  window.top.window.scrollTo(0,0);
@@ -178,6 +178,15 @@
 			
 			$this -> contribuyente = Contribuyente::consultar($this -> post("contribuyente"));
 			
+			echo '<script language="javascript" type="text/javascript">
+				   alert("Hola: '.$this -> post("contribuyente").'");
+				</script>';
+			
+			if(!$this -> contribuyente){
+				$this -> contribuyente = Contribuyente::registrar($cuenta -> rfc, $cuenta -> nombre, $cuenta -> id);		
+			}
+				
+			
 			//EL FORMULARIO CON IMAGENES SE ENVIA DIFERENTE, POR LO QUE NO NECESITA LOS UTF8_DECODEs
 			
 			if($this -> contribuyente){
@@ -223,13 +232,16 @@
 						$bandera = false;
 					}
 					else{
-						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
+						$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
 	                
 						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/".$file;
 		
 						$this -> contribuyente -> cedula = $file;
+						$this -> contribuyente -> guardar();
 		
-						move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo);	
+						if(move_uploaded_file($_FILES['cedula']['tmp_name'], $archivo)){
+							
+						}	
 					}
 				}
 				else{
@@ -268,13 +280,16 @@
 						return;
 					}
 					else{
-						$file = strtoupper($this -> contribuyente -> rfc . "." . $ext);
+						$file = strtolower($this -> contribuyente -> rfc . "." . $ext);
 	                
 						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/".$file;
 		
 						$this -> contribuyente -> logotipo = $file;
+						$this -> contribuyente -> guardar();
 		
-						move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo);	
+						if(move_uploaded_file($_FILES['logotipo']['tmp_name'], $archivo)){
+							
+						}	
 					}
 				}
 				else{
@@ -292,8 +307,6 @@
 					   window.top.window.stopUpload(0);  window.top.window.scrollTo(0,0);
 					</script>';  
 				} 
-				
-				$this -> contribuyente -> guardar();
 				
 				$this -> alerta = Alerta::success("El Contribuyente ha sido ACTUALIZADO correctamente.");
 			}
