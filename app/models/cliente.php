@@ -1,13 +1,22 @@
 <?php
 	class Cliente extends ActiveRecord{ 
-		public static function registrar($rfc, $nombre, $estado, $pais){
-			if(Cliente::existe("cuenta_id = '".Session::get("cuenta_id")."' AND rfc = '".$rfc."'")){
+		public static function registrar($rfc, $nombre, $estado, $pais, $cuenta_id = false){
+			if($cuenta_id === false){
+				if(Session::get("cuenta_id")){
+					$cuenta_id = Session::get("cuenta_id");
+				}		
+				else{
+					$cuenta_id = 0;
+				}
+			}
+			
+			if(Cliente::existe("cuenta_id = '".$cuenta_id."' AND rfc = '".$rfc."'")){
 				return false;
 			}
 			
 			$cliente = new Cliente();
 			
-			$cliente -> cuenta_id = Session::get("cuenta_id");
+			$cliente -> cuenta_id = $cuenta_id;
 			$cliente -> activo = "SI";
 			
 			if(Session::get("usuario_id")){

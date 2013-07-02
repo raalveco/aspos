@@ -59,7 +59,17 @@
 				
 				$cuenta -> guardar();
 				
-				$contrato = Contrato::registrar($cuenta -> id, $this -> post("paquete"), date("Y-m-d"), date("Y-m-d",time()+60*60*24*365));
+				if($this -> post("tipo_contrato")=="ANUAL"){
+					$contrato = Contrato::registrar($cuenta -> id, $this -> post("paquete"), date("Y-m-d"), date("Y-m-d",time()+60*60*24*365));	
+				}
+				
+				if($this -> post("tipo_contrato")=="SEMESTRAL"){
+					$contrato = Contrato::registrar($cuenta -> id, $this -> post("paquete"), date("Y-m-d"), date("Y-m-d",time()+60*60*24*183));	
+				}
+				
+				if($this -> post("tipo_contrato")=="MENSUAL"){
+					$contrato = Contrato::registrar($cuenta -> id, $this -> post("paquete"), date("Y-m-d"), date("Y-m-d",time()+60*60*24*30));	
+				}
 				
 				$contrato -> tipo = $this -> post("tipo_contrato");
 				
@@ -79,8 +89,6 @@
 				$contribuyente -> pais = utf8_decode($this -> post("pais"));
 				
 				$contribuyente -> guardar();
-				
-				Cliente::registrar("XAXX000000XXX", "CLIENTE GENERICO", $cuenta -> contribuyente() -> estado, "MÉXICO");
 				
 				//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
 				$asunto = "Tu cuenta en Emisión Fiscal ha sido registrada.";

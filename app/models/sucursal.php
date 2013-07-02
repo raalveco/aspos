@@ -1,7 +1,16 @@
 <?php
 	class Sucursal extends ActiveRecord{
-		public static function registrar($nombre){
-			if(Sucursal::existe("cuenta_id = '".Session::get("cuenta_id")."' AND nombre = '".$nombre."'")){
+		public static function registrar($nombre, $cuenta_id = false){
+			if($cuenta_id === false){
+				if(Session::get("cuenta_id")){
+					$cuenta_id = Session::get("cuenta_id");
+				}		
+				else{
+					$cuenta_id = 0;
+				}
+			}
+			
+			if(Sucursal::existe("cuenta_id = '".$cuenta_id."' AND nombre = '".$nombre."'")){
 				return false;
 			}
 			

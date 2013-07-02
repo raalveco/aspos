@@ -15,9 +15,21 @@
 		}
 		
 		public function registro(){
-			$this -> render("usuario");
 			
-			$this -> usuario = false;
+			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			
+			$paquete = $cuenta -> paquete();
+			
+			if(Usuario::total("cuenta_id = '".Session::get("cuenta_id")."'") + 1 >= $paquete -> usuarios){
+				$this -> render("reporte");
+				
+				$this -> alerta = Alerta::error("Ya has alcanzado el número máximo de usuarios para el paquete contratado.");
+			}
+			else{
+				$this -> render("usuario");
+			
+				$this -> usuario = false;	
+			}
 			
 			$this -> set_response("view");
 		}

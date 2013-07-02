@@ -32,16 +32,37 @@
 			$unidad = Unidad::registrar("PIEZA", "PIEZA", $cuenta -> id);
 			$tipo = ClienteTipo::registrar("NORMAL","CLIENTE NORMAL", $cuenta -> id);
 			$categoria = ProductoCategoria::registrar("GENERAL","CATEGORIA GENERAL", $cuenta -> id);
+			$sucursal = Sucursal::registrar("GENERAL", $cuenta -> id);
+			
+			$cliente = Cliente::registrar("XAXX000000XXX", "CLIENTE GENERICO", "DISTRITO FEDERAL", "MÉXICO", $cuenta -> id);
+			$cliente -> tipo_cliente_id = $tipo -> id;
+			
+			$cliente -> calle = "CONOCIDO";
+			$cliente -> exterior = "S/N";
+			$cliente -> cpostal = "06000";
+			$cliente -> municipio = "CIUDAD DE MEXICO";
+			
+			$cliente -> guardar();
 			
 			return $cuenta;
 		}
 		
 		public function paquete(){
+			$contrato = $this -> contrato();
+			
+			if($contrato){
+				return $contrato -> paquete();
+			}
+			
 			return Paquete::consultar($this -> paquete_id);
 		}
 		
 		public function contribuyente(){
 			return Contribuyente::consultar("cuenta_id = ".$this -> id);
+		}
+		
+		public function contrato(){
+			return Contrato::vigente($this -> id);
 		}
 	}
 ?>
