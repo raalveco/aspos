@@ -14,12 +14,6 @@
 		<?= View::partial("mango/js",false,"password: ".Session::get("password")) ?>
 	</head>
 	<body>
-		<!-- The loading box -->
-		<div id="loading-overlay"></div>
-		<div id="loading">
-			<span>Cargando...</span>
-		</div>
-		
 		<!-- End of loading box -->
 		<?= View::partial("mango/toolbar_top") ?>
 		<?= View::partial("mango/header") ?>
@@ -47,6 +41,12 @@
 		
 		<!-- Spawn $$.loaded -->
 		<script>$$.loaded();</script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+				$("html, body").animate({ scrollTop: 0 }, 600);
+			});
+		</script>
 		
 		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
 		chromium.org/developers/how-tos/chrome-frame-getting-started -->

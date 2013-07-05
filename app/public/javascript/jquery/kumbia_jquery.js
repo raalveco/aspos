@@ -17,7 +17,7 @@ jQuery(function($) {
 	$("a.jsRemote").live('click', function(event) {
 		
 		if(this.rel == "#contenido"){
-			$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="/aspos/img/loader.gif"><br>Cargando...</div>');	
+			$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="../../img/loader.gif"><br>Cargando...</div>');	
 		}
 		
 		event.preventDefault();
@@ -26,7 +26,7 @@ jQuery(function($) {
 	
 	$("a#jsRemote").live('click', function(event) {
 		if(this.rel == "#contenido"){
-			$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="/aspos/img/loader.gif"><br>Cargando...</div>');	
+			$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="../../img/loader.gif"><br>Cargando...</div>');	
 		}
 		
 		event.preventDefault();
@@ -38,7 +38,7 @@ jQuery(function($) {
 		
 		if(confirm('Estas seguro que deseas eliminar el registro?')){
 			if(this.rel == "#contenido"){
-				$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="/aspos/img/loader.gif"><br>Cargando...</div>');	
+				$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="../../img/loader.gif"><br>Cargando...</div>');	
 			}
 			
 			$(this.rel).load(this.href);
@@ -53,7 +53,7 @@ jQuery(function($) {
 		
 		if(confirm('Estas seguro que deseas cancelar la factura?')){
 			if(this.rel == "#contenido"){
-				$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="/aspos/img/loader.gif"><br>Cargando...</div>');	
+				$("#contenido").html('<div style="font-weight: bold; font-size: 18px;" align="center"><br /><img src="../../img/loader.gif"><br>Cargando...</div>');	
 			}
 			
 			$(this.rel).load(this.href);
