@@ -48,14 +48,22 @@
 				$cuenta -> celular_contacto = utf8_decode($this -> post("celular"));
 				$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
 				
+				$cuenta -> usuario = utf8_decode($this -> post("usuario"));
+				$cuenta -> password = sha1($this -> post("password"));
+				$cuenta -> activo = utf8_decode($this -> post("activo"));
+				
+				$password = $this -> post("password");
+				
 				$cuenta -> tipo_contraro = utf8_decode($this -> post("tipo_contrato"));
 				
 				$cuenta -> save();
 				
 				//GENERAR CONTRASEÑA ALEATORIA (NUMERICA)(SHA1)
-				Load::lib("formato");
-				$password = Formato::ceros(rand(0,999999),6);
-				$cuenta -> password = sha1($password);
+				if($this -> post("password") == ""){
+					Load::lib("formato");
+					$password = Formato::ceros(rand(0,999999),6);
+					$cuenta -> password = sha1($password);
+				}
 				
 				$cuenta -> guardar();
 				
@@ -93,29 +101,29 @@
 				//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
 				$asunto = "Tu cuenta en Emisión Fiscal ha sido registrada.";
 				$mensaje = "Bienvenido, tu cuenta en Emisión Fiscal ha sido registrada.\n
-							\n
+							
 							Para acceder al sistema debes ingresar:\n
-							\n
+							
 							".APLICACION_URL."\n
-							\n
+							
 							RFC: ".$cuenta -> rfc."\n
-							Usuario: admin\n
+							Usuario: ".$cuenta -> usuario."\n
 							Contraseña: ".$password."\n
-							\n
+							
 							Una vez que ingreses al sistema deberías cambiar esta contraseña por la que tu prefieras en el Menú Configuración.\n
-							\n
-							\n
+							
+							
 							Equipo de Emisión Fiscal";
 							
 				$cabeceras = 'MIME-Version: 1.0' . "\r\n" .
 							 'Content-Type: text/html; charset="UTF-8";' . "\r\n" .
-							 'From: soporte@emisionfiscal.mx' . "\r\n" .
-	    					 'Reply-To: soporte@emisionfiscal.mx' . "\r\n" .
+							 'From: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
+	    					 'Reply-To: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
 	    					 'X-Mailer: PHP/' . phpversion();
 							 
-				@mail($cuenta -> correo, $asunto, $mensaje, $cabeceras);
+				@mail($cuenta -> correo_contacto, $asunto, nl2br($mensaje), $cabeceras);
 				
-				$this -> alerta = Alerta::success("La Cuenta ha sido REGISTRADA correctamente. [Contraseña: ".$password."][ENVIAR CORREO]");
+				$this -> alerta = Alerta::success("La Cuenta ha sido REGISTRADA correctamente.");
 			}
 			else{
 				$this -> alerta = Alerta::error("El Correo de la Cuenta ya había sido registrado anteriormente.");
@@ -153,6 +161,12 @@
 				$cuenta -> telefono_contacto = utf8_decode($this -> post("telefono"));
 				$cuenta -> celular_contacto = utf8_decode($this -> post("celular"));
 				$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
+				
+				$cuenta -> usuario = utf8_decode($this -> post("usuario"));
+				if($this -> post("password")!="**********"){
+					$cuenta -> password = sha1(utf8_decode($this -> post("password")));
+				}
+				$cuenta -> activo = utf8_decode($this -> post("activo"));
 				
 				if(Session::get("administrador_id")){
 					$cuenta -> usuario_edicion_id = Session::get("administrador_id");
@@ -209,31 +223,32 @@
 			//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
 			$asunto = "Tu contraseña de acceso [admin] ha sido regenerada.";
 			$mensaje = "Hola, tu contraseña de acceso como 'admin' ha sido regenerada a petición del administrador del sistema.\n
-						\n
+						
 						La nueva contraseña es: ".$password."\n
-						\n
+						
 						Ahora para acceder al sistema debes ingresar:\n
-						\n
+						
 						".APLICACION_URL."\n
-						\n
+						
 						RFC: ".$cuenta -> rfc."\n
-						Usuario: admin\n
+						Usuario: ".$cuenta -> usuario."\n
 						Contraseña: ".$password."\n
-						\n
+						
 						Una vez que ingreses al sistema deberías cambiar esta contraseña por la que tu prefieras en el Menú Configuración.\n
-						\n
-						\n
+						
+						
 						Equipo de Emisión Fiscal";
 						
 			$cabeceras = 'MIME-Version: 1.0' . "\r\n" .
 						 'Content-Type: text/html; charset="UTF-8";' . "\r\n" .
-						 'From: soporte@emisionfiscal.mx' . "\r\n" .
-    					 'Reply-To: soporte@emisionfiscal.mx' . "\r\n" .
+						 'From: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
+	    				 'Reply-To: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
     					 'X-Mailer: PHP/' . phpversion();
 						 
-			@mail($cuenta -> correo, $asunto, $mensaje, $cabeceras);
+			@mail($cuenta -> correo_contacto, $asunto, nl2br($mensaje), $cabeceras);
 			
 			$this -> alerta = Alerta::success("La Contraseña ha sido RESETEADA correctamente. [Nueva Contraseña: ".$password."]");
+			
 		}
 
 		public function eliminar($id){

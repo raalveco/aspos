@@ -37,13 +37,30 @@
 					<label>Teléfono de Contacto</label>
 					<?= Formulario::numerico("telefono",$cuenta ? $cuenta -> telefono_contacto : "","class: maskPhone required") ?>
 				</p>
+				<p class="_25">
+					<label>Telefono Celular</label>
+					<?= Formulario::numerico("celular",$cuenta ? $cuenta -> celular_contacto : "","class: maskPhone required") ?>
 				<p class="_50">
 					<label>Correo Electrónico</label>
 					<?= Formulario::texto("correo",$cuenta ? $cuenta -> correo_contacto : "","class: email required") ?>
 				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Nombre de Usuario</label>
+					<?= Formulario::texto("usuario",$cuenta ? $cuenta -> usuario : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Password</label>
+					<?= Formulario::password("password",$cuenta ? "**********" : "","class: required") ?>
+				</p>
 				<p class="_25">
 					<label>Contrato</label>
 					<?= Formulario::select("tipo_contrato",array("ANUAL" => "ANUAL","SEMESTRAL" => "SEMESTRAL","MENSUAL" => "MENSUAL"),$cuenta ? $cuenta -> tipo_contrato  : "ANUAL","class: search required","data-placeholder: Selecciona Estado") ?>
+				</p>
+				<p class="_25">
+					<label>Activo</label>
+					<?= Formulario::select("activo",array("SI" => "SI","NO" => "NO"),$cuenta ? $cuenta -> activo  : "SI","class: search required","data-placeholder: Selecciona Estado") ?>
 				</p>
 			</div>
 		</fieldset>

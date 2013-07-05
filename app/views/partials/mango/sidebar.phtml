@@ -18,18 +18,19 @@
 		<nav>
 			<ul class="collapsible accordion">
 				<?php 
-					$menus = Menu::reporte("(tipo ='".Session::get("tipo_usuario")."' OR tipo ='".Session::get("tipo_facturacion")."') AND activo = 'SI'","orden ASC");
+					$menus = Menu::reporte("tipo ='".Session::get("tipo_usuario")."' AND activo = 'SI'","orden ASC");
 				?>
 				<?php if($menus) foreach($menus as $menu){ ?>
 					<?php
 						if(Session::get("cuenta_id")>0){
 							$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
-							$paquete = $cuenta -> paquete();
-							
-							if($paquete -> multiple_sucursal == "NO" && strtoupper($menu -> nombre) == "SUCURSALES"){
-								continue;
+							if($cuenta){
+								$paquete = $cuenta -> paquete();
+								
+								if($paquete -> multiple_sucursal == "NO" && strtoupper($menu -> nombre) == "SUCURSALES"){
+									continue;
+								}
 							}
-							
 							
 							//QUITADA VALIDACION QUE OCULTA MENUS DE MONEDA MIENTRAS NO SE DESARROLLE ADECUADAMENTE
 							if(/*$paquete -> multiple_moneda == "NO" && */strtoupper($menu -> nombre) == "MONEDAS"){

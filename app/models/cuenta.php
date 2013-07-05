@@ -35,6 +35,7 @@
 			$sucursal = Sucursal::registrar("GENERAL", $cuenta -> id);
 			
 			$cliente = Cliente::registrar("XAXX000000XXX", "CLIENTE GENERICO", "DISTRITO FEDERAL", "MÉXICO", $cuenta -> id);
+			$producto = Producto::registrar("PRODUCTO DE PRUEBA",1.00);
 			$cliente -> tipo_cliente_id = $tipo -> id;
 			
 			$cliente -> calle = "CONOCIDO";

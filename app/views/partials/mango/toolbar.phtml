@@ -8,7 +8,7 @@
 		<span>Configuraci&oacute;n</span>
 		<nav>
 		<ul>
-			<?php if(Session::get("cuenta_id") > 0){ ?>
+			<?php if(Session::get("cuenta_id") > 0 && Session::get("tipo_usuario") != "ADMIN"){ ?>
 			<li>
 				<?= Html::linkAjax("configuracion/index", "General","contenido") ?>
 			</li>
@@ -28,13 +28,14 @@
 			<?php if(Session::get("cuenta_id") > 0){ ?>
 			<?php
 				$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
-				$paquete = $cuenta -> paquete();
 			?>
+			<?php if($cuenta){ $paquete = $cuenta -> paquete(); ?>
 			<?php if($paquete -> usuarios > 1){ ?>
 			<li class="line"></li>
 			<li>				
 				<?= Html::linkAjax("usuarios/reporte", "Usuarios","contenido") ?>
 			</li>
+			<?php } ?>
 			<?php } ?>
 			<?php } ?>
 			<!--

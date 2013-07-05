@@ -47,6 +47,7 @@
 
 		<!-- Left side -->
 		<div class="left">
+			<?php if(Session::get("tipo_usuario") != "ADMIN"){ ?>
 			<ul class="breadcrumb">
 				<li><?= Html::link(APLICACION_URL, "Emisión Fiscal") ?></li>
 				<li><?= Html::linkAjax("configuracion/fiscal", Session::get("empresa"),"contenido") ?></li>
@@ -57,6 +58,7 @@
 					<?= Html::linkAjax("configuracion/index", "Inicio","contenido") ?>
 				</li>
 			</ul>
+			<?php } ?>
 		</div>
 		<!-- End of .left -->
 
@@ -77,8 +79,7 @@
 						<h3>Mensajes Nuevos</h3>
 
 						<?= Html::link("#", "Cerrar", "class: button flat left grey","onclick: $(this).parent().fadeToggle($$.config.fxSpeed)") ?>
-						<?= Html::link("mango/index", "Inbox", "class: button flat right") ?>
-
+						
 						<div class="content mail">
 							<ul>
 								<?php $mensajes = Ticket::reporte("cuenta_id = ".Session::get("cuenta_id")." AND admin = 'SI' AND respondido = 'NO' AND estado = 'OK'"); ?>

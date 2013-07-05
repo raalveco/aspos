@@ -90,7 +90,7 @@
 				$cuenta = Cuenta::buscar("rfc = '".$this -> post("rfc")."'");		
 				
 				//INGRESAR COMO ADMINISTRADOR DE CUENTA
-				if($this -> post("usuario") == "admin" && $cuenta -> password == sha1($this -> post("password"))){
+				if($this -> post("usuario") == $cuenta -> usuario && $cuenta -> password == sha1($this -> post("password"))){
 					Session::set("acceso",true);
 					//USUARIO ADMIN
 					Session::set("usuario_id",0);
