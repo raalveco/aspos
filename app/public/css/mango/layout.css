@@ -1518,7 +1518,7 @@ footer > span {
 	width: 100%;
 	margin: 0;
 	
-	background: url('../../img/layout/login/header-bg.png') repeat-x bottom;
+	/*background: url('../../img/layout/login/header-bg.png') repeat-x bottom;*/
 }
 
 .login header .container {

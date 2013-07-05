@@ -40,9 +40,9 @@
 			<!-- Left side -->
 			<div class="left">
 				<ul class="breadcrumb">
-					<li><?= Html::link("http://www.ciberfactura.com.mx", "Ciberfactura") ?></li>
-					<li><?= Html::link("http://www.ciberfactura.com.mx/clientes", "Clientes") ?></li>
-					<li><?= Html::link("http://www.ciberfactura.com.mx/clientes", "Inicio de Sesi&oacute;n") ?></li>
+					<li><?= Html::link(APLICACION_URL, "Emisión Fiscal") ?></li>
+					<li><?= Html::link(APLICACION_URL."clientes", "Clientes") ?></li>
+					<li><?= Html::link(APLICACION_URL."clientes", "Inicio de Sesión") ?></li>
 				</ul>
 			</div>
 			<!-- End of .left -->
@@ -50,8 +50,8 @@
 			<!-- Right side -->
 			<div class="right">
 				<ul>
-					<li><?= Html::link("http://www.ciberfactura.com.mx", '<span class="icon i14_bended-arrow-left"></span>www.ciberfactura.com.mx') ?></li>
-					<li class="red"><?= Html::link("http://www.ciberfactura.com.mx/contratar", "Contratar") ?></li>
+					<li><?= Html::link(APLICACION_URL, '<span class="icon i14_bended-arrow-left"></span>www.emisionfiscal.com.mx') ?></li>
+					<li class="red"><?= Html::link(APLICACION_URL."contratar", "Contratar") ?></li>
 				</ul>
 			</div><!-- End of .right -->
 			
@@ -74,12 +74,12 @@
 		<div class="container">
 		
 			<!-- Your logos -->
-			<?= Html::link("http://www.ciberfactura.com.mx", Html::imagen("logo.png","Mango",210,67)) ?>
+			<?= Html::link(APLICACION_URL, Html::imagen("logo.png","Emisión Fiscal",210)) ?>
 			
 			<!-- Right link -->
 			<div class="right">
-				<span>&iquest;No eres usuario?</span>
-				<?= Html::link("http://www.ciberfactura.com.mx/contratar", "&#161;Contratanos!") ?>
+				<span style="color:black; text-shadow: none;">¿No eres usuario?</span>
+				<?= Html::link(APLICACION_URL."contratar", "¡Contratanos!") ?>
 			</div>
 			
 		</div><!-- End of .container -->

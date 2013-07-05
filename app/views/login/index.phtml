@@ -5,7 +5,7 @@
 <section id="login" class="container_12 clearfix">
 	<?= Formulario::inicio("login/iniciar",0,"class: box validate") ?>
 	<div class="header">
-		<h2><span class="icon icon-lock"></span>Iniciar Sesi&oacute;n</h2>
+		<h2><span class="icon icon-lock"></span>Iniciar Sesión</h2>
 	</div>
 
 	<div class="content">
@@ -13,10 +13,10 @@
 		<!-- Login messages -->
 		<div class="login-messages">
 			<div class="message welcome">
-				<?= $mensaje ? $mensaje : "&#161;Bienvenido!" ?>
+				<?= $mensaje ? $mensaje : "¡Bienvenido!" ?>
 			</div>
 			<div class="message failure">
-				Es necesario ingresar RFC, Usuario y Contrase&ntilde;a
+				Es necesario ingresar RFC, Usuario y Contraseña
 			</div>
 		</div>
 
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<label for="login_pw"> <strong>Contrase&ntilde;a</strong><small>Clave de Acceso</small></label>
+				<label for="login_pw"> <strong>Contraseña</strong><small>Clave de Acceso</small></label>
 				<div>
 					<?= Formulario::password("password","","tabindex: 2","class: required noerror") ?>
 				</div>
@@ -49,7 +49,7 @@
 	<div class="actions">
 		<div class="left">
 			<div class="rememberme">
-				<?= Html::link("login/recuperar","&iquest;Olvidaste tu Contraseña?"); ?>
+				<?= Html::link("login/recuperar","¿Olvidaste tu Contraseña?"); ?>
 			</div>
 		</div>
 		<div class="right">
