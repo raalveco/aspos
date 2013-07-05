@@ -2,13 +2,12 @@
 <header class="container_12">
     <!-- Your logos -->
     <?= Load::lib("html"); ?>
-    <?= Html::link("mango/index", Html::imagen("logo.png","Emisión Fiscal")) ?>
-    <?= Html::link("mango/index",Html::imagen("logo-mobile.png","Mango",22,70),"class: phone-title") ?>
+    <?= Html::link("main/index", Html::imagen("logo.png","Emision Fiscal")) ?>
 
     <div class="buttons">
     	<?php if(Session::get("tipo_usuario") == "CLIENTE"){ ?>
 	    	<?= Html::linkAjax("clientes", '<span class="icon icon-group"></span> Clientes', "contenido") ?>
-	        <?= Html::linkAjax("productos", '<span class="icon icon-barcode"></span> Productos', "contenido") ?>
+	        <?= Html::linkAjax("productos", '<span class="icon icon-shopping-cart"></span> Productos', "contenido") ?>
 	        <?= Html::linkAjax("facturacion", '<span class="icon icon-barcode"></span> Facturacion', "contenido") ?>
 	    <?php } ?>
 	    <?php if(Session::get("tipo_usuario") == "ADMIN"){ ?>
