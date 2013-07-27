@@ -1,17 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 05-07-2013 a las 01:21:32
--- Versión del servidor: 5.5.23
--- Versión de PHP: 5.2.17
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-07-2013 a las 08:02:30
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `ciberfac_aspos`
+-- Base de datos: `aspos`
 --
 
 -- --------------------------------------------------------
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `comentarios` text,
   `fecha_registro_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `cliente`
@@ -271,7 +271,9 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 
 INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `tipo_cliente_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `comentarios`, `fecha_registro_at`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', NULL, '2013-07-04 23:04:48', 1, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-07-04 23:04:48'),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 00:59:55', 2, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-07-05 00:59:55');
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 00:59:55', 2, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-07-05 00:59:55'),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', NULL, '2013-07-26 23:04:11', 3, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-07-26 23:04:11'),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', NULL, '2013-07-26 23:53:55', 4, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-07-26 23:53:55');
 
 -- --------------------------------------------------------
 
@@ -291,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `cliente_tipo`
@@ -299,7 +301,9 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
 
 INSERT INTO `cliente_tipo` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', 'NORMAL', 'CLIENTE NORMAL'),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'NORMAL', 'CLIENTE NORMAL');
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'NORMAL', 'CLIENTE NORMAL'),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', 'NORMAL', 'CLIENTE NORMAL'),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', 'NORMAL', 'CLIENTE NORMAL');
 
 -- --------------------------------------------------------
 
@@ -318,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `contrato` (
   `tipo` varchar(10) NOT NULL DEFAULT 'MENSUAL',
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `contrato`
@@ -326,7 +330,9 @@ CREATE TABLE IF NOT EXISTS `contrato` (
 
 INSERT INTO `contrato` (`id`, `cuenta_id`, `paquete_id`, `inicio`, `fin`, `dia_corte`, `tipo`, `activo`) VALUES
 (1, 1, 1, '2013-07-04', '2014-07-04', 3, 'ANUAL', 'SI'),
-(2, 2, 2, '2013-07-05', '2014-07-05', 4, 'ANUAL', 'SI');
+(2, 2, 2, '2013-07-05', '2014-07-05', 4, 'ANUAL', 'SI'),
+(3, 3, 2, '2013-07-26', '2014-07-26', 25, 'ANUAL', 'SI'),
+(4, 4, 1, '2013-07-26', '2014-07-26', 25, 'ANUAL', 'SI');
 
 -- --------------------------------------------------------
 
@@ -361,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
   `cedula` varchar(25) DEFAULT NULL,
   `logotipo` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `contribuyente`
@@ -369,7 +375,9 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', NULL, '2013-07-04 23:04:48', 'XAXX000000XXX', 'CUENTA DE PRUEBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 'DEMO200020000', 'CUENTA DEMO', 'JUAREZ', '3723', NULL, 'SAN JAVIER', 'TULANSINGO', 'TULANSINGO', 'HIDALGO', 'MÉXICO', '38849', NULL, NULL, NULL, NULL, NULL, NULL);
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 'DEMO200020000', 'CUENTA DEMO', 'JUAREZ', '3723', NULL, 'SAN JAVIER', 'TULANSINGO', 'TULANSINGO', 'HIDALGO', 'MÉXICO', '38849', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', NULL, '2013-07-26 23:04:11', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', NULL, '2013-07-26 23:53:55', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -387,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
   `fecha_edicion` datetime DEFAULT NULL,
   `paquete_id` int(11) NOT NULL,
   `rfc` varchar(13) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
   `usuario` varchar(25) DEFAULT 'admin',
   `password` varchar(50) DEFAULT NULL,
   `telefono_contacto` varchar(25) DEFAULT NULL,
@@ -395,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
   `correo_contacto` varchar(100) DEFAULT NULL,
   `tipo_contrato` varchar(25) DEFAULT 'ANUAL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `cuenta`
@@ -403,7 +411,8 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
 
 INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `paquete_id`, `rfc`, `nombre`, `usuario`, `password`, `telefono_contacto`, `celular_contacto`, `correo_contacto`, `tipo_contrato`) VALUES
 (1, 'SI', 0, '2013-07-04 23:04:48', NULL, '2013-07-04 23:04:48', 1, 'XAXX000000XXX', 'CUENTA DE PRUEBA', 'admin', '3c0eb02ecaf3fee92a3d9d50f2a8c06a5b1eb3be', '(333) 333 3333', NULL, 'pruebas@emisionfiscal.com', 'ANUAL'),
-(2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 2, 'DEMO200020000', 'CUENTA DEMO', 'demo', '89e495e7941cf9e40e6980d14a16bf023ccd4c91', '(333) 333 3333', '(444) 444 4444', 'raalveco@gmail.com', 'ANUAL');
+(2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 2, 'DEMO200020000', 'CUENTA DEMO', 'demo', '89e495e7941cf9e40e6980d14a16bf023ccd4c91', '(333) 333 3333', '(444) 444 4444', 'raalveco@gmail.com', 'ANUAL'),
+(4, NULL, 0, '2013-07-26 23:53:55', NULL, '2013-07-27 00:55:42', 1, 'LIHA851024I63', NULL, 'ALEX', '7fe1714e897ff0bcd6a566ca62b8aa19ae5e03fb', NULL, NULL, 'lizaolaa@gmail.com', 'ANUAL');
 
 -- --------------------------------------------------------
 
@@ -447,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
   `tasa` smallint(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `impuesto`
@@ -455,7 +464,9 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
 
 INSERT INTO `impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tasa`, `tipo`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', 'IVA', 'IVA', 16, 'TRASLADADO'),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'IVA', 'IVA', 16, 'TRASLADADO');
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'IVA', 'IVA', 16, 'TRASLADADO'),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', 'IVA', 'IVA', 16, 'TRASLADADO'),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', 'IVA', 'IVA', 16, 'TRASLADADO');
 
 -- --------------------------------------------------------
 
@@ -472,7 +483,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   `orden` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -496,7 +507,8 @@ INSERT INTO `menu` (`id`, `tipo`, `imagen`, `nombre`, `activo`, `orden`) VALUES
 (15, 'ADMIN', 'miniconos/book.png', 'Departamentos', 'SI', 4),
 (16, 'CLIENTE', 'miniconos/user.png', 'Usuarios', 'SI', 5),
 (17, 'CFD', 'miniconos/page_white_key.png', 'Facturación CFD', 'SI', 8),
-(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturación CFDI', 'SI', 9);
+(18, 'CFDI', 'miniconos/page_white_key.png', 'Facturación CFDI', 'SI', 9),
+(19, 'ADMIN', 'miniconos/user.png', 'Registro Rapido', 'SI', 6);
 
 -- --------------------------------------------------------
 
@@ -517,7 +529,7 @@ CREATE TABLE IF NOT EXISTS `moneda` (
   `descripcion` varchar(255) DEFAULT NULL,
   `tipo_cambio` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `moneda`
@@ -525,7 +537,9 @@ CREATE TABLE IF NOT EXISTS `moneda` (
 
 INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`, `tipo_cambio`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', 'MXN', 'PESO MEXICANO', 1.00),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'MXN', 'PESO MEXICANO', 1.00);
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'MXN', 'PESO MEXICANO', 1.00),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', 'MXN', 'PESO MEXICANO', 1.00),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', 'MXN', 'PESO MEXICANO', 1.00);
 
 -- --------------------------------------------------------
 
@@ -614,7 +628,7 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `producto_categoria`
@@ -622,7 +636,9 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
 
 INSERT INTO `producto_categoria` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', 'GENERAL', 'CATEGORIA GENERAL'),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'GENERAL', 'CATEGORIA GENERAL');
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'GENERAL', 'CATEGORIA GENERAL'),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', 'GENERAL', 'CATEGORIA GENERAL'),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', 'GENERAL', 'CATEGORIA GENERAL');
 
 -- --------------------------------------------------------
 
@@ -642,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -692,7 +708,8 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (41, 17, 'Todas las Facturas', 'miniconos/newspaper.png', 'cfd/reporte', 'contenido', 'SI', 5, '2012-11-01 00:00:00'),
 (42, 17, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfd/folios', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
 (43, 17, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
-(44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00');
+(44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00'),
+(45, 19, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro_rapido', 'contenido', 'SI', 1, '2012-11-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -720,7 +737,7 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
   `cfd_folios_id` int(11) DEFAULT '0',
   `cfdi_folios_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Volcado de datos para la tabla `sucursal`
@@ -728,7 +745,22 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
 
 INSERT INTO `sucursal` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `codigo`, `nombre`, `domicilio`, `colonia`, `ciudad`, `estado`, `cpostal`, `cbb_folios_id`, `cfd_folios_id`, `cfdi_folios_id`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
-(2, 1, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
+(2, 1, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(3, 1, 'SI', 0, '2013-07-26 22:53:05', 0, '2013-07-26 22:53:05', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(4, 1, 'SI', 0, '2013-07-26 22:53:15', 0, '2013-07-26 22:53:15', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(5, 1, 'SI', 0, '2013-07-26 22:53:17', 0, '2013-07-26 22:53:17', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(6, 1, 'SI', 0, '2013-07-26 22:53:18', 0, '2013-07-26 22:53:18', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(7, 1, 'SI', 0, '2013-07-26 22:53:19', 0, '2013-07-26 22:53:19', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(8, 1, 'SI', 0, '2013-07-26 22:53:21', 0, '2013-07-26 22:53:21', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(9, 1, 'SI', 0, '2013-07-26 22:53:22', 0, '2013-07-26 22:53:22', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(10, 1, 'SI', 0, '2013-07-26 22:53:23', 0, '2013-07-26 22:53:23', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(11, 1, 'SI', 0, '2013-07-26 22:53:25', 0, '2013-07-26 22:53:25', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(12, 1, 'SI', 0, '2013-07-26 22:53:26', 0, '2013-07-26 22:53:26', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(13, 1, 'SI', 0, '2013-07-26 22:53:27', 0, '2013-07-26 22:53:27', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(14, 1, 'SI', 0, '2013-07-26 23:00:10', 0, '2013-07-26 23:00:10', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(15, 1, 'SI', 0, '2013-07-26 23:01:36', 0, '2013-07-26 23:01:36', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(16, 1, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(17, 1, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -783,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `unidad` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `unidad`
@@ -791,7 +823,9 @@ CREATE TABLE IF NOT EXISTS `unidad` (
 
 INSERT INTO `unidad` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `nombre`, `descripcion`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', 0, '2013-07-04 23:04:48', 'PIEZA', 'PIEZA'),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'PIEZA', 'PIEZA');
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', 0, '2013-07-05 00:59:55', 'PIEZA', 'PIEZA'),
+(3, 3, 'SI', 0, '2013-07-26 23:04:11', 0, '2013-07-26 23:04:11', 'PIEZA', 'PIEZA'),
+(4, 4, 'SI', 0, '2013-07-26 23:53:55', 0, '2013-07-26 23:53:55', 'PIEZA', 'PIEZA');
 
 -- --------------------------------------------------------
 

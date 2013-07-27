@@ -1,0 +1,133 @@
+<?php
+	$modulo = "Cuentas";
+	$seccion = "Nueva Cuenta";
+	$contribuyente = false;
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= "Nueva Cuenta" ?></h1>
+	<?= Formulario::inicioAjax($controller_name."/registrar", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::oculto("nombre", ""); ?>
+	<?= Formulario::oculto("telefono", ""); ?>
+	<?= Formulario::oculto("celular", ""); ?>
+	<?= Formulario::oculto("calle", ""); ?>
+	<?= Formulario::oculto("exterior", ""); ?>
+	<?= Formulario::oculto("interior", ""); ?>
+	<?= Formulario::oculto("colonia", ""); ?>
+	<?= Formulario::oculto("localida", ""); ?>
+	<?= Formulario::oculto("cpostal", ""); ?>
+	<?= Formulario::oculto("municipio", ""); ?>
+	<?= Formulario::oculto("estado", ""); ?>
+	<?= Formulario::oculto("pais", ""); ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LA CUENTA
+			</legend>
+			<div class="row">
+				<p class="_25">
+					<label>RFC</label>
+					<?= Formulario::rfc("rfc", "") ?>
+				</p>
+				<p class="_25">
+					<label>Nombre de Usuario</label>
+					<?= Formulario::texto("usuario","","class: required") ?>
+				</p>
+				<p class="_50">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo","","class: email required") ?>
+				</p>
+				<p class="_25">
+					<label>Password</label>
+					<?= Formulario::password("password","","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Paquete</label>
+					<?php $paquetes = Paquete::reporte("activo = 'SI'"); ?>
+					<?= Formulario::selectModelo("paquete",$paquetes,"nombre","id","","class: search required","data-placeholder: Selecciona Tipo") ?>
+				</p>			
+				<p class="_25">
+					<label>Contrato</label>
+					<?= Formulario::select("tipo_contrato",array("ANUAL" => "ANUAL","SEMESTRAL" => "SEMESTRAL","MENSUAL" => "MENSUAL"), "ANUAL","class: search required","data-placeholder: Selecciona Estado") ?>
+				</p>
+				<p class="_25">
+					<label>Costo</label>
+					<?= Formulario::texto("costo","0.0", "disabled: disabled") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit("Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("cuentas/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- E
+	end of #content -->
+
+<!--Adding costs to the form -->
+<script type="text/javascript">
+	$().ready(function(){
+		$('#paquete').change(function(e) {
+			if($('#paquete').val() == "1"){
+				$('#costo').val("0.00");			
+			}
+			if($('#paquete').val() == "2"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("290.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("165.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("29.00");
+				}				
+			}
+			if($('#paquete').val() == "3"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("490.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("279.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("49.00");
+				}				
+			}
+		});
+		$('#tipo_contrato').change(function(e) {
+			if($('#paquete').val() == "1"){
+				$('#costo').val("0.00");			
+			}
+			if($('#paquete').val() == "2"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("290.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("165.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("29.00");
+				}				
+			}
+			if($('#paquete').val() == "3"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("490.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("279.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("49.00");
+				}				
+			}
+		});
+	});
+</script>

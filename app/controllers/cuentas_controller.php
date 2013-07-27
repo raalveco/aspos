@@ -39,6 +39,14 @@
 			$this->validar();
 		}
 		
+		public function registro_rapido(){
+			$this -> render("cuenta_rapida");
+			
+			$this -> cuenta = false;
+			
+			$this -> set_response("view");
+		}
+		
 		public function registrar(){
 			$this -> render("reporte");
 			$this -> set_response("view");
