@@ -6,6 +6,8 @@
 			$this -> set_response("view");
 			
 			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
+			
+			$this->validar();
 		} 
 		
 		public function modificar(){
@@ -17,8 +19,12 @@
 			
 			$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
 			
-			if($this -> post("password") != "**********"){
-				$cuenta -> password = sha1($this -> post("password"));
+			if($cuenta -> password != sha1("demo") || $cuenta -> usuario != "demo"){
+				$cuenta -> usuario = utf8_decode($this -> post("usuario"));
+			
+				if($this -> post("password")!="**********"){
+					$cuenta -> password = sha1(utf8_decode($this -> post("password")));
+				}
 			}
 			
 			$cuenta -> guardar();
@@ -26,6 +32,8 @@
 			$this -> alerta = Alerta::success("La Configuración ha sido actualizada correctamente");
 			
 			$this -> cuenta = $cuenta;
+			
+			$this->validar();
 		}
 		
 		public function fiscal(){
@@ -41,6 +49,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function imagenes(){
@@ -56,6 +66,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function cargarImagenes($id){
@@ -113,6 +125,8 @@
 			echo '<script language="javascript" type="text/javascript">
 			   window.top.window.stopUpload(1);
 			</script>';   
+			
+			$this->validar();
 		}
 		
 		public function modificarContribuyente(){
@@ -321,6 +335,8 @@
 			}
 			
 			//$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

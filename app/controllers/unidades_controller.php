@@ -6,10 +6,14 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("unidades/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registroUnidad(){
@@ -18,6 +22,8 @@
 			$this -> unidad = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 			
@@ -42,6 +48,8 @@
 			$this -> $unidad = $unidad;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consultaUnidad($id){
@@ -56,6 +64,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		public function modificarUnidad(){
 			$this -> render("reporte");
@@ -79,6 +89,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarUnidad($id){
@@ -91,6 +103,8 @@
 			$this -> alerta = Alerta::success("La Unidad ha sido eliminada correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarUnidades($parametros){
@@ -114,6 +128,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}

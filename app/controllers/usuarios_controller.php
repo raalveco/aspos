@@ -6,12 +6,16 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("usuarios/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = false){
 			$this -> set_response("view");
 			
-			Session::set("filtro","id>0");	
+			Session::set("filtro","id>0");
+			
+			$this->validar();	
 		}
 		
 		public function registro(){
@@ -32,6 +36,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -58,6 +64,8 @@
 			$this -> usuario = $usuario;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consulta($id){
@@ -72,6 +80,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -103,6 +113,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -115,6 +127,8 @@
 			$this -> alerta = Alerta::success("El Usuario ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -138,6 +152,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

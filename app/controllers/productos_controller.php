@@ -6,6 +6,8 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("productos/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = ""){
@@ -25,6 +27,8 @@
 				case "09": Session::set("filtro",$sql."nombre LIKE '0%' OR nombre LIKE '1%' OR nombre LIKE '2%' OR nombre LIKE '3%' OR nombre LIKE '4%' OR nombre LIKE '5%' OR nombre LIKE '6%' OR nombre LIKE '7%' OR nombre LIKE '8%' OR nombre LIKE '9%'"); break;
 				default: Session::set("filtro",$sql."id>0");	
 			}
+			
+			$this->validar();
 		}
 		
 		public function registro(){
@@ -34,6 +38,8 @@
 			
 			$this -> producto = false;
 			$this -> cliente = false;
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -63,6 +69,8 @@
 			$this -> producto = $producto;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function consulta($id){
@@ -77,6 +85,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -107,6 +117,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -119,6 +131,8 @@
 			$this -> alerta = Alerta::success("El Producto ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -142,12 +156,16 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function reporteProductoCategoria(){
 			$this -> render("productos_categoria_reporte");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registroProductoCategoria(){
@@ -156,6 +174,8 @@
 			$this -> producto_categoria = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrarProductoCategoria(){
@@ -179,6 +199,8 @@
 			$this -> $producto_categoria = $producto_categoria;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consultaProductoCategoria($id){
@@ -193,6 +215,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarProductoCategoria($id){
@@ -205,6 +229,8 @@
 			$this -> alerta = Alerta::success("La Categoria de Producto ha sido eliminada correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarProductoCategoriaSeleccionados($parametros){
@@ -228,6 +254,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificarProductoCategoria(){
@@ -252,9 +280,13 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		public function registro_shortcut(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

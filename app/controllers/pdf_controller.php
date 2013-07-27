@@ -19,6 +19,8 @@
 			else{
 				$this -> redirect("main");
 			}
+			
+			$this->validar();
 		}
 		
 		public function cbbPDF($id){
@@ -31,6 +33,8 @@
 			$this -> folios = $this -> factura -> folio();
 			
 			$this -> sucursal = $this -> factura -> sucursal();
+			
+			$this->validar();
 		}
 	}
 	

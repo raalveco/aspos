@@ -6,11 +6,15 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("sucursales/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
 			$this -> set_response("view");
 			Session::set("filtro","cuenta_id = ".Session::get("cuenta_id"));
+			
+			$this->validar();
 		}
 		
 		public function registro(){
@@ -19,6 +23,8 @@
 			$this -> render("registrar");
 			
 			$this -> sucursal = false;
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -62,6 +68,8 @@
 			$this -> sucursal = $sucursal;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function consulta($id){
@@ -76,6 +84,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -120,6 +130,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -132,6 +144,8 @@
 			$this -> alerta = Alerta::success("La Sucursal ha sido eliminada correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -155,6 +169,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}

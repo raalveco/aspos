@@ -6,6 +6,8 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("paquetes/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = "todos"){
@@ -20,6 +22,8 @@
 				case "cfdi": Session::set("filtro","tipo = 'CFDI'"); break;
 				default: Session::set("filtro","id>0"); break;
 			}
+			
+			$this->validar();
 		}
 		
 		public function registro(){
@@ -28,6 +32,8 @@
 			$this -> render("registrar");
 			
 			$this -> paquete = false;
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -65,6 +71,8 @@
 			$this -> paquete = $paquete;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function consulta($id){
@@ -78,6 +86,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -115,6 +125,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -131,6 +143,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -154,6 +168,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}

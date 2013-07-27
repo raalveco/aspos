@@ -6,6 +6,8 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("cuentas/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = false){
@@ -23,6 +25,8 @@
 				case "09": Session::set("filtro","nombre_contacto LIKE '0%' OR nombre_contacto LIKE '1%' OR nombre_contacto LIKE '2%' OR nombre_contacto LIKE '3%' OR nombre_contacto LIKE '4%' OR nombre_contacto LIKE '5%' OR nombre_contacto LIKE '6%' OR nombre_contacto LIKE '7%' OR nombre_contacto LIKE '8%' OR nombre_contacto LIKE '9%'"); break;
 				default: Session::set("filtro","id>0");	
 			}
+			
+			$this->validar();
 		}
 		
 		public function registro(){
@@ -31,6 +35,8 @@
 			$this -> cuenta = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -130,6 +136,8 @@
 			}
 			
 			$this -> cuenta = $cuenta;
+			
+			$this->validar();
 		}
 		
 		public function consulta($id){
@@ -144,6 +152,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -162,10 +172,14 @@
 				$cuenta -> celular_contacto = utf8_decode($this -> post("celular"));
 				$cuenta -> correo_contacto = utf8_decode($this -> post("correo"));
 				
-				$cuenta -> usuario = utf8_decode($this -> post("usuario"));
-				if($this -> post("password")!="**********"){
-					$cuenta -> password = sha1(utf8_decode($this -> post("password")));
+				if($cuenta -> password != "demo" || $cuenta -> usuario != "demo"){
+					$cuenta -> usuario = utf8_decode($this -> post("usuario"));
+				
+					if($this -> post("password")!="**********"){
+						$cuenta -> password = sha1(utf8_decode($this -> post("password")));
+					}
 				}
+				
 				$cuenta -> activo = utf8_decode($this -> post("activo"));
 				
 				if(Session::get("administrador_id")){
@@ -204,6 +218,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function resetearPassword($id){
@@ -249,6 +265,7 @@
 			
 			$this -> alerta = Alerta::success("La Contraseña ha sido RESETEADA correctamente. [Nueva Contraseña: ".$password."]");
 			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -261,6 +278,8 @@
 			$this -> alerta = Alerta::success("La Cuenta ha sido eliminada correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -284,6 +303,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function contrato($cuenta_id, $mensaje = false)
@@ -303,6 +324,8 @@
 				case 'no_existe': $this -> alerta = Alerta::error("El Contrato no existe en la base de datos.");
 					break;
 			}
+			
+			$this->validar();
 		}
 		
 		public function registrarContrato()
@@ -315,6 +338,8 @@
 			$contrato -> guardar();	
 			
 			$this -> redirect("cuentas/contrato/".$contrato -> id."/registrado");
+			
+			$this->validar();
 		}	
 		
 		public function modificarContrato()
@@ -338,6 +363,7 @@
 				$this -> redirect("cuentas/contrato/".$contrato -> id."/no_existe");
 			}
 			
+			$this->validar();
 		}	
 
 	}

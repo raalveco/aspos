@@ -5,7 +5,6 @@
 	class CbbController extends ApplicationController {
 		public function index($mensaje = false){
 			$this -> set_response("view");
-			//$this -> render(null,null);
 			
 			$this -> permiso_facturar = true;
 			$this -> factura = false;
@@ -121,6 +120,8 @@
 			
 			$this -> desde = CbbFactura::fechaUltimaFactura();
 			$this -> hasta = date("d/m/Y");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = false){
@@ -138,6 +139,8 @@
 				case "ANO": Session::set("filtro",$sql."fecha >= '".date("Y-01-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-12-31 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
 				default: Session::set("filtro",$sql."fecha >= '".date("Y-m-01 00:00:00",time() - 60 * 60 * 24 * $si)."' AND fecha <= '".date("Y-m-t 23:59:59",time() + 60 * 60 * 24 * $si)."'"); break;
 			}
+			
+			$this->validar();
 		}
 		
 		public function consulta($cbb_id, $mensaje = false){
@@ -164,6 +167,8 @@
 					$this -> cobro = Alerta::information("Se ha generado un cargo por ".$paquete -> costo_factura_adicional." Pesos que se verán reflejados en su próxima factura.");
 				}
 			}
+			
+			$this->validar();
 		}
 		
 		public function cancelar($cbb_id){
@@ -175,6 +180,8 @@
 			$factura -> guardar();
 			
 			$this -> redirect("cbb/consulta/".$factura -> id."/cancelado");
+			
+			$this->validar();
 		}
 
 		public function agregar(){
@@ -222,6 +229,8 @@
 			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/index/agregado");
+			
+			$this->validar();
 		}
 
 		public function agregarManual(){
@@ -250,6 +259,8 @@
 			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/index/agregado");
+			
+			$this->validar();
 		}
 		
 		public function quitar($n = false){
@@ -286,6 +297,8 @@
 			Session::set("conceptos", $tmp);
 			
 			$this -> redirect("cbb/index/quitado");
+			
+			$this->validar();
 		}
 		
 		public function limpiar(){
@@ -295,6 +308,8 @@
 			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/index/limpiado");
+			
+			$this->validar();
 		}
 		
 		public function completar(){
@@ -409,10 +424,14 @@
 			Session::set("conceptos", $conceptos);
 			
 			$this -> redirect("cbb/consulta/".$factura -> id."/generada");
+			
+			$this->validar();
 		}
 			
 		public function folios(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registroFolios(){
@@ -421,6 +440,8 @@
 			$this -> folios = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrarFolios(){
@@ -519,6 +540,8 @@
 			$this -> folios = $folios;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consultaFolios($id){
@@ -533,6 +556,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificarFolios(){
@@ -638,6 +663,8 @@
 			$this -> folios = $folios;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function conceptos($tipo = "automatico", $permiso){
@@ -658,18 +685,26 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}	
 		
 		public function clienteFactura($cliente){
 			Session::set("cliente_factura",$cliente);
+			
+			$this->validar();
 		}
 		
 		public function sucursalFactura($sucursal){
 			Session::set("sucursal_factura",$sucursal);
+			
+			$this->validar();
 		}
 		
 		public function serieFactura($serie){
 			Session::set("serie_factura",$serie);
+			
+			$this->validar();
 		}
 		
 		public function fechaFactura($d,$m,$y){
@@ -677,6 +712,8 @@
 			Session::set("fecha_factura",$d."/".$m."/".$y);
 			
 			echo $d."/".$m."/".$y;
+			
+			$this->validar();
 		}
 
 		public function eliminarFolios($id){
@@ -689,6 +726,8 @@
 			$this -> alerta = Alerta::success("Los Folios ha sido eliminados correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarFoliosSeleccionados($parametros){
@@ -712,6 +751,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 	

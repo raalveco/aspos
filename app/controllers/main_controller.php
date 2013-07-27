@@ -1,11 +1,6 @@
 <?php
 	class MainController extends ApplicationController {
 		public function index($opcion = false){
-			if(!Session::get("acceso")){
-				$this -> render(null,null);
-				$this -> redirect("login/index/no_sesion"); return;
-			}
-			
 			if($opcion == 1){
 				if(Session::get("acceso")){
 					$this -> redirect("main/index"); return;
@@ -14,6 +9,8 @@
 					$this -> redirect("login/index");  return;
 				}
 			}
+			
+			$this->validar();
 		}
 		
 		public function inicio($opcion = false){
@@ -24,6 +21,8 @@
 			
 			$this -> render("index");
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function mensajes($id){
@@ -37,6 +36,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function numero_mensajes(){
@@ -45,6 +46,8 @@
 			$x = Ticket::total("id > 0");
 			
 			echo $x ? $x : 0;
+			
+			$this->validar();
 		}
 		
 		public function cerrar_mensaje($id){
@@ -55,6 +58,7 @@
 			$original -> estado = "KO";
 			$original -> save();
 			
+			$this->validar();
 		}
 		
 		public function contestar_usuario(){
@@ -85,6 +89,8 @@
 			$this -> ticket = $this -> original -> raiz();
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

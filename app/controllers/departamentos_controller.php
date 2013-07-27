@@ -6,6 +6,8 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("departamentos/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
@@ -18,6 +20,8 @@
 			$this -> render("registrar");
 			
 			$this -> departamento = false;
+			
+			$this->validar();
 		}
 		
 			
@@ -41,6 +45,8 @@
 			$this -> departamento = $departamento;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consulta($id){
@@ -55,6 +61,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		public function modificar(){
 			$this -> render("reporte");
@@ -77,6 +85,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminar($id){
@@ -89,6 +99,8 @@
 			$this -> alerta = Alerta::success("El Departamento ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -111,6 +123,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}

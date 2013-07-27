@@ -6,10 +6,14 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("monedas/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registroMoneda(){
@@ -18,6 +22,8 @@
 			$this -> moneda = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 			
@@ -43,6 +49,8 @@
 			$this -> moneda = $moneda;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consultaMoneda($id){
@@ -57,6 +65,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		public function modificarMoneda(){
 			$this -> render("reporte");
@@ -81,6 +91,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarMoneda($id){
@@ -93,6 +105,8 @@
 			$this -> alerta = Alerta::success("La Moneda ha sido eliminada correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarMonedas($parametros){
@@ -116,6 +130,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}
