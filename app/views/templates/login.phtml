@@ -38,20 +38,20 @@
 		<div class="container_12">
 		
 			<!-- Left side -->
-			<div class="left">
+			<!--<div class="left">
 				<ul class="breadcrumb">
 					<li><?= Html::link(APLICACION_URL, "Emisión Fiscal") ?></li>
 					<li><?= Html::link(APLICACION_URL."clientes", "Clientes") ?></li>
 					<li><?= Html::link(APLICACION_URL."clientes", "Inicio de Sesión") ?></li>
 				</ul>
-			</div>
+			</div>-->
 			<!-- End of .left -->
 			
 			<!-- Right side -->
 			<div class="right">
 				<ul>
-					<li><?= Html::link(APLICACION_URL, '<span class="icon i14_bended-arrow-left"></span>www.emisionfiscal.com.mx') ?></li>
-					<li class="red"><?= Html::link(APLICACION_URL."contratar", "Contratar") ?></li>
+					<li><?= Html::link("http://www.emisionfiscal.com.mx", '<span class="icon i14_bended-arrow-left"></span>www.emisionfiscal.com.mx') ?></li>
+					<li class="red"><?= Html::link("http://www.emisionfiscal.com/mx/index.php/contacto", "contratar", "Contratar") ?></li>
 				</ul>
 			</div><!-- End of .right -->
 			
@@ -79,7 +79,7 @@
 			<!-- Right link -->
 			<div class="right">
 				<span style="color:black; text-shadow: none;">¿No eres usuario?</span>
-				<?= Html::link(APLICACION_URL."contratar", "¡Contratanos!") ?>
+				<?= Html::link("http://www.emisionfiscal.com/mx/index.php/contacto", "¡Contratanos!") ?>
 			</div>
 			
 		</div><!-- End of .container -->

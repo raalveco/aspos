@@ -20,6 +20,9 @@
 			if($opcion == "usuario_incorrecto"){
 				$this -> mensaje = "&#161;Acceso Inv&aacute;lido! <br> El Usuario y/o Contrase&ntilde;a son incorrectos.";
 			}
+			if($opcion == "recuperar"){
+				$this -> mensaje = "Datos incorrectos.";
+			}
 			
 			if($opcion == "logout"){
 				$this -> mensaje = "&#161;La sesi&oacute;n ha sido terminada exitosamente.";
@@ -211,6 +214,58 @@
 			Session::set("paquete_id",0);
 			
 			$this -> redirect("login/index/logout");	
+		}
+		
+		public function recuperar($opcion){
+			if($opcion == "success"){
+				$this -> mensaje = "Contraseña recuperada, un email ha sido enviado a su correo.";
+			}
+			if($opcion == "error"){
+				$this -> mensaje = "Contraseña no recuperada, datos incorrectos.";
+			}
+		}
+		
+		public function mandar_contrasena(){
+			$this -> render (null,null);
+			$cuenta = Cuenta::buscar("rfc = '".$this->post("rfc"). "' AND usuario = '".$this -> post("usuario")."'");
+			if($cuenta){
+				Load::lib("formato");
+				Load::lib("alertas");
+				$password = Formato::ceros(rand(0,999999),6);
+				$cuenta->password = sha1($password);
+				$cuenta -> guardar();
+				
+				//ENVIAR CORREO DE CONFIRMACION DE REGISTRO Y CONTRASEÑA DE ADMINISTRADOR
+				$asunto = "Recuperación de contraseña Emisión Fiscal";
+				$mensaje = "Tu contraseña de Emisión Fiscal ha sido recuperada.\n
+							
+							Para acceder al sistema debes ingresar:\n
+							
+							".APLICACION_URL."\n
+							
+							RFC: ".$cuenta -> rfc."\n
+							Usuario: ".$cuenta -> usuario."\n
+							Contraseña: ".$password."\n
+							
+							Una vez que ingreses al sistema deberías cambiar esta contraseña por la que tu prefieras en el Menú Configuración.\n
+							
+							
+							Equipo de Emisión Fiscal";
+							
+				$cabeceras = 'MIME-Version: 1.0' . "\r\n" .
+							 'Content-Type: text/html; charset="UTF-8";' . "\r\n" .
+							 'From: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
+	    					 'Reply-To: Emisión Fiscal <soporte@emisionfiscal.mx>' . "\r\n" .
+	    					 'X-Mailer: PHP/' . phpversion();
+							 
+				@mail($cuenta -> correo_contacto, $asunto, nl2br($mensaje), $cabeceras);
+
+				$this -> redirect("login/recuperar/success");
+				return;
+			}
+			else{
+				$this -> redirect("login/recuperar/error");
+			}
 		}
 	}
 ?>

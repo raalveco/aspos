@@ -1,0 +1,50 @@
+<?= Load::lib("html"); ?>
+<?= Load::lib("formato"); ?>
+<?= Load::lib("formulario"); ?>
+<!-- The container of the sidebar and content box -->
+<section id="login" class="container_12 clearfix">
+	<?= Formulario::inicio("login/mandar_contrasena",0,"class: box validate") ?>
+	<div class="header">
+		<h2><span class="icon icon-lock"></span>Recuperar Contraseña</h2>
+	</div>
+
+	<div class="content">
+		<!-- Login messages -->
+		<div class="login-messages">
+			<div class="message welcome" style=" text-align: left">
+				<?= $mensaje ? $mensaje : "" ?>
+			</div>
+			<div class="message failure">
+				Es necesario ingresar RFC, Usuario y Contraseña
+			</div>
+		</div>
+		<!-- The form -->
+		<div class="form-box">
+
+			<div class="row">
+				<label for="login_name"> <strong>RFC</strong> <small></small> </label>
+				<div>
+					<?= Formulario::rfc("rfc","","tabindex: 1","class: required noerror ","minlength: 12","maxlength: 13") ?>
+				</div>
+			</div>
+			<div class="row">
+				<label for="login_name"> <strong>Usuario</strong> <small></small> </label>
+				<div>
+					<?= Formulario::texto("usuario","","tabindex: 1","class: required noerror") ?>
+				</div>
+			</div>
+			<div class="row">
+
+		</div><!-- End of .form-box -->
+
+	</div><!-- End of .content -->
+
+	<div class="actions">
+		<div class="right">
+			<?= Formulario::submit("Recuperar", "tabindex: 3", "name: login_btn") ?>
+		</div>
+	</div><!-- End of .actions -->
+
+	</form><!-- End of form -->
+
+</section>
