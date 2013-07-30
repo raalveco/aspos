@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-07-2013 a las 08:02:30
+-- Tiempo de generación: 30-07-2013 a las 04:45:44
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -426,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `nombre` varchar(25) NOT NULL,
   `correo` varchar(100) DEFAULT 'contacto@ciberfactura.com.mx',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -658,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
