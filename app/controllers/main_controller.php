@@ -2,7 +2,8 @@
 	class MainController extends ApplicationController {
 		public function index($opcion = false){
 			if($opcion == 1){
-				if(Session::get("acceso")){
+				$this->render(null,null);
+				if(Session::get("acceso") && Session::get("cuenta_id")){
 					$this -> redirect("main/index"); return;
 				}
 				else{
