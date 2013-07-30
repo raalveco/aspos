@@ -12,7 +12,7 @@
 		<!-- Login messages -->
 		<div class="login-messages">
 			<div class="message welcome" style=" text-align: left">
-				<?= $mensaje ? $mensaje : "" ?>
+				<?= isset($mensaje) ? $mensaje : "" ?>
 			</div>
 			<div class="message failure">
 				Es necesario ingresar RFC, Usuario y Contraseña
