@@ -8,5 +8,10 @@
  * @package Controller
  **/
 class ApplicationController extends Controller {
-
+	public function validar(){
+		if(!Session::get("acceso")){
+			$this -> render(null,null);
+			$this -> redirect("login/index/no_sesion"); return;
+		}
+	}
 }

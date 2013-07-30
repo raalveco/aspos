@@ -19,6 +19,8 @@
 				$this -> redirect("cfdi/index");
 				return;
 			}
+			
+			$this->validar();
 		} 
 
 	}

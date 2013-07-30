@@ -6,10 +6,14 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("impuestos/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		
@@ -19,6 +23,8 @@
 			$this -> impuesto = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 			
@@ -45,6 +51,8 @@
 			$this -> $impuesto = $impuesto;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consultaImpuesto($id){
@@ -59,6 +67,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		public function modificarImpuesto(){
 			$this -> render("reporte");
@@ -84,6 +94,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarImpuesto($id){
@@ -96,6 +108,8 @@
 			$this -> alerta = Alerta::success("El Impuesto ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarImpuestos($parametros){
@@ -119,6 +133,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 	}

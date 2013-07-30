@@ -6,6 +6,8 @@
 			$this -> render(null,null);
 			
 			$this -> redirect("clientes/reporte");
+			
+			$this->validar();
 		}
 		
 		public function reporte($filtro = false){
@@ -26,6 +28,7 @@
 				default: Session::set("filtro",$sql."id>0");	
 			}
 			
+			$this->validar();
 		}
 		
 		public function registro(){
@@ -34,6 +37,8 @@
 			$this -> cliente = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
@@ -72,6 +77,8 @@
 			$this -> cliente = $cliente;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consulta($id){
@@ -86,6 +93,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificar(){
@@ -127,6 +136,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 
 		public function eliminar($id){
@@ -139,6 +150,8 @@
 			$this -> alerta = Alerta::success("El Cliente ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -162,12 +175,16 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function reporteTiposCliente(){
 			$this -> render("tipos_cliente_reporte");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registroTipoCliente(){
@@ -176,6 +193,8 @@
 			$this -> tipo_cliente = false;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 						
 		public function registrarTipoCliente(){
@@ -199,6 +218,8 @@
 			$this -> $cliente_tipo = $cliente_tipo;
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function modificarTipoCliente(){
@@ -221,6 +242,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 			
 				
@@ -236,6 +259,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 			
 		public function eliminarTipoCliente($id){
@@ -248,6 +273,8 @@
 			$this -> alerta = Alerta::success("El Tipo de Cliente ha sido eliminado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarTiposCliente($parametros){
@@ -271,6 +298,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

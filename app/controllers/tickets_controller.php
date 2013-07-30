@@ -4,20 +4,28 @@
 	class TicketsController extends ApplicationController {
 		public function index(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function registrar(){
 			$this -> render(null,null);
 			Ticket::registrar($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("departamento"));
+			
+			$this->validar();
 		}
 		
 		public function registrar_mensaje(){
 			$this -> render(null,null);
 			Ticket::registrar_mensaje($this -> post("asunto"), nl2br($this -> post("mensaje")), $this -> post("cuenta"));
+			
+			$this->validar();
 		}
 		
 		public function reporte(){
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function consulta($id){
@@ -32,6 +40,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function contestar_admin(){
@@ -62,6 +72,8 @@
 			$this -> ticket = $this -> original -> raiz();
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function cerrar($id){
@@ -76,6 +88,8 @@
 			$this -> alerta = Alerta::success("El Ticket ha sido cerrado correctamente.");
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 		
 		public function eliminarSeleccionados($parametros){
@@ -99,6 +113,8 @@
 			}
 			
 			$this -> set_response("view");
+			
+			$this->validar();
 		}
 	}
 ?>

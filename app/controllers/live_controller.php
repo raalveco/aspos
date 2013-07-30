@@ -3,7 +3,7 @@
 		var $template = "live";
 			
 		public function index(){
-			
+			$this->validar();
 		}
 	}
 ?>
