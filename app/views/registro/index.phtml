@@ -1,0 +1,175 @@
+
+<?= View::partial("base/edicion"); 
+	Load::lib("alertas");
+?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 " style= "margin: 0px 100px !important; width: 710px !important;" data-sort=true>
+
+	<?= isset($alerta) ? $alerta : "" ?>
+	<?= Formulario::inicioAjax("registro/registrar", "contenido", false, "class: grid_12") ?>
+	<?= Formulario::oculto("nombre", ""); ?>
+	<?= Formulario::oculto("telefono", ""); ?>
+	<?= Formulario::oculto("celular", ""); ?>
+	<?= Formulario::oculto("calle", ""); ?>
+	<?= Formulario::oculto("exterior", ""); ?>
+	<?= Formulario::oculto("interior", ""); ?>
+	<?= Formulario::oculto("colonia", ""); ?>
+	<?= Formulario::oculto("localida", ""); ?>
+	<?= Formulario::oculto("cpostal", ""); ?>
+	<?= Formulario::oculto("municipio", ""); ?>
+	<?= Formulario::oculto("estado", ""); ?>
+	<?= Formulario::oculto("pais", ""); ?>
+	<?= Formulario::oculto("cuentaTemp", ""); ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LA CUENTA
+			</legend>
+			<div class="row">
+				<p class="_25" style="width: 300px;">
+					<label>RFC</label>
+					<?= Formulario::rfc("rfc",$cuentaTemp ? $cuentaTemp["rfc"] : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25" style="width: 300px">
+					<label>Nombre de Usuario</label>
+					<?= Formulario::texto("usuario",$cuentaTemp ? $cuentaTemp["usuario"] : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25" style="width: 300px">
+					<label>Correo Electrónico</label>
+					<?= Formulario::texto("correo",$cuentaTemp ? $cuentaTemp["correo"] : "","class: email required") ?>
+				</p>
+				<p class="_25" style="width: 300px">
+					<label>Confirmar Correo Electrónico</label>
+					<?= Formulario::texto("conf_correo",$cuentaTemp ? $cuentaTemp["conf_correo"] : "","class: email required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25" style="width: 300px">
+					<label>Contraseña</label>
+					<?= Formulario::password("password",$cuentaTemp ? $cuentaTemp["password"] : "","class: required") ?>
+				</p>
+				<p class="_25" style="width: 300px">
+					<label>Confirmar Contraseña</label>
+					<?= Formulario::password("conf_password",$cuentaTemp ? $cuentaTemp["conf_password"] : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25" style="width: 300px">
+					<label>Paquete</label>
+					<?php $paquetes = Paquete::reporte("activo = 'SI'"); ?>
+					<?= Formulario::selectModelo("paquete",$paquetes,"nombre","id",$cuentaTemp ? $cuentaTemp["paquete"] : "GRATUITO","class: search required","data-placeholder: Selecciona Tipo") ?>
+				</p>
+			</div>
+			<div class="row">			
+				<p class="_25" style="width: 300px">
+					<label>Contrato</label>
+					<?= Formulario::select("tipo_contrato",array("ANUAL" => "ANUAL","SEMESTRAL" => "SEMESTRAL","MENSUAL" => "MENSUAL"), $cuentaTemp ? $cuentaTemp["contrato"] : "ANUAL","class: search required","data-placeholder: Selecciona Estado") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25" style="width: 300px">
+					<label>Costo</label>
+					<?= Formulario::texto("costo",$cuentaTemp ? $cuentaTemp["costo"] : "0.0", "disabled: disabled") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit("Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("cuentas/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- E
+	end of #content -->
+
+<!--Adding costs to the form -->
+<script type="text/javascript">
+	$().ready(function(){
+		if($('#paquete').val() == "1"){
+				$('#costo').val("0.00");			
+			}
+			if($('#paquete').val() == "2"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("290.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("165.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("29.00");
+				}				
+			}
+			if($('#paquete').val() == "3"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("490.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("279.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("49.00");
+				}				
+			}
+		$('#paquete').change(function(e) {
+			if($('#paquete').val() == "1"){
+				$('#costo').val("0.00");			
+			}
+			if($('#paquete').val() == "2"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("290.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("165.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("29.00");
+				}				
+			}
+			if($('#paquete').val() == "3"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("490.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("279.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("49.00");
+				}				
+			}
+		});
+		$('#tipo_contrato').change(function(e) {
+			if($('#paquete').val() == "1"){
+				$('#costo').val("0.00");			
+			}
+			if($('#paquete').val() == "2"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("290.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("165.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("29.00");
+				}				
+			}
+			if($('#paquete').val() == "3"){
+				if($('#tipo_contrato').val() == "ANUAL"){
+					$('#costo').val("490.00");
+				}
+				if($('#tipo_contrato').val() == "SEMESTRAL"){
+					$('#costo').val("279.00");
+				}
+				if($('#tipo_contrato').val() == "MENSUAL"){
+					$('#costo').val("49.00");
+				}				
+			}
+		});
+	});
+</script>
