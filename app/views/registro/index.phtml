@@ -4,7 +4,7 @@
 ?>
 
 <!-- Here goes the content. -->
-<section id="content" class="container_12 " style= "margin: 0px 100px !important; width: 710px !important;" data-sort=true>
+<section id="content" class="container_12 clearfix" style= "padding-left: 0 !important; margin: auto !important; width: 710px !important; text-align: center;" data-sort=true>
 
 	<?= isset($alerta) ? $alerta : "" ?>
 	<?= Formulario::inicioAjax("registro/registrar", "contenido", false, "class: grid_12") ?>
@@ -71,7 +71,7 @@
 				</p>
 			</div>
 			<div class="row">
-				<p class="_25" style="width: 300px">
+				<p class="_25" style="width: 300px;">
 					<label>Costo</label>
 					<?= Formulario::texto("costo",$cuentaTemp ? $cuentaTemp["costo"] : "0.0", "disabled: disabled") ?>
 				</p>
@@ -82,7 +82,7 @@
 				<?= Formulario::submit("Registrar") ?>
 			</div>
 			<div class="left" style="margin: 5px;">
-				<?= Html::linkAjax("cuentas/reporte","Regresar","contenido","class: button red"); ?>
+				<?= Html::link("http://www.emisionfiscal.com.mx","Regresar","contenido","class: button red"); ?>
 			</div>
 		</div><!-- End of .actions -->
 	<?= Formulario::fin(); ?>
