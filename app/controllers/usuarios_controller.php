@@ -5,7 +5,7 @@
 		public function index(){
 			$this -> render(null,null);
 			
-			$this -> redirect("usuarios/reporte");
+			$this -> redirect("login");
 			
 			$this->validar();
 		}
