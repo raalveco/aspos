@@ -12,13 +12,14 @@
 	});
 </script>
 <!-- The sidebar -->
+<?php //echo Session::get("tipo_facturacion"); ?>
 <aside>
 	<div class="top">
 		<!-- Navigation -->
 		<nav>
 			<ul class="collapsible accordion">
 				<?php 
-					$menus = Menu::reporte("tipo ='".Session::get("tipo_usuario")."' AND activo = 'SI'","orden ASC");
+					$menus = Menu::reporte("(tipo ='".Session::get("tipo_usuario")."' OR tipo ='".Session::get("tipo_facturacion")."') AND activo = 'SI'","orden ASC");
 				?>
 				<?php if($menus) foreach($menus as $menu){ ?>
 					<?php

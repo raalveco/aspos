@@ -191,10 +191,7 @@
 			}
 			
 			$this -> contribuyente = Contribuyente::consultar($this -> post("contribuyente"));
-			
-			echo '<script language="javascript" type="text/javascript">
-				   alert("Hola: '.$this -> post("contribuyente").'");
-				</script>';
+
 			
 			if(!$this -> contribuyente){
 				$this -> contribuyente = Contribuyente::registrar($cuenta -> rfc, $cuenta -> nombre, $cuenta -> id);		

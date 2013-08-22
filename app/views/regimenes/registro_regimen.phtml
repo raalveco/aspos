@@ -1,0 +1,35 @@
+<?php
+	$modulo = "Regimenes";
+	$seccion = $regimen ? "Modificar Regimen" : "Nuevo Regimen";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<h1 class="grid_12"><?= $regimen ? "Modificar Regimen" : "Nuevo Regimen" ?></h1>
+	<?= Formulario::inicioAjax($regimen ? $controller_name."/modificarRegimen" : $controller_name."/registrarRegimen", "contenido", false, "class: grid_12") ?>
+	<?php if($regimen) echo Formulario::oculto("regimen", $regimen -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACION DE REGIMEN
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Nombre</label>
+					<?= Formulario::mayusculas("nombre",$regimen ? $regimen -> regimen : "","class: required") ?>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($regimen ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax("regimenes/reporte","Regresar","contenido","class: button red"); ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
