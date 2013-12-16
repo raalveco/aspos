@@ -18,8 +18,8 @@
 			$concepto -> fecha_creacion = date("Y-m-d H:i:s");
 			$concepto -> fecha_edicion = date("Y-m-d H:i:s");
 				
-			if(CfdiConcepto::existe("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."")){
-				$concepto = CfdiConcepto::consultar("cuenta_id = '".Session::get("cuenta_id")."' AND cbb_id = ".$cbb." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."");
+			if(CfdiConcepto::existe("cuenta_id = '".Session::get("cuenta_id")."' AND cfdi_id = ".$cfdi." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."")){
+				$concepto = CfdiConcepto::consultar("cuenta_id = '".Session::get("cuenta_id")."' AND cfdi_id = ".$cfdi." AND descripcion = '".$descripcion."' AND precio_unitario = ".$precio." AND descuento = ".$descuento."");
 				
 				$cantidad += $concepto -> cantidad;
 			}

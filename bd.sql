@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-08-2013 a las 18:11:30
+-- Tiempo de generación: 16-12-2013 a las 05:10:11
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -64,7 +64,19 @@ CREATE TABLE IF NOT EXISTS `cbb_concepto` (
   `descuento` decimal(16,4) NOT NULL DEFAULT '0.0000',
   `importe` decimal(16,4) NOT NULL DEFAULT '0.0000',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `cbb_concepto`
+--
+
+INSERT INTO `cbb_concepto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `cantidad`, `unidad`, `descripcion`, `precio_unitario`, `descuento`, `importe`) VALUES
+(1, 2, 'SI', 0, '2013-09-09 22:32:50', NULL, '2013-09-09 22:32:50', 1, 1.0000, 'PIEZA', 'TESTING', 124.0000, 0.0000, 124.0000),
+(2, 2, 'SI', 0, '2013-09-09 22:40:50', NULL, '2013-09-09 22:40:50', 2, 45.0000, 'PIEZA', '6466456456TRDRGDFGDFG', 3.0000, 0.0000, 135.0000),
+(3, 2, 'SI', 0, '2013-09-09 22:52:02', NULL, '2013-09-09 22:52:02', 3, 1.0000, 'PIEZA', 'ASDA', 12.0000, 0.0000, 12.0000),
+(4, 2, 'SI', 0, '2013-09-16 18:05:19', NULL, '2013-09-16 18:05:19', 4, 0.0000, 'PIEZA', 'PRUEBA 1', 100.0000, 0.0000, 0.0000),
+(5, 2, 'SI', 0, '2013-09-16 18:07:10', NULL, '2013-09-16 18:07:10', 5, 1.0000, 'PIEZA', 'PRUEBA 1', 100.0000, 0.0000, 100.0000),
+(6, 2, 'SI', 0, '2013-09-16 18:11:42', NULL, '2013-09-16 18:11:42', 6, 1.0000, 'PIEZA', 'GARBANZOS', 1.0000, 0.0000, 1.0000);
 
 -- --------------------------------------------------------
 
@@ -97,7 +109,19 @@ CREATE TABLE IF NOT EXISTS `cbb_factura` (
   `pago` varchar(2) DEFAULT 'NO',
   `envio` varchar(2) DEFAULT 'NO',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `cbb_factura`
+--
+
+INSERT INTO `cbb_factura` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_folios_id`, `sucursal_id`, `serie`, `folio`, `fecha`, `no_aprobacion`, `forma_pago`, `subtotal`, `descuento`, `total`, `comentarios`, `status`, `motivo_cancelacion`, `pago`, `envio`) VALUES
+(1, 2, 'SI', 0, '2013-09-09 22:32:50', 0, '2013-09-09 22:32:50', 3, NULL, NULL, '1', '2013-09-09', '1', 'UNA SOLA EXHIBICIÓN', 124.0000, 0.0000, 143.8400, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(2, 2, 'SI', 0, '2013-09-09 22:40:50', 0, '2013-09-09 22:40:50', 3, NULL, NULL, '2', '2013-09-09', '1', 'UNA SOLA EXHIBICIÓN', 135.0000, 0.0000, 156.6000, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(3, 2, 'SI', 0, '2013-09-09 22:52:02', NULL, '2013-09-09 22:58:28', 4, NULL, 'A', '32', '2013-09-09', '12', 'UNA SOLA EXHIBICIÓN', 12.0000, 0.0000, 13.9200, NULL, 'CANCELADA', NULL, 'NO', 'NO'),
+(4, 2, 'SI', 0, '2013-09-16 18:05:19', NULL, '2013-09-16 18:06:34', 4, NULL, 'A', '33', '2013-09-16', '12', 'UNA SOLA EXHIBICIÓN', NULL, 0.0000, NULL, NULL, 'CANCELADA', NULL, 'NO', 'NO'),
+(5, 2, 'SI', 0, '2013-09-16 18:07:10', 0, '2013-09-16 18:07:10', 4, NULL, 'A', '34', '2013-09-16', '12', 'UNA SOLA EXHIBICIÓN', 100.0000, 0.0000, 116.0000, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(6, 2, 'SI', 0, '2013-09-16 18:11:42', 0, '2013-09-16 18:11:42', 4, NULL, 'A', '35', '2013-09-16', '12', 'UNA SOLA EXHIBICIÓN', 1.0000, 0.0000, 1.1600, NULL, 'EMITIDA', NULL, 'NO', 'NO');
 
 -- --------------------------------------------------------
 
@@ -114,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `cbb_folio` (
   `fecha_creacion` datetime DEFAULT NULL,
   `usuario_edicion_id` int(11) DEFAULT NULL,
   `fecha_edicion` datetime DEFAULT NULL,
-  `serie` varchar(25) NOT NULL,
+  `serie` varchar(25) DEFAULT NULL,
   `inicial` int(11) DEFAULT NULL,
   `final` int(11) DEFAULT NULL,
   `actual` int(11) DEFAULT NULL,
@@ -123,7 +147,15 @@ CREATE TABLE IF NOT EXISTS `cbb_folio` (
   `tipo_documento` varchar(25) DEFAULT NULL,
   `cbb` varchar(25) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `cbb_folio`
+--
+
+INSERT INTO `cbb_folio` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `serie`, `inicial`, `final`, `actual`, `fecha_recepcion`, `numero_aprobacion`, `tipo_documento`, `cbb`) VALUES
+(2, 34, 'SI', 0, '2013-09-01 17:45:50', NULL, '2013-09-01 17:45:50', 'A', 1, 111, 11, '2013-09-01', '1', 'FACTURA', '2.jpg'),
+(3, 2, 'SI', 0, '2013-09-09 22:32:02', NULL, '2013-09-09 22:32:02', NULL, 1, 12, 3, '2013-09-09', '1', 'FACTURA', '3.jpg');
 
 -- --------------------------------------------------------
 
@@ -146,7 +178,18 @@ CREATE TABLE IF NOT EXISTS `cbb_impuesto` (
   `importe` decimal(16,2) NOT NULL,
   `tipo` varchar(25) NOT NULL DEFAULT 'TRASLADADO',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `cbb_impuesto`
+--
+
+INSERT INTO `cbb_impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `nombre`, `tasa`, `importe`, `tipo`) VALUES
+(1, 2, 'SI', 0, '2013-09-09 22:32:50', 0, '2013-09-09 22:32:50', 1, 'IVA', 16, 19.84, 'TRASLADADO'),
+(2, 2, 'SI', 0, '2013-09-09 22:40:50', 0, '2013-09-09 22:40:50', 2, 'IVA', 16, 21.60, 'TRASLADADO'),
+(3, 2, 'SI', 0, '2013-09-09 22:52:02', 0, '2013-09-09 22:52:02', 3, 'IVA', 16, 1.92, 'TRASLADADO'),
+(4, 2, 'SI', 0, '2013-09-16 18:07:10', 0, '2013-09-16 18:07:10', 5, 'IVA', 16, 16.00, 'TRASLADADO'),
+(5, 2, 'SI', 0, '2013-09-16 18:11:42', 0, '2013-09-16 18:11:42', 6, 'IVA', 16, 0.16, 'TRASLADADO');
 
 -- --------------------------------------------------------
 
@@ -167,8 +210,8 @@ CREATE TABLE IF NOT EXISTS `cbb_receptor` (
   `rfc` varchar(15) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `calle` varchar(100) DEFAULT NULL,
-  `exterior` varchar(5) DEFAULT NULL,
-  `interior` varchar(5) DEFAULT NULL,
+  `exterior` varchar(25) DEFAULT NULL,
+  `interior` varchar(10) DEFAULT NULL,
   `colonia` varchar(50) DEFAULT NULL,
   `localidad` varchar(50) DEFAULT NULL,
   `municipio` varchar(50) DEFAULT NULL,
@@ -176,7 +219,19 @@ CREATE TABLE IF NOT EXISTS `cbb_receptor` (
   `pais` varchar(25) DEFAULT NULL,
   `cpostal` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `cbb_receptor`
+--
+
+INSERT INTO `cbb_receptor` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cbb_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`) VALUES
+(1, 2, 'SI', 0, '2013-09-09 22:32:50', 0, '2013-09-09 22:32:50', 1, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(2, 2, 'SI', 0, '2013-09-09 22:40:50', 0, '2013-09-09 22:40:50', 2, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(3, 2, 'SI', 0, '2013-09-09 22:52:02', 0, '2013-09-09 22:52:02', 3, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(4, 2, 'SI', 0, '2013-09-16 18:05:19', 0, '2013-09-16 18:05:19', 4, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(5, 2, 'SI', 0, '2013-09-16 18:07:10', 0, '2013-09-16 18:07:10', 5, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(6, 2, 'SI', 0, '2013-09-16 18:11:42', 0, '2013-09-16 18:11:42', 6, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000');
 
 -- --------------------------------------------------------
 
@@ -199,6 +254,314 @@ CREATE TABLE IF NOT EXISTS `certificado` (
   `clave_privada` varchar(25) DEFAULT NULL,
   `archivo_key` varchar(100) DEFAULT NULL,
   `archivo_cer` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+
+--
+-- Volcado de datos para la tabla `certificado`
+--
+
+INSERT INTO `certificado` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `fecha_emision`, `fecha_vencimiento`, `numero_serie`, `clave_privada`, `archivo_key`, `archivo_cer`) VALUES
+(12, 34, 'NO', 0, '2013-09-01 14:41:47', 0, '2013-09-01 14:41:47', '2013-09-01', '2013-09-01', '0000', 'TEST', '0000.key', '0000.cer'),
+(14, 34, 'NO', 0, '2013-09-01 14:41:55', 0, '2013-09-01 14:41:55', '2013-09-01', '2013-09-01', '0002', 'TEST', '0002.key', '0002.cer'),
+(17, 34, 'NO', 0, '2013-09-01 19:07:28', 0, '2013-09-01 19:07:28', '2013-09-01', '2013-09-01', '0005', 'TEST', '0005.key', '0005.cer'),
+(18, 34, 'SI', 0, '2013-09-01 19:07:34', 0, '2013-09-01 19:07:34', '2013-09-01', '2013-09-01', '0008', 'TEST', '0008.key', '0008.cer');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_concepto`
+--
+
+DROP TABLE IF EXISTS `cfdi_concepto`;
+CREATE TABLE IF NOT EXISTS `cfdi_concepto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `cantidad` decimal(16,4) DEFAULT NULL,
+  `unidad` varchar(50) DEFAULT NULL,
+  `no_identificacion` int(11) DEFAULT NULL,
+  `descripcion` text,
+  `precio_unitario` decimal(16,4) DEFAULT NULL,
+  `descuento` decimal(16,4) DEFAULT NULL,
+  `importe` decimal(16,4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_concepto`
+--
+
+INSERT INTO `cfdi_concepto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cfdi_id`, `cantidad`, `unidad`, `no_identificacion`, `descripcion`, `precio_unitario`, `descuento`, `importe`) VALUES
+(1, 34, 'SI', 0, '2013-09-01 18:33:16', NULL, '2013-09-01 18:33:16', 129, 2.0000, 'PIEZA', NULL, 'TEST2', 123.0000, 0.0000, 246.0000),
+(2, 34, 'SI', 0, '2013-09-01 18:35:21', NULL, '2013-09-01 18:35:21', 130, 3.0000, 'PIEZA', NULL, 'TEST', 150.0000, 0.0000, 450.0000),
+(3, 34, 'SI', 0, '2013-09-01 19:01:45', NULL, '2013-09-01 19:01:45', 131, 15.0000, 'PIEZA', NULL, 'TEST', 150.0000, 0.0000, 2250.0000),
+(4, 34, 'SI', 0, '2013-09-01 19:05:39', NULL, '2013-09-01 19:05:39', 132, 2.0000, 'PIEZA', NULL, 'TEST2', 123.0000, 0.0000, 246.0000),
+(5, 34, 'SI', 0, '2013-09-01 19:05:39', NULL, '2013-09-01 19:05:39', 132, 1.0000, 'PIEZA', NULL, 'TEST', 150.0000, 0.0000, 150.0000),
+(6, 34, 'SI', 0, '2013-09-01 19:09:25', NULL, '2013-09-01 19:09:25', 133, 2.0000, 'PIEZA', NULL, 'TEST2', 123.0000, 0.0000, 246.0000),
+(7, 34, 'SI', 0, '2013-09-01 19:29:07', NULL, '2013-09-01 19:29:07', 134, 12.0000, 'PIEZA', NULL, 'TEST2', 123.0000, 0.0000, 1476.0000),
+(8, 34, 'SI', 0, '2013-09-01 19:31:35', NULL, '2013-09-01 19:31:35', 135, 12.0000, 'PIEZA', NULL, 'TEST2', 123.0000, 0.0000, 1476.0000);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_emisor`
+--
+
+DROP TABLE IF EXISTS `cfdi_emisor`;
+CREATE TABLE IF NOT EXISTS `cfdi_emisor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `rfc` varchar(15) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `calle` varchar(100) DEFAULT NULL,
+  `exterior` varchar(25) DEFAULT NULL,
+  `interior` varchar(10) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `referencia` text,
+  `municipio` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `pais` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_emisor`
+--
+
+INSERT INTO `cfdi_emisor` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cfdi_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`) VALUES
+(1, 34, 'SI', 0, '2013-09-01 19:31:35', 0, '2013-09-01 19:31:35', 135, 'TEST400040000', 'TEST 4', 'AVENIDA PATRIA', '22', NULL, 'HEROES', 'ZAPOPAN', NULL, 'ZAPOPAN', 'JALISCO', 'HOLAMÉXICO', '45098');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_factura`
+--
+
+DROP TABLE IF EXISTS `cfdi_factura`;
+CREATE TABLE IF NOT EXISTS `cfdi_factura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_folios_id` int(11) DEFAULT NULL,
+  `sucursal_id` int(11) DEFAULT NULL,
+  `serie` varchar(25) DEFAULT NULL,
+  `folio` varchar(25) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `sello` text,
+  `no_certificado` varchar(25) DEFAULT NULL,
+  `certificado` text,
+  `condiciones_pago` text,
+  `forma_pago` varchar(50) DEFAULT NULL,
+  `subtotal` decimal(16,4) DEFAULT '0.0000',
+  `descuento` decimal(16,4) DEFAULT '0.0000',
+  `motivo_descuento` text,
+  `tipo_cambio` decimal(16,4) DEFAULT NULL,
+  `moneda` varchar(3) DEFAULT NULL,
+  `total` decimal(16,4) DEFAULT '0.0000',
+  `tipo_comprobante` varchar(25) DEFAULT NULL,
+  `metodo_pago` varchar(25) DEFAULT NULL,
+  `lugar_expedicion` text,
+  `numero_cuenta_pago` varchar(25) DEFAULT NULL,
+  `folio_fiscal_original` varchar(25) DEFAULT NULL,
+  `serie_folio_fiscal_original` varchar(25) DEFAULT NULL,
+  `fecha_folio_fiscal_orinial` date DEFAULT NULL,
+  `monto_folio_fiscal_original` decimal(16,4) DEFAULT NULL,
+  `comentarios` tinytext,
+  `status` varchar(10) DEFAULT 'EMITIDA',
+  `motivo_cancelacion` varchar(255) DEFAULT NULL,
+  `pago` varchar(2) DEFAULT 'NO',
+  `envio` varchar(2) DEFAULT 'NO',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=136 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_factura`
+--
+
+INSERT INTO `cfdi_factura` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cfdi_folios_id`, `sucursal_id`, `serie`, `folio`, `fecha`, `sello`, `no_certificado`, `certificado`, `condiciones_pago`, `forma_pago`, `subtotal`, `descuento`, `motivo_descuento`, `tipo_cambio`, `moneda`, `total`, `tipo_comprobante`, `metodo_pago`, `lugar_expedicion`, `numero_cuenta_pago`, `folio_fiscal_original`, `serie_folio_fiscal_original`, `fecha_folio_fiscal_orinial`, `monto_folio_fiscal_original`, `comentarios`, `status`, `motivo_cancelacion`, `pago`, `envio`) VALUES
+(130, 34, 'SI', 0, '2013-09-01 18:35:21', 0, '2013-09-01 18:35:21', 1, NULL, 'A', '11', '2013-09-01', NULL, NULL, NULL, NULL, 'UNA SOLA EXHIBICIÓN', 450.0000, 0.0000, NULL, NULL, NULL, 522.0000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(131, 34, 'SI', 0, '2013-09-01 19:01:45', 0, '2013-09-01 19:01:45', 1, NULL, 'A', '12', '2013-09-01', 'pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=', NULL, 'MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd', NULL, 'UNA SOLA EXHIBICIÓN', 2250.0000, 0.0000, NULL, 1.0000, 'MXN', 2610.0000, 'INGRESO', 'EFECTIVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(132, 34, 'SI', 0, '2013-09-01 19:05:39', 0, '2013-09-01 19:05:39', 1, NULL, 'A', '13', '2013-09-01', 'pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=', NULL, 'MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd', NULL, 'UNA SOLA EXHIBICIÓN', 396.0000, 0.0000, NULL, 1.0000, 'MXN', 459.3600, 'INGRESO', 'EFECTIVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(133, 34, 'SI', 0, '2013-09-01 19:09:25', 0, '2013-09-01 19:09:25', 1, NULL, 'A', '14', '2013-09-01', 'pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=', '0008', 'MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd', NULL, 'UNA SOLA EXHIBICIÓN', 246.0000, 0.0000, NULL, 1.0000, 'MXN', 285.3600, 'INGRESO', 'EFECTIVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(134, 34, 'SI', 0, '2013-09-01 19:29:07', 0, '2013-09-01 19:29:07', 1, NULL, 'A', '15', '2013-09-01', 'pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=', '0008', 'MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd', NULL, 'UNA SOLA EXHIBICIÓN', 1476.0000, 0.0000, NULL, 1.0000, 'MXN', 1712.1600, 'INGRESO', 'EFECTIVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO'),
+(135, 34, 'SI', 0, '2013-09-01 19:31:35', 0, '2013-09-01 19:31:35', 1, NULL, 'A', '16', '2013-09-01', 'pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=', '0008', 'MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd', NULL, 'UNA SOLA EXHIBICIÓN', 1476.0000, 0.0000, NULL, 1.0000, 'MXN', 1712.1600, 'INGRESO', 'EFECTIVO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EMITIDA', NULL, 'NO', 'NO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_folio`
+--
+
+DROP TABLE IF EXISTS `cfdi_folio`;
+CREATE TABLE IF NOT EXISTS `cfdi_folio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `serie` varchar(25) NOT NULL,
+  `inicial` int(11) DEFAULT NULL,
+  `final` int(11) DEFAULT NULL,
+  `actual` int(11) DEFAULT NULL,
+  `fecha_recepcion` date DEFAULT NULL,
+  `numero_aprobacion` varchar(15) DEFAULT NULL,
+  `tipo_documento` varchar(25) DEFAULT NULL,
+  `cfdi` varchar(25) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_folio`
+--
+
+INSERT INTO `cfdi_folio` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `serie`, `inicial`, `final`, `actual`, `fecha_recepcion`, `numero_aprobacion`, `tipo_documento`, `cfdi`) VALUES
+(1, 34, 'SI', 0, '2013-09-01 18:05:21', NULL, '2013-09-01 18:05:21', 'A', 1, 111, 17, '2013-09-01', '123', 'FACTURA', '1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_impuesto`
+--
+
+DROP TABLE IF EXISTS `cfdi_impuesto`;
+CREATE TABLE IF NOT EXISTS `cfdi_impuesto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `nombre` varchar(10) NOT NULL,
+  `tasa` tinyint(4) NOT NULL DEFAULT '16',
+  `importe` decimal(16,2) NOT NULL,
+  `tipo` varchar(25) NOT NULL DEFAULT 'TRASLADADO',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_impuesto`
+--
+
+INSERT INTO `cfdi_impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cfdi_id`, `nombre`, `tasa`, `importe`, `tipo`) VALUES
+(1, 34, 'SI', 0, '2013-09-01 18:33:16', 0, '2013-09-01 18:33:16', 129, 'IVA', 16, 39.36, 'TRASLADADO'),
+(2, 34, 'SI', 0, '2013-09-01 18:35:21', 0, '2013-09-01 18:35:21', 130, 'IVA', 16, 72.00, 'TRASLADADO'),
+(3, 34, 'SI', 0, '2013-09-01 19:01:45', 0, '2013-09-01 19:01:45', 131, 'IVA', 16, 360.00, 'TRASLADADO'),
+(4, 34, 'SI', 0, '2013-09-01 19:05:39', 0, '2013-09-01 19:05:39', 132, 'IVA', 16, 63.36, 'TRASLADADO'),
+(5, 34, 'SI', 0, '2013-09-01 19:09:25', 0, '2013-09-01 19:09:25', 133, 'IVA', 16, 39.36, 'TRASLADADO'),
+(6, 34, 'SI', 0, '2013-09-01 19:29:07', 0, '2013-09-01 19:29:07', 134, 'IVA', 16, 236.16, 'TRASLADADO'),
+(7, 34, 'SI', 0, '2013-09-01 19:31:35', 0, '2013-09-01 19:31:35', 135, 'IVA', 16, 236.16, 'TRASLADADO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_receptor`
+--
+
+DROP TABLE IF EXISTS `cfdi_receptor`;
+CREATE TABLE IF NOT EXISTS `cfdi_receptor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `rfc` varchar(15) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `calle` varchar(100) DEFAULT NULL,
+  `exterior` varchar(25) DEFAULT NULL,
+  `interior` varchar(10) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `referencia` text,
+  `municipio` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `pais` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `cfdi_receptor`
+--
+
+INSERT INTO `cfdi_receptor` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `cfdi_id`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `referencia`, `municipio`, `estado`, `pais`, `cpostal`) VALUES
+(1, 34, 'SI', 0, '2013-09-01 18:33:16', 0, '2013-09-01 18:33:16', 129, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(2, 34, 'SI', 0, '2013-09-01 18:35:21', 0, '2013-09-01 18:35:21', 130, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(3, 34, 'SI', 0, '2013-09-01 19:01:45', 0, '2013-09-01 19:01:45', 131, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(4, 34, 'SI', 0, '2013-09-01 19:05:39', 0, '2013-09-01 19:05:39', 132, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(5, 34, 'SI', 0, '2013-09-01 19:09:25', 0, '2013-09-01 19:09:25', 133, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000'),
+(6, 34, 'SI', 0, '2013-09-01 19:31:35', 0, '2013-09-01 19:31:35', 135, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_regimen`
+--
+
+DROP TABLE IF EXISTS `cfdi_regimen`;
+CREATE TABLE IF NOT EXISTS `cfdi_regimen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `regimen` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cfdi_sucursal`
+--
+
+DROP TABLE IF EXISTS `cfdi_sucursal`;
+CREATE TABLE IF NOT EXISTS `cfdi_sucursal` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `cfdi_id` int(11) NOT NULL,
+  `calle` varchar(100) DEFAULT NULL,
+  `exterior` varchar(5) DEFAULT NULL,
+  `interior` varchar(5) DEFAULT NULL,
+  `colonia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `referencia` text,
+  `municipio` varchar(50) DEFAULT NULL,
+  `estado` varchar(25) DEFAULT NULL,
+  `pais` varchar(25) DEFAULT NULL,
+  `cpostal` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -248,8 +611,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `rfc` varchar(13) NOT NULL DEFAULT 'XXXX000000XXX',
   `nombre` varchar(100) NOT NULL DEFAULT '',
   `calle` varchar(100) DEFAULT NULL,
-  `exterior` varchar(5) DEFAULT NULL,
-  `interior` varchar(5) DEFAULT NULL,
+  `exterior` varchar(25) DEFAULT NULL,
+  `interior` varchar(10) DEFAULT NULL,
   `colonia` varchar(50) DEFAULT NULL,
   `localidad` varchar(50) DEFAULT NULL,
   `referencia` varchar(100) DEFAULT NULL,
@@ -263,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `comentarios` text,
   `fecha_registro_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Volcado de datos para la tabla `cliente`
@@ -295,7 +658,9 @@ INSERT INTO `cliente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fech
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', NULL, '2013-08-03 00:20:31', 23, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-03 00:20:31'),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', NULL, '2013-08-03 00:26:36', 24, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-03 00:26:36'),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', NULL, '2013-08-03 00:28:06', 25, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-03 00:28:06'),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 26, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-03 10:56:30');
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 26, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-03 10:56:30'),
+(28, 27, 'SI', 0, '2013-08-09 22:32:27', NULL, '2013-08-09 22:32:27', 27, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-09 22:32:27'),
+(29, 34, 'SI', 0, '2013-08-21 22:14:47', NULL, '2013-08-21 22:14:47', 0, 'XAXX000000XXX', 'CLIENTE GENERICO', 'CONOCIDO', 'S/N', NULL, NULL, NULL, NULL, 'CIUDAD DE MEXICO', 'DISTRITO FEDERAL', 'MÉXICO', '06000', NULL, NULL, NULL, NULL, '2013-08-21 22:14:47');
 
 -- --------------------------------------------------------
 
@@ -315,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `cliente_tipo` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Volcado de datos para la tabla `cliente_tipo`
@@ -347,7 +712,9 @@ INSERT INTO `cliente_tipo` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, 
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', 'NORMAL', 'CLIENTE NORMAL'),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', 'NORMAL', 'CLIENTE NORMAL'),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', 'NORMAL', 'CLIENTE NORMAL'),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'NORMAL', 'CLIENTE NORMAL');
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'NORMAL', 'CLIENTE NORMAL'),
+(27, 27, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', 'NORMAL', 'CLIENTE NORMAL'),
+(28, 34, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', 'NORMAL', 'CLIENTE NORMAL');
 
 -- --------------------------------------------------------
 
@@ -366,7 +733,7 @@ CREATE TABLE IF NOT EXISTS `contrato` (
   `tipo` varchar(10) NOT NULL DEFAULT 'MENSUAL',
   `activo` varchar(2) NOT NULL DEFAULT 'SI',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Volcado de datos para la tabla `contrato`
@@ -392,7 +759,9 @@ INSERT INTO `contrato` (`id`, `cuenta_id`, `paquete_id`, `inicio`, `fin`, `dia_c
 (17, 23, 1, '2013-08-03', '2014-08-03', 2, 'ANUAL', 'SI'),
 (18, 24, 1, '2013-08-03', '2014-08-03', 2, 'ANUAL', 'SI'),
 (19, 25, 1, '2013-08-03', '2014-08-03', 2, 'ANUAL', 'SI'),
-(20, 26, 1, '2013-08-03', '2013-09-02', 2, 'MENSUAL', 'SI');
+(20, 26, 1, '2013-08-03', '2013-09-02', 2, 'MENSUAL', 'SI'),
+(21, 27, 1, '2013-08-09', '2014-08-09', 8, 'ANUAL', 'SI'),
+(22, 34, 4, '2013-08-21', '2014-08-21', 20, 'ANUAL', 'SI');
 
 -- --------------------------------------------------------
 
@@ -412,8 +781,8 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
   `rfc` varchar(14) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `calle` varchar(100) DEFAULT '',
-  `exterior` varchar(5) DEFAULT NULL,
-  `interior` varchar(5) DEFAULT NULL,
+  `exterior` varchar(25) DEFAULT NULL,
+  `interior` varchar(10) DEFAULT NULL,
   `colonia` varchar(50) DEFAULT NULL,
   `localidad` varchar(50) DEFAULT NULL,
   `municipio` varchar(50) DEFAULT NULL,
@@ -427,7 +796,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
   `cedula` varchar(25) DEFAULT NULL,
   `logotipo` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Volcado de datos para la tabla `contribuyente`
@@ -435,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `contribuyente` (
 
 INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `rfc`, `nombre`, `calle`, `exterior`, `interior`, `colonia`, `localidad`, `municipio`, `estado`, `pais`, `cpostal`, `telefono`, `celular`, `correo`, `nombre_comercial`, `cedula`, `logotipo`) VALUES
 (1, 1, 'SI', 0, '2013-07-04 23:04:48', NULL, '2013-07-04 23:04:48', 'XAXX000000XXX', 'CUENTA DE PRUEBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 'DEMO200020000', 'CUENTA DEMO', 'JUAREZ', '3723', NULL, 'SAN JAVIER', 'TULANSINGO', 'TULANSINGO', 'HIDALGO', 'MÉXICO', '38849', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-09-09 22:26:25', 'DEMO200020000', 'CUENTA DEMO', 'JUAREZ', '3723', NULL, 'SAN JAVIER', 'TULANSINGO', 'TULANSINGO', 'HIDALGO', 'HOLAMÉXICO', '38849', NULL, NULL, NULL, NULL, 'demo200020000.png', 'demo200020000.png'),
 (3, 3, 'SI', 0, '2013-07-26 23:04:11', NULL, '2013-07-26 23:04:11', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (4, 4, 'SI', 0, '2013-07-26 23:53:55', NULL, '2013-07-26 23:53:55', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 5, 'SI', 0, '2013-08-01 00:34:15', NULL, '2013-08-01 00:34:15', 'AAAA000000A00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -453,7 +822,9 @@ INSERT INTO `contribuyente` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`,
 (17, 23, 'SI', 0, '2013-08-03 00:20:31', NULL, '2013-08-03 00:20:31', 'AAAA111111Q12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (18, 24, 'SI', 0, '2013-08-03 00:26:36', NULL, '2013-08-03 00:26:36', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 25, 'SI', 0, '2013-08-03 00:28:06', NULL, '2013-08-03 00:28:06', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(20, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'LIHA851024I63', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 27, 'SI', 0, '2013-08-09 22:32:27', NULL, '2013-08-09 22:32:27', 'AAA000000A00', 'SDASDAS', 'AAAAA', '1', NULL, 'ASDASSA', 'ADADAD', 'SDASAASD', 'AGUASCALIENTES', 'MÉXICO', '11111', NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 34, 'SI', 0, '2013-08-21 22:14:47', NULL, '2013-08-21 22:58:12', 'TEST400040000', 'TEST 4', 'AVENIDA PATRIA', '22', NULL, 'HEROES', 'ZAPOPAN', 'ZAPOPAN', 'JALISCO', 'HOLAMÉXICO', '45098', NULL, NULL, NULL, 'EMISION', 'test400040000.jpg', 'test400040000.jpg');
 
 -- --------------------------------------------------------
 
@@ -479,14 +850,18 @@ CREATE TABLE IF NOT EXISTS `cuenta` (
   `correo_contacto` varchar(100) DEFAULT NULL,
   `tipo_contrato` varchar(25) DEFAULT 'ANUAL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `cuenta`
 --
 
 INSERT INTO `cuenta` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `paquete_id`, `rfc`, `nombre`, `usuario`, `password`, `telefono_contacto`, `celular_contacto`, `correo_contacto`, `tipo_contrato`) VALUES
-(2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 2, 'DEMO200020000', 'CUENTA DEMO', 'demo', '89e495e7941cf9e40e6980d14a16bf023ccd4c91', '(333) 333 3333', '(444) 444 4444', 'raalveco@gmail.com', 'ANUAL');
+(2, 'SI', 0, '2013-07-05 00:59:55', NULL, '2013-07-05 01:16:28', 2, 'DEMO200020000', 'CUENTA DEMO', 'demo', '89e495e7941cf9e40e6980d14a16bf023ccd4c91', '(333) 333 3333', '(444) 444 4444', 'raalveco@gmail.com', 'ANUAL'),
+(3, 'SI', 0, '2013-08-21 21:56:33', 0, '2013-08-21 21:56:33', 4, 'TEST100010000', 'TEST 1', 'admin', NULL, NULL, NULL, NULL, 'ANUAL'),
+(4, 'SI', 0, '2013-08-21 22:02:14', 0, '2013-08-21 22:02:14', 4, 'TEST200020000', 'TEST 2', 'admin', NULL, NULL, NULL, NULL, 'ANUAL'),
+(5, 'SI', 0, '2013-08-21 22:06:27', 0, '2013-08-21 22:06:27', 4, 'TEST300030000', 'TEST 3', 'admin', NULL, NULL, NULL, NULL, 'ANUAL'),
+(34, 'SI', 0, '2013-08-21 22:14:47', NULL, '2013-08-21 22:14:47', 4, 'TEST400040000', 'TEST 4', 'test4', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', '(444) 444 4444', '(444) 444 4444', 'lizaolaa@gmail.com', 'ANUAL');
 
 -- --------------------------------------------------------
 
@@ -530,7 +905,7 @@ CREATE TABLE IF NOT EXISTS `impuesto` (
   `tasa` smallint(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Volcado de datos para la tabla `impuesto`
@@ -562,7 +937,9 @@ INSERT INTO `impuesto` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fec
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', 'IVA', 'IVA', 16, 'TRASLADADO'),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', 'IVA', 'IVA', 16, 'TRASLADADO'),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', 'IVA', 'IVA', 16, 'TRASLADADO'),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'IVA', 'IVA', 16, 'TRASLADADO');
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'IVA', 'IVA', 16, 'TRASLADADO'),
+(27, 27, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', 'IVA', 'IVA', 16, 'TRASLADADO'),
+(28, 34, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', 'IVA', 'IVA', 16, 'TRASLADADO');
 
 -- --------------------------------------------------------
 
@@ -625,7 +1002,7 @@ CREATE TABLE IF NOT EXISTS `moneda` (
   `descripcion` varchar(255) DEFAULT NULL,
   `tipo_cambio` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Volcado de datos para la tabla `moneda`
@@ -657,7 +1034,9 @@ INSERT INTO `moneda` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', 'MXN', 'PESO MEXICANO', 1.00),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', 'MXN', 'PESO MEXICANO', 1.00),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', 'MXN', 'PESO MEXICANO', 1.00),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'MXN', 'PESO MEXICANO', 1.00);
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'MXN', 'PESO MEXICANO', 1.00),
+(27, 27, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', 'MXN', 'PESO MEXICANO', 1.00),
+(28, 34, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', 'MXN', 'PESO MEXICANO', 1.00);
 
 -- --------------------------------------------------------
 
@@ -684,7 +1063,7 @@ CREATE TABLE IF NOT EXISTS `paquete` (
   `vigencia` date DEFAULT NULL,
   `activo` varchar(2) DEFAULT 'SI',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `paquete`
@@ -693,7 +1072,8 @@ CREATE TABLE IF NOT EXISTS `paquete` (
 INSERT INTO `paquete` (`id`, `nombre`, `tipo`, `facturas_incluidas`, `costo_factura_adicional`, `usuarios`, `almacenamiento`, `soporte_online`, `soporte_chat`, `soporte_telefono`, `multiple_moneda`, `multiple_sucursal`, `costo_mensual`, `costo_anual`, `vigencia`, `activo`) VALUES
 (1, 'GRATUITO', 'CBB', 10, 5.00, 1, 100, 'SI', 'NO', 'NO', 'NO', 'NO', 0.00, 0.00, '2013-12-31', 'SI'),
 (2, 'EMPRESARIAL', 'CBB', 100, 5.00, 3, 250, 'SI', 'NO', 'NO', 'NO', 'SI', 29.00, 290.00, '2013-12-31', 'SI'),
-(3, 'CORPORATIVO', 'CBB', 10000, 0.00, 5, 1000, 'SI', 'NO', 'NO', 'NO', 'SI', 49.00, 490.00, '2013-12-31', 'SI');
+(3, 'CORPORATIVO', 'CBB', 10000, 0.00, 5, 1000, 'SI', 'NO', 'NO', 'NO', 'SI', 49.00, 490.00, '2013-12-31', 'SI'),
+(4, 'CFDI-BASICO', 'CFDI', 10, 3.50, 1, 15, 'SI', 'NO', 'NO', 'NO', 'NO', 100.00, 1000.00, '2013-12-31', 'SI');
 
 -- --------------------------------------------------------
 
@@ -719,14 +1099,17 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `moneda_id` int(11) DEFAULT NULL,
   `cuenta_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
 INSERT INTO `producto` (`id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `codigo`, `nombre`, `descripcion`, `categoria_id`, `impuesto_id`, `unidad_id`, `precio_unitario`, `moneda_id`, `cuenta_id`) VALUES
-(1, 'SI', NULL, '2013-07-05 00:59:55', NULL, '2013-07-05 00:59:55', NULL, 'PRODUCTO DE PRUEBA', NULL, NULL, NULL, NULL, 1.0000, NULL, 1);
+(1, 'SI', NULL, '2013-07-05 00:59:55', NULL, '2013-07-05 00:59:55', NULL, 'PRODUCTO DE PRUEBA', NULL, NULL, NULL, NULL, 1.0000, NULL, 1),
+(2, 'SI', NULL, '2013-09-01 17:43:02', NULL, '2013-09-01 17:43:02', '1', 'TEST', 'TESTS', 28, NULL, 28, 150.0000, 28, 34),
+(3, 'SI', NULL, '2013-09-01 17:44:00', NULL, '2013-09-01 17:44:00', '2', 'TEST2', 'TESTS', 28, NULL, 28, 123.0000, 28, 34),
+(4, 'SI', NULL, '2013-09-16 18:11:02', NULL, '2013-09-16 18:11:02', '1', 'GARBANZOS', 'GARBANZO BOTANA', 2, NULL, 2, 1.0000, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -746,7 +1129,7 @@ CREATE TABLE IF NOT EXISTS `producto_categoria` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Volcado de datos para la tabla `producto_categoria`
@@ -778,7 +1161,38 @@ INSERT INTO `producto_categoria` (`id`, `cuenta_id`, `activo`, `usuario_creacion
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', 'GENERAL', 'CATEGORIA GENERAL'),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', 'GENERAL', 'CATEGORIA GENERAL'),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', 'GENERAL', 'CATEGORIA GENERAL'),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'GENERAL', 'CATEGORIA GENERAL');
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'GENERAL', 'CATEGORIA GENERAL'),
+(27, 27, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', 'GENERAL', 'CATEGORIA GENERAL'),
+(28, 34, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', 'GENERAL', 'CATEGORIA GENERAL');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `regimen`
+--
+
+DROP TABLE IF EXISTS `regimen`;
+CREATE TABLE IF NOT EXISTS `regimen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cuenta_id` int(11) NOT NULL,
+  `activo` varchar(2) DEFAULT 'SI',
+  `usuario_creacion_id` int(11) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  `usuario_edicion_id` int(11) DEFAULT NULL,
+  `fecha_edicion` datetime DEFAULT NULL,
+  `regimen` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Volcado de datos para la tabla `regimen`
+--
+
+INSERT INTO `regimen` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha_creacion`, `usuario_edicion_id`, `fecha_edicion`, `regimen`) VALUES
+(7, 34, 'SI', 0, '2013-08-22 00:08:09', NULL, '2013-08-22 00:08:09', 'REGIMEN 1'),
+(8, 34, 'SI', 0, '2013-08-22 00:08:15', NULL, '2013-08-22 00:08:15', 'REGIMEN 2'),
+(9, 34, 'SI', 0, '2013-08-22 00:08:24', NULL, '2013-08-22 00:08:24', 'REGIMEN 3'),
+(10, 34, 'SI', 0, '2013-08-22 00:08:57', NULL, '2013-08-22 00:08:57', 'REGIMEN 4');
 
 -- --------------------------------------------------------
 
@@ -798,7 +1212,7 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `orden` tinyint(4) NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
 
 --
 -- Volcado de datos para la tabla `seccion`
@@ -821,8 +1235,6 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (14, 6, 'Todas las Ventas', 'miniconos/folder_page.png', 'ventas/reporte', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (15, 5, 'Nueva Compra', 'miniconos/page_white.png', 'compras/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (16, 6, 'Nueva Venta', 'miniconos/page.png', 'ventas/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
-(17, 8, 'Nueva Factura', 'miniconos/table_add.png', 'facturacion/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
-(18, 8, 'Todas las Facturas', 'miniconos/folder_table.png', 'facturacion/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
 (19, 1, 'Tipos de Cliente', 'miniconos/group.png', 'clientes/reporteTiposCliente', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
 (20, 1, 'Nuevo Tipo Cliente', 'miniconos/user_add.png', 'clientes/registroTipoCliente', 'contenido', 'NO', 4, '2012-11-01 00:00:00'),
 (21, 9, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
@@ -849,7 +1261,13 @@ INSERT INTO `seccion` (`id`, `menu_id`, `nombre`, `imagen`, `link`, `contenedor`
 (42, 17, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfd/folios', 'contenido', 'SI', 3, '2012-11-01 00:00:00'),
 (43, 17, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
 (44, 17, 'Certificados', 'miniconos/house_link.png', 'cfd/certificados', 'contenido', 'SI', 2, '2013-02-19 00:00:00'),
-(45, 19, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro_rapido', 'contenido', 'SI', 1, '2012-11-01 00:00:00');
+(45, 19, 'Nueva Cuenta', 'miniconos/user_add.png', 'cuentas/registro_rapido', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(46, 18, 'Series / Folios', 'miniconos/text_list_numbers.png', 'cfdi/folios', 'contenido', 'SI', 4, '2012-11-01 00:00:00'),
+(47, 18, 'Información Fiscal', 'miniconos/newspaper.png', 'configuracion/fiscal', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(48, 18, 'Nueva Factura', 'miniconos/table_add.png', 'cfdi/index', 'contenido', 'SI', 1, '2012-11-01 00:00:00'),
+(49, 18, 'Todas las Facturas', 'miniconos/folder_table.png', 'cfdi/reporte', 'contenido', 'SI', 2, '2012-11-01 00:00:00'),
+(50, 18, 'Regimenes', 'miniconos/text_list_numbers.png', 'regimenes/index', 'contenido', 'SI', 5, '2012-11-01 00:00:00'),
+(51, 18, 'Certificados', 'miniconos/text_list_numbers.png', 'cfdi/certificados', 'contenido', 'SI', 6, '2012-11-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -877,7 +1295,7 @@ CREATE TABLE IF NOT EXISTS `sucursal` (
   `cfd_folios_id` int(11) DEFAULT '0',
   `cfdi_folios_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Volcado de datos para la tabla `sucursal`
@@ -922,7 +1340,12 @@ INSERT INTO `sucursal` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fec
 (36, 1, 'SI', 0, '2013-08-03 00:19:46', 0, '2013-08-03 00:19:46', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
 (37, 1, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
 (38, 1, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
-(39, 1, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
+(39, 1, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(40, 1, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(41, 1, 'SI', 0, '2013-08-21 21:56:33', 0, '2013-08-21 21:56:33', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(42, 1, 'SI', 0, '2013-08-21 22:02:14', 0, '2013-08-21 22:02:14', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(43, 1, 'SI', 0, '2013-08-21 22:06:27', 0, '2013-08-21 22:06:27', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(44, 1, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', NULL, 'GENERAL', NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -977,7 +1400,7 @@ CREATE TABLE IF NOT EXISTS `unidad` (
   `nombre` varchar(25) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Volcado de datos para la tabla `unidad`
@@ -1009,7 +1432,9 @@ INSERT INTO `unidad` (`id`, `cuenta_id`, `activo`, `usuario_creacion_id`, `fecha
 (23, 23, 'SI', 0, '2013-08-03 00:20:31', 0, '2013-08-03 00:20:31', 'PIEZA', 'PIEZA'),
 (24, 24, 'SI', 0, '2013-08-03 00:26:36', 0, '2013-08-03 00:26:36', 'PIEZA', 'PIEZA'),
 (25, 25, 'SI', 0, '2013-08-03 00:28:06', 0, '2013-08-03 00:28:06', 'PIEZA', 'PIEZA'),
-(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'PIEZA', 'PIEZA');
+(26, 26, 'SI', 0, '2013-08-03 10:56:30', 0, '2013-08-03 10:56:30', 'PIEZA', 'PIEZA'),
+(27, 27, 'SI', 0, '2013-08-09 22:32:27', 0, '2013-08-09 22:32:27', 'PIEZA', 'PIEZA'),
+(28, 34, 'SI', 0, '2013-08-21 22:14:47', 0, '2013-08-21 22:14:47', 'PIEZA', 'PIEZA');
 
 -- --------------------------------------------------------
 

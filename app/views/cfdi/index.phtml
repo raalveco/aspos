@@ -47,7 +47,7 @@
 							echo Formulario::selectModelo("sucursal",$sucursales,"nombre","id", $factura ? $factura -> sucursal_id : (Session::get("sucursal_factura") ? Session::get("sucursal_factura") : $matrix),"class: required search","data-placeholder: Selecciona Sucursal");
 						}
 						else{
-							echo Formulario::selectModelo("serie",$series,"serie","id", $factura ? $factura -> cbb_folios_id : (Session::get("serie_factura") ? Session::get("serie_factura") : $xerie),"class: required search","data-placeholder: Selecciona Serie");
+							echo Formulario::selectModelo("serie",$series,"serie","id", $factura ? $factura -> cfdi_folios_id : (Session::get("serie_factura") ? Session::get("serie_factura") : $xerie),"class: required search","data-placeholder: Selecciona Serie");
 						}
 					?>
 				</p>

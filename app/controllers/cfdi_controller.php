@@ -77,7 +77,7 @@
 				
 				foreach($this -> series as $tmp){
 					
-					if($tmp -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/").$tmp -> cbb)){
+					if($tmp -> cfdi == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/").$tmp -> cfdi)){
 						$uno = true;
 					}
 					else{
@@ -112,7 +112,7 @@
 					case "limpiado": $this -> alerta = Alerta::success("Los Conceptos de la Factura han sido eliminados."); break;
 					case "completado": $this -> alerta = Alerta::success("La Factura ha sido generada correctamente."); break;
 					case "no_folios": $this -> alerta = Alerta::error("No se encontraron folios para esta Sucursal/Serie."); break;
-					case "no_cbb": $this -> alerta = Alerta::error("No se encontro la imagen del Código Bidimensional para la Sucursal / Serie seleccionada."); break;
+					case "no_cfdi": $this -> alerta = Alerta::error("No se encontro la imagen del Código Bidimensional para la Sucursal / Serie seleccionada."); break;
 					case "no_logo": $this -> alerta = Alerta::error("No se ha cargado el Logotipo del negocio, el cual se utilizará en el formato de impresión de la Factura."); break;
 					case "no_cedula": $this -> alerta = Alerta::error("No se ha cargado la Cedula Fiscal del negocio, la cual se utilizará en el formato de impresión de la Factura."); break;
 				}
@@ -143,12 +143,12 @@
 			$this->validar();
 		}
 		
-		public function consulta($cbb_id, $mensaje = false){
+		public function consulta($cfdi_id, $mensaje = false){
 			$this -> set_response("view");
 			
 			$this -> cuenta = Cuenta::consultar(Session::get("cuenta_id"));
 			
-			$this -> factura = CbbFactura::consultar($cbb_id);
+			$this -> factura = CfdiFactura::consultar($cfdi_id);
 			
 			if($mensaje){
 				switch($mensaje){
@@ -171,15 +171,15 @@
 			$this->validar();
 		}
 		
-		public function cancelar($cbb_id){
+		public function cancelar($cfdi_id){
 			$this -> render(null,null);
 			
-			$factura = CbbFactura::consultar($cbb_id);
+			$factura = CfdiFactura::consultar($cfdi_id);
 			
 			$factura -> status = "CANCELADA";
 			$factura -> guardar();
 			
-			$this -> redirect("cbb/consulta/".$factura -> id."/cancelado");
+			$this -> redirect("cfdi/consulta/".$factura -> id."/cancelado");
 			
 			$this->validar();
 		}
@@ -228,7 +228,7 @@
 			
 			Session::set("conceptos", $conceptos);
 			
-			$this -> redirect("cbb/index/agregado");
+			$this -> redirect("cfdi/index/agregado");
 			
 			$this->validar();
 		}
@@ -258,7 +258,7 @@
 			
 			Session::set("conceptos", $conceptos);
 			
-			$this -> redirect("cbb/index/agregado");
+			$this -> redirect("cfdi/index/agregado");
 			
 			$this->validar();
 		}
@@ -267,7 +267,7 @@
 			$this -> render(null,null);
 			
 			if($n === false){
-				$this -> redirect("cbb/index");
+				$this -> redirect("cfdi/index");
 				return;
 			}
 			
@@ -278,7 +278,7 @@
 				$conceptos = array();
 				Session::set("conceptos", $conceptos);
 				
-				$this -> redirect("cbb/index");
+				$this -> redirect("cfdi/index");
 				return;
 			}
 			
@@ -296,7 +296,7 @@
 			
 			Session::set("conceptos", $tmp);
 			
-			$this -> redirect("cbb/index/quitado");
+			$this -> redirect("cfdi/index/quitado");
 			
 			$this->validar();
 		}
@@ -307,7 +307,7 @@
 			$conceptos = array();
 			Session::set("conceptos", $conceptos);
 			
-			$this -> redirect("cbb/index/limpiado");
+			$this -> redirect("cfdi/index/limpiado");
 			
 			$this->validar();
 		}
@@ -323,13 +323,13 @@
 				
 				$sucursal = Sucursal::consultar($sucursal_id);
 				
-				$folios = $sucursal -> cbbFolios();
+				$folios = $sucursal -> cfdiFolios();
 			}
 			
 			if($this -> post("serie")){
 				$folios_id = $this -> post("serie");
 				
-				$folios = CbbFolio::consultar($folios_id);
+				$folios = CfdiFolio::consultar($folios_id);
 			}
 			
 			$cuenta = Cuenta::consultar(Session::get("cuenta_id"));
@@ -337,23 +337,23 @@
 			
 			//Verificar si se cargo imagen de Logotipo
 			if($contribuyente -> logotipo == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."logotipos/").$contribuyente -> logotipo)){
-				$this -> redirect("cbb/index/no_logo");
+				$this -> redirect("cfdi/index/no_logo");
 				return;
 			}
 			
 			//Verificar si se cargo imagen de Cedula Fiscal
 			if($contribuyente -> cedula == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cedulas/").$contribuyente -> cedula)){
-				$this -> redirect("cbb/index/no_cedula");
+				$this -> redirect("cfdi/index/no_cedula");
 				return;
 			}
 			
 			if($folios){
-				if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/").$folios -> cbb)){
-					$this -> redirect("cbb/index/no_cbb");
+				if($folios -> cfdi == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/").$folios -> cfdi)){
+					$this -> redirect("cfdi/index/no_cfdi");
 					return;
 				}
 				
-				$factura = CbbFactura::registrar($folios -> id, $this -> post("sucursal"), $folios -> serie, $folios -> actual, Formato::FechaDB($this -> post("fecha")));
+				$factura = CfdiFactura::registrar($folios -> id, $this -> post("sucursal"), $folios -> serie, $folios -> actual, Formato::FechaDB($this -> post("fecha")));
 				
 				if($factura){
 					$factura -> no_aprobacion = $folios -> numero_aprobacion;
@@ -366,7 +366,7 @@
 					if($conceptos) foreach($conceptos as $concepto){
 						$subtotal += $concepto["cantidad"] * $concepto["precio"];
 						
-						$partida = CbbConcepto::registrar($factura -> id, $concepto["cantidad"], $concepto["producto"], $concepto["precio"]);
+						$partida = CfdiConcepto::registrar($factura -> id, $concepto["cantidad"], $concepto["producto"], $concepto["precio"]);
 					
 						$partida -> unidad = $concepto["unidad"];
 						$partida -> guardar();
@@ -381,25 +381,44 @@
 							
 							$total_impuestos += $tmp;
 							
-							$tax = CbbImpuesto::registrar($factura -> id, $impuesto -> nombre, $impuesto -> tasa, $tmp, $impuesto -> tipo);
+							$tax = CfdiImpuesto::registrar($factura -> id, $impuesto -> nombre, $impuesto -> tasa, $tmp, $impuesto -> tipo);
 						}
 					}
-					
+										
 					$total = $subtotal + $total_impuestos;
-					
+					$certificado = Certificado::buscar("cuenta_id = ".Session::get("cuenta_id")." AND activo = 'SI'");
+					$factura -> no_certificado = $certificado -> numero_serie;
+					$factura -> certificado = "MIIE1jCCA76gAwIBAgIUMDAwMDEwMDAwMDAyMDE0NzU2MTEwDQYJKoZIhvcNAQEFBQAwggGVMTgwNgYDVQQDDC9BLkMuIGRlbCBTZXJ2aWNpbyBkZSBBZG1pbmlzdHJhY2nDs24gVHJpYnV0YXJpYTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSEwHwYJKoZIhvcNAQkBFhJhc2lzbmV0QHNhdC5nb2IubXgxJjAkBgNVBAkMHUF2LiBIaWRhbGdvIDc3LCBDb2wuIEd1ZXJyZXJvMQ4wDAYDVQQRDAUwNjMwMDELMAkGA1UEBhMCTVgxGTAXBgNVBAgMEERpc3RyaXRvIEZlZGVyYWwxFDASBgNVBAcMC0N1YXVodMOpbW9jMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxPjA8BgkqhkiG9w0BCQIML1Jlc3BvbnNhYmxlOiBDZWNpbGlhIEd1aWxsZXJtaW5hIEdhcmPDrWEgR3VlcnJhMB4XDTEyMDcwMzE4MzA1NVoXDTE2MDcwMzE4MzA1NVowggEWMT8wPQYDVQQDEzZBTkFMSVNJUyBDTElOSUNPUyBZIFJBWU9TIFggREUgT0NDSURFTlRFIFMgREUgUkwgREUgQ1YxPzA9BgNVBCkTNkFOQUxJU0lTIENMSU5JQ09TIFkgUkFZT1MgWCBERSBPQ0NJREVOVEUgUyBERSBSTCBERSBDVjE/MD0GA1UEChM2QU5BTElTSVMgQ0xJTklDT1MgWSBSQVlPUyBYIERFIE9DQ0lERU5URSBTIERFIFJMIERFIENWMSUwIwYDVQQtExxBQ1IwNTExMTFJNDcgLyBMRUdKNTkwNDI4NlgyMR4wHAYDVQQFExUgLyBMRUdKNTkwNDI4SEpDRE1SMDIxCjAIBgNVBAsTAUQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALoFbuiR7tU9QZL3jetHt5FiP9HNuD7WQi+ZZSQD8lotjLNp1l9hWLqLjh6LC8Qbo2878QBGmJDcBwGXg/vzDmzqrAhC/fs0UHA/uMgv5A6q4R0okOsbVTKatq5IzWOBAoJHqUm9o2ByvqgSkfXWctZuBQ14zbB+8LY+/At9i2UDAgMBAAGjHTAbMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgbAMA0GCSqGSIb3DQEBBQUAA4IBAQCW6CSof1MRIAizAaLxVZpkoVl+y03eNDSx9o9t4Q0NrEAAS/KaAHD1gOm3YFfwDdP7wPX15qG5UoJ0UCiLfrK97ct7kZMOukPAW+uPx9NnabJ+eh0x5JCtRPJ64Upvpd/ccSowHC7H2Gtr21Bvr1eZstXsSsGzC95g5XOPRQJFlhQ4DnDo+RSg0E1CBPLh1SS4lPfnsPdD16X53ldjSM52YHLPTOjeD/Ze+QdmI/vubboU3gCmTLNybethO83zKscF1IFXLYViT2UvQiQBXwbWElwUQPCGRWZ34TMWcy+e0+n3pCcjPd4bn/k1YIwUMvDFymtqjaZz20gQst4ufsBd";
+					$factura -> sello = "pnDmZwX0Tp+AXoDPuA1hs5n0pMRONzJ7F45gIHoY7sqnfhRvzuZRGqPHnxJPzvgPeDKVrYNYNr6XHICHhzTcdy+Mpj7DPWCb0KBYUu/STuZM/jLTPuX9wrMcPPGbhsQpj1pDhQRzxxd8nRJLAI8SN+qIRE3DW4YnbfRMHSI6iJ8=";
+					$factura -> subtotal = $subtotal;
 					$factura -> subtotal = $subtotal;
 					$factura -> total = $total;
+					$factura -> tipo_cambio = "1.00";
+					$factura -> moneda = "MXN";
+					$factura -> tipo_comprobante = "INGRESO";
+					$factura -> metodo_pago = "EFECTIVO";
 					$factura -> status = "EMITIDA";
 					$factura -> pago = "NO";
 					$factura -> envio = "NO";
 					
 					$factura -> save();
 					
+					if($contribuyente){
+						$emisor = CfdiEmisor::registrar($factura -> id, $contribuyente -> rfc, $contribuyente -> nombre, $contribuyente -> municipio, $contribuyente -> cpostal, $contribuyente -> estado, $contribuyente -> pais);
+						$emisor -> calle = $contribuyente -> calle;
+						$emisor -> exterior = $contribuyente -> exterior;
+						$emisor -> interior = $contribuyente -> interior;
+						$emisor ->  colonia = $contribuyente -> colonia;
+						$emisor -> localidad = $contribuyente -> localidad;
+						
+						$emisor -> save();
+					}
+					
 					$cliente_id = $this -> post("cliente");
 				
 					$cliente = Cliente::consultar($cliente_id);
 					
-					$receptor = CbbReceptor::registrar($factura -> id, $cliente -> rfc, $cliente -> nombre, $cliente -> estado, $cliente -> pais);
+					$receptor = CfdiReceptor::registrar($factura -> id, $cliente -> rfc, $cliente -> nombre, $cliente -> estado, $cliente -> pais);
 					
 					if($receptor){
 						$receptor -> calle = $cliente -> calle;
@@ -416,14 +435,14 @@
 				}
 			}
 			else{
-				$this -> redirect("cbb/index/no_folios");
+				$this -> redirect("cfdi/index/no_folios");
 				return;
 			}
 			
 			$conceptos = array();
 			Session::set("conceptos", $conceptos);
 			
-			$this -> redirect("cbb/consulta/".$factura -> id."/generada");
+			$this -> redirect("cfdi/consulta/".$factura -> id."/generada");
 			
 			$this->validar();
 		}
@@ -473,15 +492,15 @@
 			$actual = utf8_decode($this -> post("actual"));
 			$activo = utf8_decode($this -> post("activo"));
 			
-			$folios = CbbFolio::registrar($serie,$numero,$fecha,$inicial,$final,$actual,$tipo);
+			$folios = CfdiFolio::registrar($serie,$numero,$fecha,$inicial,$final,$actual,$tipo);
 			
 			if($folios){
 				$folios -> activo = utf8_decode($this -> post("activo"));
 				
 				$folios -> guardar();
 				
-				if($_FILES["cbb"]["name"]!=""){
-	       			$tmp = $_FILES["cbb"]["name"];
+				if($_FILES["cfdi"]["name"]!=""){
+	       			$tmp = $_FILES["cfdi"]["name"];
 	                
 		            $ext = "";
 		        	
@@ -504,17 +523,17 @@
 					else{
 						$file = strtolower($folios -> id . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
 		
-						$folios -> cbb = $file;
+						$folios -> cfdi = $file;
 						
 						$folios -> guardar();
 		
-						move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+						move_uploaded_file($_FILES['cfdi']['tmp_name'], $archivo);
 					}
 				}
 				else{
-					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$folios -> cbb))){
+					if($folios -> cfdi == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$folios -> cfdi))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -547,7 +566,7 @@
 		public function consultaFolios($id){
 			$this -> render("folio");
 			
-			$this -> folios = CbbFolio::consultar($id);
+			$this -> folios = CfdiFolio::consultar($id);
 			
 			if(!$this -> folios){
 				$this -> render("reporte");
@@ -581,7 +600,7 @@
 				return;
 			}
 			
-			$folios = CbbFolio::consultar($this -> post("folios"));
+			$folios = CfdiFolio::consultar($this -> post("folios"));
 			
 			if($folios){
 				$folios -> serie = utf8_decode($this -> post("serie"));
@@ -595,8 +614,8 @@
 				
 				$folios -> guardar();
 				
-				if($_FILES["cbb"]["name"]!=""){
-	       			$tmp = $_FILES["cbb"]["name"];
+				if($_FILES["cfdi"]["name"]!=""){
+	       			$tmp = $_FILES["cfdi"]["name"];
 	                
 		            $ext = "";
 		        	
@@ -621,17 +640,17 @@
 					else{
 						$file = strtolower($folios -> id . "." . $ext);
 	                
-						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$file;
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
 		
-						$folios -> cbb = $file;
+						$folios -> cfdi = $file;
 						
 						$folios -> guardar();
 		
-						move_uploaded_file($_FILES['cbb']['tmp_name'], $archivo);
+						move_uploaded_file($_FILES['cfdi']['tmp_name'], $archivo);
 					}
 				}
 				else{
-					if($folios -> cbb == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cbbs/".$folios -> cbb))){
+					if($folios -> cfdi == "" || !file_exists(strtolower(APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$folios -> cfdi))){
 						echo '<script language="javascript" type="text/javascript">
 						   window.top.window.stopUpload(-1);  window.top.window.scrollTo(0,0);
 						</script>';
@@ -667,6 +686,322 @@
 			$this->validar();
 		}
 
+		public function certificados(){
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+		
+		public function registroCertificados(){
+			$this -> render("certificado");
+			
+			$this -> certificados = false;
+			
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+		
+		public function registrarCertificados(){
+			$this -> render(null,null);
+			
+			if($this -> post("clave_privada")=="" || $this -> post("numero_serie")=="" || $this -> post("fecha_emision")=="" || $this -> post("fecha_vencimiento")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-4);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			$clave_privada = utf8_decode($this -> post("clave_privada"));
+			$numero_serie = utf8_decode($this -> post("numero_serie"));
+			$fecha_emision = Formato::FechaDB(utf8_decode($this -> post("fecha_emision")));
+			$fecha_vencimiento = Formato::FechaDB(utf8_decode($this -> post("fecha_vencimiento")));
+			$activo = "SI";
+			
+			$bandera = true;
+			
+			if($_FILES["archivo_cer"]["name"]!=""){
+       			$tmp = $_FILES["archivo_cer"]["name"];
+                
+	            $ext = "";
+	        	
+	        	for($i=0;$i<strlen($tmp);$i++){
+	        		if($tmp[$i]=="."){
+	        			$ext = "";
+	        		}
+	        		else{
+	        			$ext .= $tmp[$i];
+	        		}
+	        	}
+	
+				if(strtoupper($ext)!="CER"){
+					echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+					</script>';
+					
+					$bandera = false;
+					
+					return;
+				}
+				else{
+					$file = strtolower($numero_serie . "." . $ext);
+                
+					$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
+	
+					$archivo_cer = $file;
+	
+					move_uploaded_file($_FILES['archivo_cer']['tmp_name'], $archivo);
+				}
+			}
+			else{
+				echo '<script language="javascript" type="text/javascript">
+			    window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+			    </script>';					
+				$bandera = false;
+					
+				return;					
+			}
+			
+			if($_FILES["archivo_key"]["name"]!=""){
+       			$tmp = $_FILES["archivo_key"]["name"];
+                
+	            $ext = "";
+	        	
+	        	for($i=0;$i<strlen($tmp);$i++){
+	        		if($tmp[$i]=="."){
+	        			$ext = "";
+	        		}
+	        		else{
+	        			$ext .= $tmp[$i];
+	        		}
+	        	}
+				
+				if(strtoupper($ext)!="KEY"){
+					echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+					</script>';
+					
+					$bandera = false;
+					
+					return;
+				}
+				else{
+					$file = strtolower($numero_serie . "." . $ext);
+                
+					$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
+	
+					$archivo_key = $file;
+	
+					move_uploaded_file($_FILES['archivo_key']['tmp_name'], $archivo);
+				}
+			}
+			else{
+				echo '<script language="javascript" type="text/javascript">
+			    window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+			    </script>';					
+				$bandera = false;					
+				return;					
+			}
+			
+			$certificados = Certificado::registrar($archivo_cer, $archivo_key, $clave_privada, $numero_serie, $fecha_emision, $fecha_vencimiento, $activo);
+			
+			if(!$certificados){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(0);
+				</script>'; 
+				$bandera = false;					
+				return;		
+			}
+			
+			if($bandera){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(1);
+				</script>'; 
+			}  
+
+			$this -> certificados = $certificados;
+			
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+
+		public function modificarCertificados(){
+			$this -> render(null,null);
+			
+			$bandera = true;
+			
+			if($this -> post("clave_privada")=="" || $this -> post("numero_serie")=="" || $this -> post("fecha_emision")=="" || $this -> post("fecha_vencimiento")==""){
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(-4);  window.top.window.scrollTo(0,0);
+				</script>';
+				
+				return;
+			}
+			
+			$certificados = Certificado::consultar($this -> post("certificados"));
+			
+			if($certificados){
+				$certificados -> clave_privada = utf8_decode($this -> post("clave_privada"));
+				$certificados -> numero_serie = utf8_decode($this -> post("numero_serie"));
+				$certificados -> fecha_emision = Formato::FechaDB(utf8_decode($this -> post("fecha_emision")));
+				$certificados -> fecha_vencimiento = Formato::FechaDB(utf8_decode($this -> post("fecha_vencimiento")));
+				$certificados -> activo = "SI";
+				
+				$certificados -> guardar();
+				
+				if($_FILES["archivo_cer"]["name"]!=""){
+	       			$tmp = $_FILES["archivo_cer"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+					
+					if(strtoupper($ext)!="CER"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+						
+						return;
+					}
+					else{
+						$file = strtolower($certificados -> id . "." . $ext);
+	                
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
+		
+						$certificados -> archivo_cer = $file;
+						
+						$certificados -> guardar();
+		
+						move_uploaded_file($_FILES['archivo_cer']['tmp_name'], $archivo);
+					}
+				}
+				else{
+					echo '<script language="javascript" type="text/javascript">
+				    window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
+				    </script>';					
+					$bandera = false;
+						
+					return;					
+				}
+				
+				if($_FILES["archivo_key"]["name"]!=""){
+	       			$tmp = $_FILES["archivo_key"]["name"];
+	                
+		            $ext = "";
+		        	
+		        	for($i=0;$i<strlen($tmp);$i++){
+		        		if($tmp[$i]=="."){
+		        			$ext = "";
+		        		}
+		        		else{
+		        			$ext .= $tmp[$i];
+		        		}
+		        	}
+					
+					if(strtoupper($ext)!="KEY"){
+						echo '<script language="javascript" type="text/javascript">
+						   window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+						</script>';
+						
+						$bandera = false;
+						
+						return;
+					}
+					else{
+						$file = strtolower($certificados -> id . "." . $ext);
+	                
+						$archivo = APP_PATH."public/img".PROYECTO_IMAGENES."cfdis/".$file;
+		
+						$certificados -> archivo_key = $file;
+						
+						$certificados -> guardar();
+		
+						move_uploaded_file($_FILES['archivo_key']['tmp_name'], $archivo);
+					}
+				}
+				else{
+					echo '<script language="javascript" type="text/javascript">
+				    window.top.window.stopUpload(-2);  window.top.window.scrollTo(0,0);
+				    </script>';					
+					$bandera = false;
+						
+					return;					
+				}
+				if($bandera){
+					$this -> alerta = Alerta::success("Los certificados han sido modificados correctamente.");
+				
+					echo '<script language="javascript" type="text/javascript">
+					   window.top.window.stopUpload(1);
+					</script>'; 
+				}  
+				
+				 
+			}
+			else{
+				$this -> alerta = Alerta::error("Los certificados buscados no fueron encontrados en la Base de Datos.");
+				
+				echo '<script language="javascript" type="text/javascript">
+				   window.top.window.stopUpload(2);
+				</script>';  
+			}
+			
+			$this -> certificados = $certificados;
+			
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+
+		public function eliminarCertificado($id){
+			$this -> render("certificados");
+			
+			$folios = Certificado::consultar($id);
+			
+			$folios -> delete();
+			
+			$this -> alerta = Alerta::success("El certificado ha sido eliminado correctamente.");
+			
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+		
+		public function eliminarCertificadosSeleccionados($parametros){
+			$this -> render("certificados");
+			
+			$parametros = substr($parametros,2);
+			
+			$ids = explode("|",$parametros);
+			
+			foreach($ids as $id){
+				$certificados = Certificado::consultar($id);
+				
+				$certificados -> delete();
+			}
+			
+			if(count($ids) > 1){
+				$this -> alerta = Alerta::success("Los certificados seleccionados han sido eliminados correctamente.");
+			}
+			else{
+				$this -> alerta = Alerta::success("Los certificados seleccionados han sido eliminados correctamente.");
+			}
+			
+			$this -> set_response("view");
+			
+			$this->validar();
+		}
+		
 		public function conceptos($tipo = "automatico", $permiso){
 			$this -> factura = false;
 			$this -> permiso_facturar = $permiso;
@@ -719,7 +1054,7 @@
 		public function eliminarFolios($id){
 			$this -> render("folios");
 			
-			$folios = CbbFolio::consultar($id);
+			$folios = CfdiFolio::consultar($id);
 			
 			$folios -> delete();
 			
@@ -738,7 +1073,7 @@
 			$ids = explode("|",$parametros);
 			
 			foreach($ids as $id){
-				$folios = CbbFolio::consultar($id);
+				$folios = CfdiFolio::consultar($id);
 				
 				$folios -> delete();
 			}

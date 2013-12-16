@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" fecha="2012-01-01T20:38:12" formaDePago="PAGO EN UNA SOLA EXHIBICION" tipoDeComprobante="ingreso" total="455.80" subTotal="455.70" LugarExpedicion="Mexico" metodoDePago="cheque">
+  <cfdi:Emisor rfc="LIHA851024I63" nombre="Emision Fiscal">
+    <cfdi:DomicilioFiscal pais="Mexico" calle="Velazquez" estado="Jalisco" colonia="Estancia" municipio="Zapopan" noExterior="22" codigoPostal="45020"/>
+    <cfdi:ExpedidoEn pais="Mexico" calle="Patria" estado="Colima" colonia="Arcos" noExterior="232" codigoPostal="49020"/>
+    <cfdi:RegimenFiscal Regimen="simplificado"/>
+  </cfdi:Emisor>
+  <cfdi:Receptor rfc="VECR8307073J1" nombre="Ramiro Vera">
+    <cfdi:Domicilio pais="Mexico" calle="Patria" estado="Colima" colonia="Arcos" municipio="Zapopan" noExterior="232" noInterior="2" codigoPostal="49020"/>
+  </cfdi:Receptor>
+  <cfdi:Conceptos>
+    <cfdi:Concepto importe="2440.00" descripcion="Vibramicina" valorUnitario="244.00"/>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos>
+    <cfdi:Traslados>
+      <cfdi:Traslado unidad="Capsulas" importe="22.20" cantidad="10"/>
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento/>
+  <cfdi:Addenda/>
+</cfdi:Comprobante>

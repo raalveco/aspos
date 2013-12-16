@@ -11,9 +11,9 @@
 				<br/>
 				<span style="font-size: 14px; font-weight: bold;"><?= utf8_encode($emisor -> nombre) ?></span>
 				<br/>
-				<span style="font-size: 14px; font-weight: bold;">R.F.C. <?= $emisor -> rfc ?></span>
+				<span style="font-size: 14px; font-weight: bold;">R.F.C.: <?= $emisor -> rfc ?></span>
 				<br /><br />
-				<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? "Int ".$emisor -> interior : "" ?><?= $emisor -> colonia ? ", COLONIA ".$emisor -> colonia : "" ?>
+				<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? $emisor -> interior : "" ?><?= $emisor -> colonia ? ", COLONIA ".utf8_encode($emisor -> colonia) : "" ?>
 				<br/>
 				C.P. <?= $emisor -> cpostal ?> <?= utf8_encode($emisor -> municipio) ?>, <?= utf8_encode($emisor -> estado) ?>.
 				<?= $emisor -> telefono ? "<br/>".$emisor -> telefono : "" ?>
@@ -31,8 +31,8 @@
 						<td style="border: solid 1px; #000;">
 							<table>
 								<tr>
-									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;">Serie - Folio</span></td>
-									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= $factura -> serie ?> - <?= $factura -> folio ?></span></td>
+									<td style="" align="left" style="width: 100px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 9px;"><?= $factura -> serie ? "Serie - " : "" ?>Folio</span></td>
+									<td style="" align="right" style="width: 50px; padding: 0px 3px;"><span style="font-weight: bold; font-size: 10px;"><?= $factura -> serie ? $factura -> serie." - " : "" ?><?= $factura -> folio ?></span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="height: 1px;"></td>
@@ -70,10 +70,12 @@
 			<div style="border: 1px solid; width: 360px; height: 12px; background-color: #666; color: #EEE; font-size: 10px; text-align: center; padding: 5px; vertical-align: middle">
 				DATOS DEL CLIENTE
 			</div>
-			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
-				<?= $cliente -> rfc == "XXXX000000XXX" ? "" : $cliente -> rfc." :: " ?><?= utf8_encode($cliente -> nombre) ?>
+			<div style="border: 1px solid; width: 360px; height: 70px; padding: 5px; font-size: 10px; font-weight: bold;">
+				R.F.C.: <?= $cliente -> rfc == "XXXX000000XXX" ? "" : $cliente -> rfc ?>
+				<br />
+				<?= utf8_encode($cliente -> nombre) ?>
 				<br /><br />
-				<?= utf8_encode($cliente -> calle) ?> <?= $cliente -> exterior ?> <?= $cliente -> interior ? "Int ".$cliente -> interior : "" ?>
+				<?= utf8_encode($cliente -> calle) ?> <?= $cliente -> exterior ?> <?= $cliente -> interior ? $cliente -> interior : "" ?>
 				<br />
 				<?= $cliente -> colonia ? "COLONIA ".utf8_encode($cliente -> colonia).", C.P.: ".$cliente -> cpostal."<br />" : "" ?>
 				<?= utf8_encode($cliente -> municipio) ?>, <?= utf8_encode($cliente -> estado) ?>. <?= utf8_encode($cliente -> pais) ?>
@@ -84,7 +86,7 @@
 			<div style="border: 1px solid; width: 360px; height: 12px; background-color: #666; color: #EEE; font-size: 10px; text-align: center; padding: 5px; vertical-align: middle">
 				LUGAR DE EMISI&Oacute;N
 			</div>
-			<div style="border: 1px solid; width: 360px; height: 55px; padding: 5px; font-size: 10px; font-weight: bold;">
+			<div style="border: 1px solid; width: 360px; height: 70px; padding: 5px; font-size: 10px; font-weight: bold;">
 				<?php if($sucursal){ ?>
 					<?= utf8_encode($sucursal -> nombre) ?>
 					<br /><br />
@@ -96,7 +98,7 @@
 				<?php } else { ?>
 					<?= utf8_encode($emisor -> nombre) ?>
 					<br /><br />
-					<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? "Int ".$emisor -> interior : "" ?>
+					<?= utf8_encode($emisor -> calle) ?> <?= $emisor -> exterior ?> <?= $emisor -> interior ? $emisor -> interior : "" ?>
 					<br />
 					COLONIA <?= utf8_encode($emisor -> colonia) ?>, C.P. <?= $emisor -> cpostal ?>
 					<br />
@@ -274,13 +276,13 @@
             <td>
             	<?= Html::imagen(APLICACION_URL."app/public/img/aspos/cbbs/".$folios -> cbb,"","style: width: 27.5mm; height: 27.5mm;") ?>
             </td>
-			<td valign="top" style="width: 430px; padding: 5px;">
+			<td valign="top" style="width: 410px; padding: 5px;">
 				<div style="padding: 0px; 15px 0px 15px; font-size: 11px; text-align: justify;">
-					<i><?= utf8_encode("La reproducción apócrifa de este comprobante constituye un delito en los términos de las disposiciones fiscales.") ?></i>
+					<i><?= "La reproducciÃ³n apÃ³crifa de este comprobante constituye un delito en los tÃ©rminos de las disposiciones fiscales."; ?></i>
 				</div>
 				<br /><br />
 				<div style="font-size: 11px; text-align: justify;">
-					<i><?= utf8_encode("Este comprobante tendrá una vigencia de dos años contados a partir de la fecha de aprobación de la asignación de folios, la cual es <b>".Formato::fecha($factura -> folio() -> fecha_recepcion) ."</b> y corresponde del <b>". $factura -> serie . Formato::ceros($factura -> folio() -> inicial,3) ."</b> al <b>". $factura -> serie . Formato::ceros($folios -> {"final"},3)."</b>.</i>") ?>
+					<i><?= "Este comprobante tendrÃ¡ una vigencia de dos aÃ±os contados a partir de la fecha de aprobaciÃ³n de la asignaciÃ³n de folios, la cual es <b>".Formato::fecha($factura -> folio() -> fecha_recepcion) ."</b> y corresponde del <b>". $factura -> serie . Formato::ceros($factura -> folio() -> inicial,3) ."</b> al <b>". $factura -> serie . Formato::ceros($folios -> {"final"},3)."</b>.</i>" ?>
 				</div>
             </td>
 			<td>

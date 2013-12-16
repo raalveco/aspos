@@ -1,0 +1,88 @@
+<?php
+	$modulo = "Facturación";
+	$seccion = $certificados ? "Modificar Certificados" : "Nuevos Certificados";
+?>
+
+<?= View::partial("base/edicion") ?>
+<?= Html::breadcrumbs($controller_name."/".$action_name, $modulo."/".$seccion) ?>
+<script>
+	function stopUpload(x){
+	    
+	    if(x == -4){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>Todos los campos son <b style="font-weight: bold;">OBLIGATORIOS</b>.</div>';
+	    }
+		
+		if(x == -3){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El archivo CER es invalido.</div>';
+	    }
+	    
+	    if(x == -2){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El archivo KEY es invalido.</div>';
+	    }
+	    
+		if(x == 1){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert success"><span class="icon"></span><span class="close">x</span>El certificado ha sido registrado correctamente.</div>';
+	    }
+	     
+	    if(x == 0){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>El número de serie del certificado fue registrado anteriormente.</div>';
+	    } 
+	    
+	    if(x == 2){
+	    	document.getElementById('alerta').innerHTML = '<div class="alert error"><span class="icon"></span><span class="close">x</span>Los certificados buscados no fueron encontrados en la Base de Datos.</div>';
+	    }
+	    
+	    return true;   
+	}
+</script>
+<!-- Here goes the content. -->
+<section id="content" class="container_12 clearfix" data-sort=true>
+	<?= isset($alerta) ? $alerta : "" ?>
+	<span id="alerta" class="grid_12"></span>
+	<h1 class="grid_12"><?= $certificados ? "Modificar Certificados" : "Nuevos Certificados" ?></h1>
+	<?= Formulario::inicio($certificados ? $controller_name."/modificarCertificados" : $controller_name."/registrarCertificados", "contenido", false, "class: grid_12", "target: upload_target") ?>
+	<?php if($certificados) echo Formulario::oculto("certificados", $certificados -> id) ?>
+		<fieldset>
+			<legend>
+				INFORMACIÓN DE LOS CERTIFICADOS
+			</legend>
+			<div class="row">
+				<p class="_50">
+					<label>Archivo CER</label>
+					<?= Formulario::archivo("archivo_cer",$certificados ? $certificados -> archivo_cer : "","class: required") ?>
+				</p>
+				<p class="_50">
+					<label>Archivo KEY</label>
+					<?= Formulario::archivo("archivo_key",$certificados ? $certificados -> archivo_key : "","class: required") ?>
+				</p>
+			</div>
+			<div class="row">
+				<p class="_25">
+					<label>Clave Privada</label>
+					<?= Formulario::password("clave_privada",$certificados ? $certificados -> clave_privada : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Número de Serie</label>
+					<?= Formulario::mayusculas("numero_serie",$certificados ? $certificados -> numero_serie : "","class: required") ?>
+				</p>
+				<p class="_25">
+					<label>Fecha de Emisión</label>
+					<?= Formulario::fecha("fecha_emision",$certificados ? Formato::fecha($certificados -> fecha_emision) : date("d/m/Y"),"dd/mm/yy",false,false,"class: required") ?>
+				</p> 
+				<p class="_25">
+					<label>Fecha de Vencimiento</label>
+					<?= Formulario::fecha("fecha_vencimiento",$certificados ? Formato::fecha($certificados -> fecha_vencimiento) : date("d/m/Y"),"dd/mm/yy",false,false,"class: required") ?>
+				</p> 
+			</div>
+		</fieldset>
+		<div class="actions">
+			<div class="right" style="margin: 5px;">
+				<?= Formulario::submit($certificados ? "Modificar" : "Registrar") ?>
+			</div>
+			<div class="left" style="margin: 5px;">
+				<?= Html::linkAjax($controller_name."/certificados","Regresar","contenido","class: button red") ?>
+			</div>
+		</div><!-- End of .actions -->
+	<?= Formulario::fin(); ?>
+</section><!-- End of #content -->
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

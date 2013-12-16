@@ -7,7 +7,7 @@
 	$cantidad = 100;
 	$filtro = Session::get("filtro");
 	
-	$facturas = CbbFactura::reporte($filtro,$orden,0,$cantidad,$campos);
+	$facturas = CfdiFactura::reporte($filtro,$orden,0,$cantidad,$campos);
 ?>
 
 <?= View::partial("base/reporte") ?>
@@ -39,6 +39,7 @@
 							<th>Total</th>
 							<th>Estado</th>
 							<td class="center" style="font-weight: bold;"></td>
+		
 							<td class="center" style="font-weight: bold;"></td>
 						</tr>
 					</thead>
@@ -55,7 +56,7 @@
 								<?= Html::linkAjax($controller_name."/consulta/".$factura -> id, '<i class="icon-file"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Consultar") ?>
 							</td>
 							<td style="width: 15px;">
-								<?= Html::link("pdf/cbb/".$factura -> id, '<i class="icon-print"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Imprimir","target: _blank") ?>
+								<?= Html::link("pdf/cfdi/".$factura -> id, '<i class="icon-print"></i>', "contenido","class: button small grey tooltip","data-gravity: s","title: Imprimir","target: _blank") ?>
 							</td>
 						</tr>
 						<?php } ?>

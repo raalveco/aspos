@@ -27,10 +27,15 @@
 					<?= Formulario::fecha("fecha",Formato::fecha($factura -> fecha),"dd/mm/yy","readonly: readonly") ?>
 				</p> 
 				<p class="_25">
-					<label><?= "Serie / Folio" ?></label>
 					<?php
-						echo Formulario::selectModelo("serie",array(),"serie","id", "","readonly: readonly","data-placeholder: ".$factura -> serie." / ".$factura -> folio);
-					?>
+						if($factura -> serie == "") { ?>
+							<label><?= "Folio" ?></label>
+							<?php echo Formulario::selectModelo("serie",array(),"serie","id", "","readonly: readonly","data-placeholder: ".$factura -> folio);
+						} 
+						else { ?>
+							<label><?= "Serie / Folio" ?></label>
+							<?php echo Formulario::selectModelo("serie",array(),"serie","id", "","readonly: readonly","data-placeholder: ".$factura -> serie." / ".$factura -> folio);
+						} ?>					
 				</p>
 			</div>
 		</fieldset>
@@ -121,7 +126,7 @@
 						<td><?= Html::linkAjax($controller_name."/enviar/".$factura -> id, "Enviar Correo","contenido","class: button") ?></td>
 						<td><?= Html::linkAjax($controller_name."/pagar/".$factura -> id, "Registrar Pago","contenido","class: button") ?></td>
 						-->
-						<td><?= Html::link("pdf/cbb/".$factura -> id, "Imprimir","class: button", "target: _blank") ?></td>
+						<td><?= Html::link("pdf/cfdi/".$factura -> id, "Imprimir","class: button", "target: _blank") ?></td>
 					</tr>
 				</table>
 			</div>

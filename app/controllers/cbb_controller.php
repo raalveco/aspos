@@ -447,7 +447,7 @@
 		public function registrarFolios(){
 			$this -> render(null,null);
 			
-			if($this -> post("serie")=="" || $this -> post("numero")=="" || $this -> post("fecha")=="" || $this -> post("tipo_documento")=="" || $this -> post("inicial")=="" || $this -> post("final")=="" || $this -> post("actual")=="" || $this -> post("activo")==""){
+			if($this -> post("numero")=="" || $this -> post("fecha")=="" || $this -> post("tipo_documento")=="" || $this -> post("inicial")=="" || $this -> post("final")=="" || $this -> post("actual")=="" || $this -> post("activo")==""){
 				echo '<script language="javascript" type="text/javascript">
 				   window.top.window.stopUpload(-3);  window.top.window.scrollTo(0,0);
 				</script>';
